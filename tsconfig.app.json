@@ -4,6 +4,7 @@
     "composite": true,
     "types": []
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/*.spec.ts"]
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts", "src/test.ts"]
 }
