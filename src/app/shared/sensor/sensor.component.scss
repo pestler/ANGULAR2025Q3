@@ -1,0 +1,28 @@
+.sensor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #eef1f4;
+}
+
+.sensor-icon {
+  font-size: 1.25rem;
+  color: #555;
+}
+
+.sensor-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.sensor-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.sensor-value {
+  font-size: 0.875rem;
+  color: #666;
+}

@@ -1,0 +1,6 @@
+<div class="device" [class.device-on]="device.state">
+  <button class="device-toggle" (click)="toggle()">
+    <i [ngClass]="device.icon"></i>
+  </button>
+  <span class="device-label">{{ device.label }}</span>
+</div>

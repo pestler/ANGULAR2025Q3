@@ -6,6 +6,7 @@ import angular from "@angular-eslint/eslint-plugin";
 import angularParser from "@angular-eslint/template-parser";
 import angularTemplatePlugin from "@angular-eslint/eslint-plugin-template";
 import prettier from "eslint-plugin-prettier";
+import globals from "globals";
 
 export default [
   js.configs.recommended,
@@ -16,9 +17,10 @@ export default [
       parser,
       parserOptions: {
         project: "./tsconfig.eslint.json",
-        sourceType: "module",
+        sourceType: "module"
       },
       globals: {
+        ...globals.browser,
         ngDevMode: "readonly",
         ngI18nClosureMode: "readonly",
         describe: "readonly",
@@ -26,55 +28,51 @@ export default [
         expect: "readonly",
         beforeEach: "readonly",
         console: "readonly",
-      },
+        fetch: "readonly"
+      }
     },
     plugins: {
       "@typescript-eslint": typescript,
       unicorn,
       prettier,
-      "@angular-eslint": angular,
+      "@angular-eslint": angular
     },
     rules: {
-      // TypeScript
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/explicit-function-return-type": "error",
 
-      // Unicorn
       "unicorn/prevent-abbreviations": "off",
       "unicorn/no-null": "off",
 
-      // Prettier
       "prettier/prettier": "warn",
 
-      // JS
       "no-console": ["warn", { allow: ["warn", "error"] }],
       eqeqeq: ["error", "always"],
 
-      // Angular naming
       "@angular-eslint/component-selector": [
         "error",
-        { type: "element", prefix: "app", style: "kebab-case" },
+        { type: "element", prefix: "app", style: "kebab-case" }
       ],
       "@angular-eslint/directive-selector": [
         "error",
-        { type: "attribute", prefix: "app", style: "camelCase" },
-      ],
-    },
+        { type: "attribute", prefix: "app", style: "camelCase" }
+      ]
+    }
   },
 
   {
     files: ["**/*.html"],
     languageOptions: {
-      parser: angularParser,
+      parser: angularParser
     },
     plugins: {
-      "@angular-eslint/template": angularTemplatePlugin,
+      "@angular-eslint/template": angularTemplatePlugin
     },
     rules: {
       "@angular-eslint/template/no-negated-async": "error",
-      "@angular-eslint/template/banana-in-box": "error",
-    },
+      "@angular-eslint/template/banana-in-box": "error"
+    }
   },
 
   {
@@ -83,7 +81,7 @@ export default [
       "**/.angular/**",
       "**/dist/**",
       "**/coverage/**",
-      "**/zone*.js",
-    ],
-  },
+      "**/zone*.js"
+    ]
+  }
 ];

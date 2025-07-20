@@ -1,0 +1,24 @@
+<div class="card">
+  <h3 class="card-title">{{ card.title }}</h3>
+
+  <ng-container [ngSwitch]="card.layout">
+    <div *ngSwitchCase="'single'" class="card-single">
+      <ng-container *ngIf="card.devices?.length">
+        <app-device [device]="card.devices[0]" />
+      </ng-container>
+      <ng-container *ngIf="card.sensors?.length">
+        <app-sensor [sensor]="card.sensors[0]" />
+      </ng-container>
+    </div>
+
+    <div *ngSwitchCase="'horizontal'" class="card-horizontal">
+      <app-device *ngFor="let device of card.devices" [device]="device" />
+      <app-sensor *ngFor="let sensor of card.sensors" [sensor]="sensor" />
+    </div>
+
+    <div *ngSwitchCase="'vertical'" class="card-vertical">
+      <app-device *ngFor="let device of card.devices" [device]="device" />
+      <app-sensor *ngFor="let sensor of card.sensors" [sensor]="sensor" />
+    </div>
+  </ng-container>
+</div>

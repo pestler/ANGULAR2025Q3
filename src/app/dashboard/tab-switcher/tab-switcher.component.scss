@@ -1,0 +1,19 @@
+.tab-switcher {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab-item {
+  text-decoration: none;
+  font-weight: 500;
+  color: #444;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+
+  &.active {
+    background-color: #e0e0e0;
+    color: #000;
+  }
+}

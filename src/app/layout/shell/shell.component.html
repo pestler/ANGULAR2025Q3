@@ -1,0 +1,14 @@
+<header [class.mobile]="layout.mobileMode$ | async" class="sticky">
+  <button (click)="layout.toggleSidebar()">☰</button>
+  <h1>Smart Home UI</h1>
+</header>
+
+<div class="layout">
+  <aside [class.hidden]="layout.mobileMode$ | async">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <main class="main-content">
+    <router-outlet />
+  </main>
+</div>

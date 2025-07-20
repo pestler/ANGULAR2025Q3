@@ -1,0 +1,10 @@
+<nav class="tab-switcher">
+  <a
+    *ngFor="let tab of tabs"
+    [routerLink]="tab.route"
+    routerLinkActive="active"
+    class="tab-item"
+  >
+    {{ tab.label }}
+  </a>
+</nav>

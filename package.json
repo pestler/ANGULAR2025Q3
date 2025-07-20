@@ -41,6 +41,7 @@
     ]
   },
   "dependencies": {
+    "@angular/cdk": "^20.1.2",
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
     "@angular/core": "^20.1.0",
@@ -71,6 +72,7 @@
     "eslint-plugin-markdown": "^5.1.0",
     "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-unicorn": "^59.0.1",
+    "globals": "^16.3.0",
     "husky": "^8.0.0",
     "jasmine-core": "~5.8.0",
     "jsdom": "^26.1.0",
