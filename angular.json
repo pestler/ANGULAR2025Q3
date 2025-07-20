@@ -15,12 +15,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/smart-home-ui",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -44,9 +44,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "aot": true,
-              "buildOptimizer": true,
               "outputHashing": "all",
               "sourceMap": false,
               "budgets": [
@@ -63,21 +60,18 @@
               ]
             },
             "development": {
-              "optimization": false,
-              "aot": false,
-              "buildOptimizer": false,
-              "outputHashing": "none",
-              "sourceMap": true,
-              "vendorChunk": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "development"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {
-            "buildTarget": "smart-home-ui:build"
+            "buildTarget": "smart-home-ui:build",
+            "prebundle": {
+              "exclude": []
+            }
           },
           "configurations": {
             "production": {
@@ -94,7 +88,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/assets", "public"],

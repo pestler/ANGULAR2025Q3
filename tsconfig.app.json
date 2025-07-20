@@ -5,6 +5,6 @@
     "types": []
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/app/routes.ts"],
   "exclude": ["**/*.spec.ts", "src/test.ts"]
 }
