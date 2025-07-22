@@ -41,11 +41,13 @@
     ]
   },
   "dependencies": {
+    "@angular/animations": "^20.1.2",
     "@angular/cdk": "^20.1.2",
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
     "@angular/core": "^20.1.0",
     "@angular/forms": "^20.1.0",
+    "@angular/material": "^20.1.2",
     "@angular/router": "^20.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

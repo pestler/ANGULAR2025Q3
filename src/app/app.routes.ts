@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { ShellComponent } from './layout/shell/shell.component';
-import { OverviewComponent } from './dashboard/sections/overview/overview.component';
-import { LightsComponent } from './dashboard/sections/lights/lights.component';
 import { SmartViewComponent } from './dashboard/sections/smart-view/smart-view.component';
 
 export const routes: Routes = [
@@ -16,14 +14,6 @@ export const routes: Routes = [
       },
       {
         path: 'overview',
-        component: OverviewComponent,
-      },
-      {
-        path: 'lights',
-        component: LightsComponent,
-      },
-      {
-        path: 'all',
         component: SmartViewComponent,
       },
     ],

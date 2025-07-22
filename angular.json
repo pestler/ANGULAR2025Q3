@@ -20,7 +20,9 @@
             "outputPath": "dist/smart-home-ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": ["src/polyfills.ts"],
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -30,9 +32,15 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src", "src/styles"]
+              "includePaths": [
+                "src",
+                "src/styles"
+              ]
             },
             "scripts": []
           },
@@ -88,14 +96,24 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": ["src/polyfills.ts"],
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/assets", "public"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/assets",
+              "public"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
             "stylePreprocessorOptions": {
-              "includePaths": ["src", "src/styles"]
+              "includePaths": [
+                "src",
+                "src/styles"
+              ]
             }
           }
         },
@@ -108,9 +126,15 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json"
+            ],
             "eslintConfig": ".eslintrc.json",
-            "exclude": ["**/node_modules/**", "**/dist/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "**/dist/**"
+            ]
           }
         }
       }
