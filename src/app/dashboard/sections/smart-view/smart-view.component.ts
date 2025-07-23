@@ -1,46 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+
 import { RawMockDataService } from 'app/core/services/raw-mock-data.service';
-import { RawTab } from 'app/core/types/raw-mock.types';
+import { CardListComponent } from 'app/shared/card/card-list/card-list.component';
+import { LayoutType, SmartCard } from 'app/core/models/models';
 
 @Component({
   selector: 'app-smart-view',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatTabsModule],
+  imports: [CommonModule, MatTabsModule, CardListComponent],
   templateUrl: './smart-view.component.html',
   styleUrls: ['./smart-view.component.scss'],
 })
-export class SmartViewComponent {
-  activeTab: 'overview' | 'lights' = 'overview';
+export class SmartViewComponent implements OnInit {
   selectedIndex = 0;
-  tab?: RawTab;
+  cards: SmartCard[] = [];
+
+  readonly tabs: ('overview' | 'lights')[] = ['overview', 'lights'];
 
   constructor(private readonly raw: RawMockDataService) {
+
+  }
+  ngOnInit(): void {
     this.loadTab();
+    console.log('[SmartView] cards:', this.cards);
   }
 
   async loadTab(): Promise<void> {
-    this.tab = await this.raw.getTab(this.activeTab);
+    const tabId = this.tabs[this.selectedIndex];
+    const tab = await this.raw.getTab(tabId);
+    this.cards = tab?.cards.map((card) => this.toSmartCard(card)) ?? [];
   }
 
   switchTab(index: number): void {
     this.selectedIndex = index;
-    this.activeTab = index === 0 ? 'overview' : 'lights';
     this.loadTab();
   }
 
-  layoutClasses(layout: string): string {
+  private toSmartCard(card: SmartCard): SmartCard {
+    return {
+      id: card.id,
+      title: card.title,
+      layout: this.normalizeLayout(card.layout),
+      items: [...card.items],
+    };
+  }
+
+  private normalizeLayout(layout: string): LayoutType {
     switch (layout) {
       case 'horizontalLayout':
-        return 'card-horizontal';
       case 'verticalLayout':
-        return 'card-vertical';
       case 'singleDevice':
-        return 'card-single';
+        return layout;
       default:
-        return 'card-vertical';
+        return 'verticalLayout';
     }
   }
 }

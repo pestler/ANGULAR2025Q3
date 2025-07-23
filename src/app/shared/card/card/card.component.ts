@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardModel } from 'app/core/models/card.model';
 import { DeviceComponent } from 'app/shared/device/device.component';
-import { HighlightDirective } from 'app/shared/directives/highlight.directive';
 import { SensorComponent } from 'app/shared/sensor/sensor.component';
+
+import type { SmartCard, Device, Sensor } from 'app/core/models/models';
 
 @Component({
   selector: 'app-card',
@@ -11,8 +11,35 @@ import { SensorComponent } from 'app/shared/sensor/sensor.component';
   imports: [CommonModule, DeviceComponent, SensorComponent],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  hostDirectives: [HighlightDirective],
 })
-export class CardComponent {
-  @Input() card!: CardModel;
+export class CardComponent implements OnInit {
+  @Input({ required: true }) card!: SmartCard;
+
+  get layoutVariant(): 'horizontal' | 'vertical' | 'single' {
+    switch (this.card.layout) {
+      case 'horizontalLayout':
+        return 'horizontal';
+      case 'verticalLayout':
+        return 'vertical';
+      case 'singleDevice':
+        return 'single';
+      default:
+        return 'vertical';
+    }
+  }
+
+  get devices(): Device[] {
+    return this.card.items.filter((i): i is Device => i.type === 'device');
+  }
+
+  get sensors(): Sensor[] {
+    return this.card.items.filter((i): i is Sensor => i.type === 'sensor');
+  }
+
+  ngOnInit(): void {
+    console.log('[CardComponent] card:', this.card);
+    console.log('layout:', this.layoutVariant);
+    console.log('devices:', this.devices);
+    console.log('sensors:', this.sensors);
+  }
 }

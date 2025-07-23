@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CardComponent } from '../card/card.component';
-import { CardModel } from 'app/core/models/card.model';
+import type { SmartCard } from 'app/core/models/models';
 
 @Component({
   selector: 'app-card-list',
@@ -10,5 +10,5 @@ import { CardModel } from 'app/core/models/card.model';
   styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent {
-  @Input() cards: CardModel[] = [];
+  @Input() cards: SmartCard[] = [];
 }

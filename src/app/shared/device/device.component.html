@@ -1,6 +1,7 @@
 <div class="device" [class.device-on]="device.state">
-  <button class="device-toggle" (click)="toggle()">
+  <button class="device-toggle" (click)="toggle()" aria-label="Toggle device">
     <i [ngClass]="device.icon"></i>
   </button>
   <span class="device-label">{{ device.label }}</span>
+  <span class="device-state">{{ device.state ? 'On' : 'Off' }}</span>
 </div>
