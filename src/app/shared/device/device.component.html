@@ -1,7 +1,13 @@
 <div class="device" [class.device-on]="device.state">
-  <button class="device-toggle" (click)="toggle()" aria-label="Toggle device">
-    <i [ngClass]="device.icon"></i>
+  <button
+    mat-icon-button
+    (click)="toggle()"
+    [color]="statusColor"
+    [attr.aria-label]="'Toggle ' + device.label"
+  >
+    <mat-icon>{{ device.icon }}</mat-icon>
   </button>
+
   <span class="device-label">{{ device.label }}</span>
-  <span class="device-state">{{ device.state ? 'On' : 'Off' }}</span>
+  <mat-chip [color]="statusColor" selected>{{ statusLabel }}</mat-chip>
 </div>

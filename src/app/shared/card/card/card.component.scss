@@ -1,34 +1,63 @@
-/* .card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
+@use 'smart-theme' as *;
+
+.card {
+  background: black;
+  border-radius: 1px;
+  border: 1px solid gray;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
+  width: 280px;
+  box-sizing: border-box;
+  width: max-content;
+
+  &.card--on       { border-left: 4px solid $smart-color-power; }
+  &.card--off      { border-left: 4px solid $smart-color-off; }
+  &.card--clear    { border-left: 4px solid $smart-color-clear; }
+  &.card--temp     { border-left: 4px solid $smart-color-temp; }
+  &.card--humidity { border-left: 4px solid $smart-color-humidity; }
 }
 
-.card-title {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.card-single {
+.card-header {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
+
+  button {
+    font-weight: 500;
+    text-transform: none;
+    font-size: 1rem;
+  }
+
+  .card-chip {
+    font-weight: 500;
+    font-size: 0.75rem;
+    height: 24px;
+    margin-left: auto;
+  }
 }
 
-.card-horizontal {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.card-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
 }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 1rem;
 
-.card-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  mat-card-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .card-chip {
+    font-weight: 500;
+    font-size: 0.75rem;
+    height: 24px;
+    margin-left: auto;
+  }
 }
- */

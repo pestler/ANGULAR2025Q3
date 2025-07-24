@@ -1,7 +1,10 @@
 <div class="sensor">
-  <i [ngClass]="sensor.icon"></i>
-  <span class="sensor-label">{{ sensor.label }}</span>
-  <span class="sensor-value">
-    {{ sensor.value.amount }} {{ sensor.value.unit }}
-  </span>
+  <mat-icon class="sensor-icon">{{ sensor.icon }}</mat-icon>
+
+  <div class="sensor-details">
+    <span class="sensor-label">{{ sensor.label }}</span>
+    <span class="sensor-value">
+      {{ sensor.value.amount }} {{ sensor.value.unit }}
+    </span>
+  </div>
 </div>

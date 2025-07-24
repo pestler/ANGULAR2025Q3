@@ -1,9 +1,5 @@
 <div class="card-list">
-  @if (cards.length === 0) {
-    <p>not cards</p>
-  } @else {
-    @for (card of cards; track card.id) {
-      <app-card [card]="card"></app-card>
-    }
+  @for (card of cards; track card.id) {
+    <app-card [card]="card" />
   }
 </div>

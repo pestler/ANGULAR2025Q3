@@ -11,6 +11,7 @@ export interface SmartCard {
   title: string;
   layout: LayoutType;
   items: SmartItem[];
+  state?: boolean;
 }
 
 export type SmartItem = Sensor | Device;

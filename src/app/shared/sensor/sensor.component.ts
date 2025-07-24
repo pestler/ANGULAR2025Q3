@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface SensorModel {
   icon: string;
@@ -13,7 +14,7 @@ export interface SensorModel {
 @Component({
   selector: 'app-sensor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './sensor.component.html',
   styleUrls: ['./sensor.component.scss'],
 })
