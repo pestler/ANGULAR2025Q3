@@ -1,3 +1,9 @@
 <div class="card-list">
-  <app-card *ngFor="let card of cards" [card]="card" />
+  @if (cards.length === 0) {
+    <p>not cards</p>
+  } @else {
+    @for (card of cards; track card.id) {
+      <app-card [card]="card"></app-card>
+    }
+  }
 </div>

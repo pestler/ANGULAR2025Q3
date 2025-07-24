@@ -12,7 +12,7 @@ import type { SmartCard, Device, Sensor } from 'app/core/models/models';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input({ required: true }) card!: SmartCard;
 
   get layoutVariant(): 'horizontal' | 'vertical' | 'single' {
@@ -34,12 +34,5 @@ export class CardComponent implements OnInit {
 
   get sensors(): Sensor[] {
     return this.card.items.filter((i): i is Sensor => i.type === 'sensor');
-  }
-
-  ngOnInit(): void {
-    console.log('[CardComponent] card:', this.card);
-    console.log('layout:', this.layoutVariant);
-    console.log('devices:', this.devices);
-    console.log('sensors:', this.sensors);
   }
 }

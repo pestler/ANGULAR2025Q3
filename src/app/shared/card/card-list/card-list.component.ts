@@ -11,4 +11,7 @@ import type { SmartCard } from 'app/core/models/models';
 })
 export class CardListComponent {
   @Input() cards: SmartCard[] = [];
+  track(card: SmartCard): string {
+    return card.id;
+  }
 }

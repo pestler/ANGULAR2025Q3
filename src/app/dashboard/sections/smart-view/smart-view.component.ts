@@ -19,12 +19,9 @@ export class SmartViewComponent implements OnInit {
 
   readonly tabs: ('overview' | 'lights')[] = ['overview', 'lights'];
 
-  constructor(private readonly raw: RawMockDataService) {
-
-  }
+  constructor(private readonly raw: RawMockDataService) { }
   ngOnInit(): void {
     this.loadTab();
-    console.log('[SmartView] cards:', this.cards);
   }
 
   async loadTab(): Promise<void> {
