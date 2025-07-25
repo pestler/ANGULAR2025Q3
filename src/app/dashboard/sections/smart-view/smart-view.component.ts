@@ -19,7 +19,8 @@ export class SmartViewComponent implements OnInit {
 
   readonly tabs: ('overview' | 'lights')[] = ['overview', 'lights'];
 
-  constructor(private readonly raw: RawMockDataService) { }
+  // eslint-disable-next-line no-unused-vars
+  constructor(private readonly raw: RawMockDataService) {}
   ngOnInit(): void {
     this.loadTab();
   }
