@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
@@ -6,14 +6,22 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   selector: 'app-shell',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent],
-  template: `
-    <div class="shell-layout">
-      <app-sidebar />
-      <main class="shell-content">
-        <router-outlet />
-      </main>
-    </div>
-  `,
+  templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
 })
-export class ShellComponent {}
+export class ShellComponent {
+  isTablet = false;
+
+  constructor() {
+    this.updateLayout(window.innerWidth);
+  }
+
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  onResize(width: number): void {
+    this.updateLayout(width);
+  }
+
+  private updateLayout(width: number): void {
+    this.isTablet = width <= 1024;
+  }
+}
