@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 .sidebar-menu {
   display: flex;
   flex-direction: column;
@@ -13,10 +17,32 @@
   font-weight: 500;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  color: #ccc;
 
   i {
     font-size: 1rem;
-    color: #555;
+    color: inherit;
+  }
+
+  &.active {
+    background-color: #03a9f4 !important;
+    color: #fff;
+
+    i {
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    background-color: #03a9f4 !important;
+    color: #fff;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: #03a9f4 !important;
   }
 }

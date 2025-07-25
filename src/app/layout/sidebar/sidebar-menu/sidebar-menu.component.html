@@ -1,6 +1,13 @@
-<nav class="sidebar-menu">
-  <a *ngFor="let item of items" [routerLink]="item.route" class="menu-item">
-    <i *ngIf="item.icon" [ngClass]="item.icon"></i>
-    {{ item.label }}
-  </a>
+<nav class="sidebar-menu" role="navigation" aria-label="Sidebar">
+  @for (item of items; track item.route) {
+    <a
+      [routerLink]="item.route"
+      class="menu-item"
+      [ngClass]="{ active: item.route === currentRoute }"
+      [attr.aria-current]="item.route === currentRoute ? 'page' : null"
+    >
+      <i *ngIf="item.icon" [ngClass]="item.icon" aria-hidden="true"></i>
+      <span>{{ item.label }}</span>
+    </a>
+  }
 </nav>

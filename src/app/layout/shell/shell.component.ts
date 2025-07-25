@@ -22,6 +22,6 @@ export class ShellComponent {
   }
 
   private updateLayout(width: number): void {
-    this.isTablet = width <= 1024;
+    this.isTablet = width <= 768;
   }
 }

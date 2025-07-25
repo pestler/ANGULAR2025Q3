@@ -16,6 +16,10 @@ export const routes: Routes = [
         path: 'overview',
         component: SmartViewComponent,
       },
+      {
+        path: 'about',
+        component: SmartViewComponent,
+      },
     ],
   },
   {
