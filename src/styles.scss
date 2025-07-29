@@ -20,6 +20,18 @@
   border-radius: 6px;
 }
 
+.card-h .sensor-label {
+  order: 0;
+}
+
+.card-h .sensor-icon {
+  order: 1;
+}
+
+.card-h .sensor-value {
+  order: 1;
+}
+
 .card-v .sensor {
   display: flex;
   flex-direction: row;
