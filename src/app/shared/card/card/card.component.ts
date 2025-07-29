@@ -77,4 +77,15 @@ export class CardComponent {
     }
     return 'card--clear';
   }
+  onDeviceToggled(index: number): void {
+    const updated = {
+      ...this.devices[index],
+      state: !this.devices[index].state,
+    };
+    this.card.items = this.card.items.map((item) =>
+      item.type === 'device' && this.devices.indexOf(item) === index
+        ? updated
+        : item,
+    );
+  }
 }

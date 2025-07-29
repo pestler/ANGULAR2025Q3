@@ -14,7 +14,7 @@
         <app-device
           *ngIf="devices.length"
           [device]="devices[0]"
-          (stateChanged)="toggleGroup()"
+          (stateChanged)="onDeviceToggled(i)"
         />
         <app-sensor *ngIf="sensors.length" [sensor]="sensors[0]" />
       </div>
@@ -24,7 +24,7 @@
           class="card-h"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="toggleGroup()"
+          (stateChanged)="onDeviceToggled(i)"
         />
         <app-sensor class="card-h" *ngFor="let s of sensors" [sensor]="s" />
       </div>
@@ -34,7 +34,7 @@
           class="card-v"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="toggleGroup()"
+          (stateChanged)="onDeviceToggled(i)"
         />
         <app-sensor class="card-v" *ngFor="let s of sensors" [sensor]="s" />
       </div>
