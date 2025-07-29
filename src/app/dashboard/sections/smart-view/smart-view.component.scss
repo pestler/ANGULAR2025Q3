@@ -2,20 +2,17 @@ $gap-xl: 2rem;
 $gap-md: 1rem;
 
 .smart-view {
+  width: 100%;
+}
+
+.app-card-list {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: $gap-xl;
   padding: $gap-xl;
-  color: white !important;
+  width: 100%;
 }
 
 mat-tab-group {
   margin-bottom: $gap-xl;
-}
-
-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $gap-md;
-  justify-content: center;
 }

@@ -4,17 +4,10 @@
   gap: 0.75rem;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-
   transition: background-color 0.2s ease;
+}
 
-
-  .device-label {
-    font-weight: 500;
-  }
-
-  mat-chip {
-    height: 24px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
+.device-label {
+  width: 15px;
+  height: 15px;
 }

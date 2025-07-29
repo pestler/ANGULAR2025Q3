@@ -30,10 +30,14 @@ export class CardComponent {
 
   get layoutVariant(): 'horizontal' | 'vertical' | 'single' {
     switch (this.card.layout) {
-      case 'horizontalLayout': return 'horizontal';
-      case 'verticalLayout': return 'vertical';
-      case 'singleDevice': return 'single';
-      default: return 'vertical';
+      case 'horizontalLayout':
+        return 'horizontal';
+      case 'verticalLayout':
+        return 'vertical';
+      case 'singleDevice':
+        return 'single';
+      default:
+        return 'vertical';
     }
   }
 
@@ -45,9 +49,13 @@ export class CardComponent {
     return this.card.items.filter((i): i is Sensor => i.type === 'sensor');
   }
 
+  getSensorLayout(): 'horizontal' | 'vertical' {
+    return this.card.layout === 'horizontalLayout' ? 'horizontal' : 'vertical';
+  }
+
   toggleGroup(): void {
     const newState = !this.groupState;
-    this.devices.forEach((d) => d.state = newState);
+    this.devices.forEach((d) => (d.state = newState));
   }
 
   get groupState(): boolean {

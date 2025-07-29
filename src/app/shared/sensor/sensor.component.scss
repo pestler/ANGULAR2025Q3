@@ -1,32 +1,16 @@
-.sensor {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  min-width: 180px;
-}
-
 .sensor-icon {
   font-size: 24px;
 }
 
-.sensor-details {
-  display: flex;
-  flex-direction: column;
-}
-
 .sensor-label {
   font-weight: 500;
-  color: white;
   font-size: 0.875rem;
 }
 
 .sensor-value {
   font-size: 0.8rem;
 }
-mat-icon{
+
+mat-icon {
   width: auto;
 }
-
-//notranslate sensor-icon material-icons mat-ligature-font mat-icon-no-color

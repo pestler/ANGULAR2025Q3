@@ -20,4 +20,5 @@ export interface SensorModel {
 })
 export class SensorComponent {
   @Input() sensor!: SensorModel;
+  @Input() layout: 'horizontal' | 'vertical' | 'single' = 'horizontal';
 }

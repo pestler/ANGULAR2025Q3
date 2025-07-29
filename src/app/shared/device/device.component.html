@@ -5,9 +5,9 @@
     [color]="statusColor"
     [attr.aria-label]="'Toggle ' + device.label"
   >
+    <span>{{ device.icon }}</span>
     <mat-icon>{{ device.icon }}</mat-icon>
   </button>
-
   <span class="device-label">{{ device.label }}</span>
-  <mat-chip [color]="statusColor" selected>{{ statusLabel }}</mat-chip>
+  <!-- <mat-chip [color]="statusColor" selected>{{ statusLabel }}</mat-chip> -->
 </div>

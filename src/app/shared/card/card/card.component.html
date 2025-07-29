@@ -1,41 +1,39 @@
 <mat-card class="card" appearance="outlined" [ngClass]="getCardStyleClass()">
-  <mat-card-title>
-    <div class="card-header">
-      <button mat-button (click)="toggleGroup()">
-        {{ card.title }}
-      </button>
-      <mat-chip class="card-chip" selected>{{ getStatusLabel() }}</mat-chip>
+  <mat-card-title class="card-header"
+    >{{ card.title }}
+    <button mat-button (click)="toggleGroup()">{{ getStatusLabel() }}</button>
+
+    <mat-divider />
+
+    <div class="card-body" [ngSwitch]="layoutVariant">
+      <div *ngSwitchCase="'single'" class="card-single">
+        <app-device
+          *ngIf="devices.length"
+          [device]="devices[0]"
+          (stateChanged)="toggleGroup()"
+        />
+        <app-sensor *ngIf="sensors.length" [sensor]="sensors[0]" />
+      </div>
+
+      <div *ngSwitchCase="'horizontal'" class="card-horizontal">
+        <app-device
+          class="card-h"
+          *ngFor="let d of devices"
+          [device]="d"
+          (stateChanged)="toggleGroup()"
+        />
+        <app-sensor class="card-h" *ngFor="let s of sensors" [sensor]="s" />
+      </div>
+
+      <div *ngSwitchDefault class="card-vertical">
+        <app-device
+          class="card-v"
+          *ngFor="let d of devices"
+          [device]="d"
+          (stateChanged)="toggleGroup()"
+        />
+        <app-sensor class="card-v" *ngFor="let s of sensors" [sensor]="s" />
+      </div>
     </div>
   </mat-card-title>
-
-  <mat-divider />
-
-  <div class="card-body" [ngSwitch]="layoutVariant">
-    <div *ngSwitchCase="'single'" class="card-single">
-      <app-device
-        *ngIf="devices.length"
-        [device]="devices[0]"
-        (stateChanged)="toggleGroup()"
-      />
-      <app-sensor *ngIf="sensors.length" [sensor]="sensors[0]" />
-    </div>
-
-    <div *ngSwitchCase="'horizontal'" class="card-horizontal">
-      <app-device
-        *ngFor="let d of devices"
-        [device]="d"
-        (stateChanged)="toggleGroup()"
-      />
-      <app-sensor *ngFor="let s of sensors" [sensor]="s" />
-    </div>
-
-    <div *ngSwitchDefault class="card-vertical">
-      <app-device
-        *ngFor="let d of devices"
-        [device]="d"
-        (stateChanged)="toggleGroup()"
-      />
-      <app-sensor *ngFor="let s of sensors" [sensor]="s" />
-    </div>
-  </div>
 </mat-card>
