@@ -1,0 +1,67 @@
+@use "@angular/material" as mat;
+@use "./variables" as variables;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  background: black;
+  color: white;
+}
+
+.card-h .sensor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.card-h .sensor-label {
+  order: 0;
+}
+
+.card-h .sensor-icon,
+.card-h .sensor-value {
+  order: 1;
+}
+
+.card-v .sensor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+mat-icon {
+  color: rgb(3 169 244);
+}
+
+@include mat.slide-toggle-overrides(
+  (
+    selected-track-outline-color: variables.$background-slide-blue-color,
+    selected-track-color: variables.$background-slide-blue-color,
+    selected-handle-color: variables.$text-blue-color,
+    handle-surface-color: variables.$text-blue-color,
+    selected-hover-track-color: variables.$background-slide-blue-color,
+    selected-focus-track-color: variables.$background-slide-blue-color,
+    selected-pressed-track-color: variables.$background-slide-blue-color,
+    selected-hover-handle-color: variables.$text-blue-color,
+    selected-focus-handle-color: variables.$text-blue-color,
+    selected-pressed-handle-color: variables.$text-blue-color,
+    track-height: 0.8rem,
+    track-width: 2.5rem,
+    with-icon-handle-size: 1.25rem,
+    pressed-handle-size: 1.25rem,
+    selected-handle-size: 1.25rem,
+    unselected-handle-size: 1.25rem,
+  )
+);

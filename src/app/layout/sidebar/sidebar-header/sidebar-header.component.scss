@@ -1,9 +1,19 @@
+.sidebar-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 10px;
+}
+
 .burger-button {
   position: relative;
   display: inline-block;
-  width: 2rem;
   cursor: pointer;
   color: inherit;
+  width: 30px;
+  height: 30px;
 
   &::before,
   &::after {
