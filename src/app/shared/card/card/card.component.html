@@ -1,7 +1,9 @@
 <mat-card class="card" appearance="outlined" [ngClass]="getCardStyleClass()">
   <mat-card-title class="card-header"
     >{{ card.title }}
-    <button mat-button (click)="toggleGroup()">{{ getStatusLabel() }}</button>
+    <button mat-button *ngIf="devices.length" (click)="toggleGroup()">
+      {{ getStatusLabel() }}
+    </button>
 
     <mat-divider />
 

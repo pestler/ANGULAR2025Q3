@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export interface DeviceModel {
   icon: string;
@@ -13,7 +14,13 @@ export interface DeviceModel {
 @Component({
   selector: 'app-device',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatChipsModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatSlideToggleModule,
+  ],
   templateUrl: './device.component.html',
   styleUrls: ['./device.component.scss'],
 })
