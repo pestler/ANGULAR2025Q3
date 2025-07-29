@@ -1,5 +1,14 @@
+.sensor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 10px;
+}
+
 .sensor-icon {
   font-size: 24px;
+  color: rgb(3 169 244);
 }
 
 .sensor-label {
