@@ -15,7 +15,9 @@
           class="card-h"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="onDeviceToggled(d)"
+          [label]="d.label"
+          [icon]="d.icon"
+          [(state)]="d.state"
         />
         <app-sensor *ngIf="sensors.length" [sensor]="sensors[0]" />
       </div>
@@ -25,7 +27,9 @@
           class="card-h"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="onDeviceToggled(d)"
+          [label]="d.label"
+          [icon]="d.icon"
+          [(state)]="d.state"
         />
 
         <app-sensor class="card-h" *ngFor="let s of sensors" [sensor]="s" />
@@ -36,9 +40,10 @@
           class="card-h"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="onDeviceToggled(d)"
+          [label]="d.label"
+          [icon]="d.icon"
+          [(state)]="d.state"
         />
-
         <app-sensor class="card-v" *ngFor="let s of sensors" [sensor]="s" />
       </div>
     </div>

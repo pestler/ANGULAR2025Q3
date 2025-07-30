@@ -34,23 +34,14 @@ export interface DeviceModel {
 export class DeviceComponent {
   @Input() device!: DeviceModel;
   @Input() index!: number;
-  //@Output() stateChanged = new EventEmitter<void>();
-  @Output() stateChanged = new EventEmitter<DeviceModel>();
+  @Input() state!: boolean;
+  @Output() stateChange = new EventEmitter<boolean>();
 
-  /* toggle(): void {
-    this.device.state = !this.device.state;
-    this.stateChanged.emit();
-  } */
-  toggle(): void {
-    this.device.state = !this.device.state;
-    this.stateChanged.emit(this.device);
+  onToggle(): void {
+    this.stateChange.emit(!this.state);
   }
 
   get statusColor(): 'primary' | 'warn' {
     return this.device.state ? 'primary' : 'warn';
-  }
-
-  get iconColor(): string {
-    return this.device.state ? '#FFC107' : '#BDBDBD';
   }
 }
