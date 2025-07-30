@@ -34,11 +34,16 @@ export interface DeviceModel {
 export class DeviceComponent {
   @Input() device!: DeviceModel;
   @Input() index!: number;
-  @Output() stateChanged = new EventEmitter<void>();
+  //@Output() stateChanged = new EventEmitter<void>();
+  @Output() stateChanged = new EventEmitter<DeviceModel>();
 
-  toggle(): void {
+  /* toggle(): void {
     this.device.state = !this.device.state;
     this.stateChanged.emit();
+  } */
+  toggle(): void {
+    this.device.state = !this.device.state;
+    this.stateChanged.emit(this.device);
   }
 
   get statusColor(): 'primary' | 'warn' {

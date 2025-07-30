@@ -12,9 +12,10 @@
     <div class="card-body" [ngSwitch]="layoutVariant">
       <div *ngSwitchCase="'single'" class="card-single">
         <app-device
-          *ngIf="devices.length"
-          [device]="devices[0]"
-          (stateChanged)="onDeviceToggled(i)"
+          class="card-h"
+          *ngFor="let d of devices"
+          [device]="d"
+          (stateChanged)="onDeviceToggled(d)"
         />
         <app-sensor *ngIf="sensors.length" [sensor]="sensors[0]" />
       </div>
@@ -24,18 +25,20 @@
           class="card-h"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="onDeviceToggled(i)"
+          (stateChanged)="onDeviceToggled(d)"
         />
+
         <app-sensor class="card-h" *ngFor="let s of sensors" [sensor]="s" />
       </div>
 
       <div *ngSwitchDefault class="card-vertical">
         <app-device
-          class="card-v"
+          class="card-h"
           *ngFor="let d of devices"
           [device]="d"
-          (stateChanged)="onDeviceToggled(i)"
+          (stateChanged)="onDeviceToggled(d)"
         />
+
         <app-sensor class="card-v" *ngFor="let s of sensors" [sensor]="s" />
       </div>
     </div>

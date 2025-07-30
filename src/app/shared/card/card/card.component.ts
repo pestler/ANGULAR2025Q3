@@ -77,11 +77,16 @@ export class CardComponent {
     }
     return 'card--clear';
   }
-  onDeviceToggled(index: number): void {
+
+  onDeviceToggled(device: Device): void {
+    const index = this.devices.indexOf(device);
+    if (index === -1) return;
+
     const updated = {
-      ...this.devices[index],
-      state: !this.devices[index].state,
+      ...device,
+      state: !device.state,
     };
+
     this.card.items = this.card.items.map((item) =>
       item.type === 'device' && this.devices.indexOf(item) === index
         ? updated

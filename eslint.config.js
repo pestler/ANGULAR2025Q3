@@ -17,7 +17,7 @@ export default [
       parser,
       parserOptions: {
         project: "./tsconfig.eslint.json",
-        sourceType: "module"
+        sourceType: "module",
       },
       globals: {
         ...globals.browser,
@@ -28,14 +28,14 @@ export default [
         expect: "readonly",
         beforeEach: "readonly",
         console: "readonly",
-        fetch: "readonly"
-      }
+        fetch: "readonly",
+      },
     },
     plugins: {
       "@typescript-eslint": typescript,
       unicorn,
       prettier,
-      "@angular-eslint": angular
+      "@angular-eslint": angular,
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
@@ -52,27 +52,27 @@ export default [
 
       "@angular-eslint/component-selector": [
         "error",
-        { type: "element", prefix: "app", style: "kebab-case" }
+        { type: "element", prefix: "app", style: "kebab-case" },
       ],
       "@angular-eslint/directive-selector": [
         "error",
-        { type: "attribute", prefix: "app", style: "camelCase" }
-      ]
-    }
+        { type: "attribute", prefix: "app", style: "camelCase" },
+      ],
+    },
   },
 
   {
     files: ["**/*.html"],
     languageOptions: {
-      parser: angularParser
+      parser: angularParser,
     },
     plugins: {
-      "@angular-eslint/template": angularTemplatePlugin
+      "@angular-eslint/template": angularTemplatePlugin,
     },
     rules: {
       "@angular-eslint/template/no-negated-async": "error",
-      "@angular-eslint/template/banana-in-box": "error"
-    }
+      "@angular-eslint/template/banana-in-box": "error",
+    },
   },
 
   {
@@ -81,7 +81,7 @@ export default [
       "**/.angular/**",
       "**/dist/**",
       "**/coverage/**",
-      "**/zone*.js"
-    ]
-  }
+      "**/zone*.js",
+    ],
+  },
 ];
