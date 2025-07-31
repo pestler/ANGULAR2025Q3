@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/sidebar/sidebar-menu/sidebar-menu.component.scss"],
+  "sourcesContent": [":host {\n  display: contents;\n}\n\n.sidebar-menu {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  gap: 0.5rem;\n}\n\n.menu-item {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  text-decoration: none;\n  font-weight: 500;\n  padding: 0.5rem 0.75rem;\n  border-radius: 6px;\n  transition:\n    background-color 0.2s ease,\n    color 0.2s ease;\n  color: #ccc;\n\n  i {\n    font-size: 1rem;\n    color: inherit;\n  }\n\n  &.active {\n    background-color: #03a9f4 !important;\n    color: #fff;\n\n    i {\n      color: #fff;\n    }\n  }\n\n  &:hover {\n    background-color: #03a9f4 !important;\n    color: #fff;\n  }\n\n  &:focus {\n    outline: none;\n    background-color: #03a9f4 !important;\n  }\n}\n"],
+  "mappings": "AAAA,MACE,QAAA,SAGF,CAAA,aACE,QAAA,KACA,eAAA,OANF,QAOE,KACA,IAAA,MAGF,CAAA,UACE,QAAA,KACA,YAAA,OACA,IAAA,MACA,gBAAA,KACA,YAAA,IAhBF,QAiBE,MAAA,OAjBF,cAkBE,IACA,WACE,iBAAA,IAAA,IAAA,CAAA,MAAA,IAAA,KAEF,MAAA,KAEA,CAbF,UAaE,EACE,UAAA,KACA,MAAA,QAGF,CAlBF,SAkBE,CAAA,OACE,iBAAA,kBACA,MAAA,KAEA,CAtBJ,SAsBI,CAJF,OAIE,EACE,MAAA,KAIJ,CA3BF,SA2BE,OACE,iBAAA,kBACA,MAAA,KAGF,CAhCF,SAgCE,OACE,QAAA,KACA,iBAAA",
+  "names": []
+}

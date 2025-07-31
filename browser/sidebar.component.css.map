@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/sidebar/sidebar.component.scss"],
+  "sourcesContent": [".sidebar {\n  display: flex;\n  flex-direction: column;\n  width: 240px;\n  height: 100vh;\n  border-right: 1px solid #ddd;\n}\n\n.sidebar-list {\n  display: flex;\n  flex-direction: column;\n  width: 240px;\n  height: 100vh;\n  border-right: 1px solid #ddd;\n  justify-content: flex-start;\n}\n"],
+  "mappings": "AAAA,CAAA,QACE,QAAA,KACA,eAAA,OACA,MAAA,MACA,OAAA,MACA,aAAA,IAAA,MAAA,KAGF,CAAA,aACE,QAAA,KACA,eAAA,OACA,MAAA,MACA,OAAA,MACA,aAAA,IAAA,MAAA,KACA,gBAAA",
+  "names": []
+}

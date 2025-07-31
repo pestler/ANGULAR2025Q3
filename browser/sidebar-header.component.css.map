@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/sidebar/sidebar-header/sidebar-header.component.scss"],
+  "sourcesContent": [".sidebar-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  text-align: center;\n  gap: 10px;\n  padding: 10px;\n}\n\n.burger-button {\n  position: relative;\n  display: inline-block;\n  cursor: pointer;\n  color: inherit;\n  width: 30px;\n  height: 30px;\n\n  &::before,\n  &::after {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: 100%;\n    height: 3px;\n    background-color: currentcolor;\n    transition: transform 0.2s ease;\n  }\n\n  &::before {\n    top: 4px;\n    box-shadow: 0 8px 0 0 currentcolor;\n  }\n\n  &::after {\n    bottom: 4px;\n  }\n\n  &:hover,\n  &:focus {\n    color: #03a9f4;\n    outline: none;\n  }\n}\n"],
+  "mappings": "AAAA,CAAA,eACE,QAAA,KACA,eAAA,IACA,YAAA,OACA,WAAA,OACA,IAAA,KALF,QAME,KAGF,CAAA,cACE,SAAA,SACA,QAAA,aACA,OAAA,QACA,MAAA,QACA,MAAA,KACA,OAAA,KAEA,CARF,aAQE,QAAA,CARF,aAQE,OAEE,QAAA,GACA,SAAA,SACA,KAAA,EACA,MAAA,KACA,OAAA,IACA,iBAAA,aACA,WAAA,UAAA,IAAA,KAGF,CAnBF,aAmBE,QACE,IAAA,IACA,WAAA,EAAA,IAAA,EAAA,EAAA,aAGF,CAxBF,aAwBE,OACE,OAAA,IAGF,CA5BF,aA4BE,OAAA,CA5BF,aA4BE,OAEE,MAAA,QACA,QAAA",
+  "names": []
+}

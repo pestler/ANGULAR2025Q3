@@ -1,0 +1,31 @@
+.connection-box.height-40 .mat-mdc-form-field-infix {
+  padding: 0;
+}
+/* stylelint-disable selector-class-pattern */
+.connection-box
+  .mat-mdc-text-field-wrapper
+  .mdc-text-field--outlined
+  .mat-mdc-form-field-infix {
+  padding-left: 10px;
+}
+/* stylelint-enable selector-class-pattern */
+.mat-mdc-chip.mat-primary {
+  border-radius: 4px;
+}
+
+.mdc-tooltip-surface {
+  background-color: #333;
+  color: white;
+}
+
+.mdc-icon-button.go-to-top {
+  position: fixed;
+  bottom: 70px;
+  right: 12px;
+}
+
+.mat-paginator-sticky {
+  bottom: 0;
+  position: sticky;
+  z-index: 10;
+}

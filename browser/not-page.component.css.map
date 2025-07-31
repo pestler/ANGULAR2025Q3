@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/not-page/not-page.component.scss"],
+  "sourcesContent": [":host {\n  display: block;\n  padding: 3rem;\n  text-align: center;\n\n  h1 {\n    font-size: 2rem;\n    color: #dc2626;\n  }\n\n  a {\n    margin-top: 1rem;\n    display: inline-block;\n    color: #2563eb;\n    text-decoration: underline;\n  }\n}\n"],
+  "mappings": "AAAA,MACE,QAAA,MADF,QAEE,KACA,WAAA,OAEA,MAAA,GACE,UAAA,KACA,MAAA,QAGF,MAAA,EACE,WAAA,KACA,QAAA,aACA,MAAA,QACA,gBAAA",
+  "names": []
+}
