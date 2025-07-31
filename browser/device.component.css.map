@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/shared/device/device.component.scss"],
-  "sourcesContent": [".device {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 0.75rem 1.25rem;\n  border-radius: 10px;\n  color: white;\n}\n\n.device-icon {\n  font-size: 28px;\n}\n\n.device-label {\n  flex-grow: 1;\n  font-weight: 500;\n  font-size: 1rem;\n}\n"],
-  "mappings": "AAAA,CAAA,OACE,QAAA,KACA,YAAA,OACA,gBAAA,cACA,IAAA,KAJF,QAKE,OAAA,QALF,cAME,KACA,MAAA,KAGF,CAAA,YACE,UAAA,KAGF,CAAA,aACE,UAAA,EACA,YAAA,IACA,UAAA",
-  "names": []
-}
