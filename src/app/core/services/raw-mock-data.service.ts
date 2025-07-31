@@ -4,7 +4,7 @@ import { SmartCard, Tab, LayoutType } from '../models/models';
 @Injectable({ providedIn: 'root' })
 export class RawMockDataService {
   async getTab(tabId: string): Promise<{ cards: SmartCard[] } | undefined> {
-    const response = await fetch('/assets/mock-data.json');
+    const response = await fetch('./assets/mock-data.json');
     if (!response.ok) {
       console.error('Failed to load mock-data.json');
       return undefined;
