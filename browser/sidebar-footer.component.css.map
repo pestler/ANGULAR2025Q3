@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/layout/sidebar/sidebar-footer/sidebar-footer.component.scss"],
-  "sourcesContent": [":host {\n  display: contents;\n}\n\n.sidebar-footer {\n  display: flex;\n  align-items: center;\n  padding: 12px;\n  background-color: #1f1f1f;\n}\n\n.rs-icon {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  background-color: #6cf;\n  color: #000;\n  font-weight: bold;\n  font-size: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 10px;\n  box-shadow: 0 0 2px rgb(0 0 0 / 40%);\n}\n\n.rs-label {\n  flex-grow: 1;\n}\n\n.rs-link {\n  color: #fff;\n  text-decoration: none;\n  font-size: 0.95rem;\n  font-weight: 500;\n  transition: color 0.2s;\n\n  &:hover {\n    color: #6cf;\n    text-decoration: underline;\n  }\n}\n"],
-  "mappings": "AAAA,MACE,QAAA,SAGF,CAAA,eACE,QAAA,KACA,YAAA,OANF,QAOE,KACA,iBAAA,QAGF,CAAA,QACE,MAAA,KACA,OAAA,KAbF,cAcE,IACA,iBAAA,KACA,MAAA,KACA,YAAA,IACA,UAAA,KACA,QAAA,KACA,YAAA,OACA,gBAAA,OACA,aAAA,KACA,WAAA,EAAA,EAAA,IAAA,MAGF,CAAA,SACE,UAAA,EAGF,CAAA,QACE,MAAA,KACA,gBAAA,KACA,UAAA,OACA,YAAA,IACA,WAAA,MAAA,IAEA,CAPF,OAOE,OACE,MAAA,KACA,gBAAA",
-  "names": []
-}

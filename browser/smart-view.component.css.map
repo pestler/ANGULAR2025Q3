@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/dashboard/sections/smart-view/smart-view.component.scss"],
-  "sourcesContent": ["$gap-xl: 2rem;\n$gap-md: 1rem;\n\n.smart-view {\n  width: 100%;\n}\n\n.app-card-list {\n  display: flex;\n  flex-wrap: wrap;\n  gap: $gap-xl;\n  padding: $gap-xl;\n  width: 100%;\n}\n\nmat-tab-group {\n  margin-bottom: $gap-xl;\n}\n"],
-  "mappings": "AAGA,CAAA,WACE,MAAA,KAGF,CAAA,cACE,QAAA,KACA,UAAA,KACA,IAVO,KAGT,QAHS,KAYP,MAAA,KAGF,cACE,cAhBO",
-  "names": []
-}
