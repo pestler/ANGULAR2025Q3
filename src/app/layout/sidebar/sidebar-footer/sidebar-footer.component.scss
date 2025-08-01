@@ -17,12 +17,17 @@
   justify-content: center;
   margin-right: 10px;
   box-shadow: 0 0 2px rgb(0 0 0 / 40%);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .rs-label {
   flex-grow: 1;
-  transition: opacity 0.3s ease;
   opacity: 1;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .sidebar.closed .rs-label {
@@ -35,6 +40,9 @@
   font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
     color: #6cf;
