@@ -1,7 +1,16 @@
-<aside class="sidebar">
+<aside class="sidebar" [class.closed]="!isOpen">
+  <span
+    class="burger-button"
+    role="button"
+    tabindex="0"
+    aria-label="Toggle menu"
+    (click)="toggleSidebar()"
+    (keydown.enter)="toggleSidebar()"
+    ><span></span
+  ></span>
   <div class="sidebar-list">
     <app-sidebar-header></app-sidebar-header>
     <app-sidebar-menu></app-sidebar-menu>
+    <app-sidebar-footer></app-sidebar-footer>
   </div>
-  <app-sidebar-footer></app-sidebar-footer>
 </aside>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-header',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './sidebar-header.component.html',
   styleUrls: ['./sidebar-header.component.scss'],
 })
-export class SidebarHeaderComponent {}
+export class SidebarHeaderComponent {
+  @Input() isOpen = true;
+}

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { ShellComponent } from './layout/shell/shell.component';
-import { SmartViewComponent } from './dashboard/sections/smart-view/smart-view.component';
 
 export const routes: Routes = [
   {
@@ -14,11 +13,19 @@ export const routes: Routes = [
       },
       {
         path: 'overview',
-        component: SmartViewComponent,
+        loadComponent: () =>
+          import('./dashboard/sections/smart-view/smart-view.component').then(
+            (m) => m.SmartViewComponent,
+          ),
+        data: { page: 'overview' },
       },
       {
         path: 'about',
-        component: SmartViewComponent,
+        loadComponent: () =>
+          import('./dashboard/sections/smart-view/smart-view.component').then(
+            (m) => m.SmartViewComponent,
+          ),
+        data: { page: 'about' },
       },
     ],
   },
