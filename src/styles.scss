@@ -77,3 +77,14 @@ body {
 mat-icon {
   color: rgb(3 169 244);
 }
+
+.mat-mdc-tab-group .mdc-tab-indicator {
+  justify-content: center;
+}
+
+/* stylelint-disable selector-class-pattern */
+.mat-mdc-tab-group .mdc-tab-indicator__content--underline {
+  width: 80px;
+}
+
+/* stylelint-enable selector-class-pattern */

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ShellComponent } from './layout/shell/shell.component';
+import { LoginPageComponent } from './layout/pages/login/login-page.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,10 @@ export const routes: Routes = [
         data: { page: 'about' },
       },
     ],
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
   },
   {
     path: '**',

@@ -6,4 +6,14 @@
   padding: 1rem;
   width: 100%;
   margin: 0 auto;
+
+  @media (width <= 560px) {
+    flex-flow: column nowrap;
+  }
+}
+
+.app-card {
+  @media (width <= 560px) {
+    width: 100%;
+  }
 }
