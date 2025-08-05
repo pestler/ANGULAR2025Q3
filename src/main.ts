@@ -2,4 +2,20 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app/app.component';
 import { appConfig } from './app/app.config';
 
-bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from 'app/core/auth.interceptor';
+import { AuthService } from 'app/core/auth.service';
+import { TokenService } from 'app/core/token.service';
+import { provideRouter } from '@angular/router';
+import { routes } from 'app/app.routes';
+
+bootstrapApplication(App, {
+  ...appConfig,
+  providers: [
+    ...(appConfig.providers ?? []),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    { provide: TokenService, useClass: TokenService },
+    { provide: AuthService, useClass: AuthService },
+    provideRouter(routes),
+  ],
+}).catch(console.error);

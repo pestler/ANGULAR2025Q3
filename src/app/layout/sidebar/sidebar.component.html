@@ -1,7 +1,29 @@
-<aside class="sidebar">
-  <div class="sidebar-list">
-    <app-sidebar-header></app-sidebar-header>
-    <app-sidebar-menu></app-sidebar-menu>
-  </div>
-  <app-sidebar-footer></app-sidebar-footer>
-</aside>
+<span
+  class="burger-button"
+  [class.hidden]="isTablet && isTabletOpen"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle menu"
+  (click)="toggleSidebar()"
+  (keydown.enter)="toggleSidebar()"
+>
+  <span></span>
+</span>
+
+@if (isTabletOpen) {
+  <aside class="sidebar tablet-open" appCloseSidebarOnOutsideClick>
+    <div class="sidebar-list">
+      <app-sidebar-header></app-sidebar-header>
+      <app-sidebar-menu></app-sidebar-menu>
+      <app-sidebar-footer></app-sidebar-footer>
+    </div>
+  </aside>
+} @else {
+  <aside class="sidebar" [class.closed]="!isOpen" [class.collapsed]="isTablet">
+    <div class="sidebar-list">
+      <app-sidebar-header></app-sidebar-header>
+      <app-sidebar-menu></app-sidebar-menu>
+      <app-sidebar-footer></app-sidebar-footer>
+    </div>
+  </aside>
+}
