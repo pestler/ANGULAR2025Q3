@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { AuthService } from 'app/core/auth.service';
 
 @Component({
   selector: 'app-shell',
@@ -9,4 +10,6 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
 })
-export class ShellComponent {}
+export class ShellComponent {
+  auth = inject(AuthService);
+}

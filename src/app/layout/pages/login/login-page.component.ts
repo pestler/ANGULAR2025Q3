@@ -35,8 +35,8 @@ export class LoginPageComponent {
   private snack = inject(MatSnackBar);
 
   form = new FormGroup({
-    userName: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    userName: new FormControl('Morales', Validators.required),
+    password: new FormControl('id', Validators.required),
   });
 
   onSubmit(): void {
@@ -45,12 +45,12 @@ export class LoginPageComponent {
     const { userName, password } = this.form.value;
 
     this.auth.login(userName!, password!).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => this.router.navigate(['/dashboard/overview']),
       error: (err) => {
         const msg =
           err.status === 401
             ? 'Invalid login or password.'
-            : 'Unknown error occurred. Please try again later.';
+            : 'Unknown error occurred.';
         this.snack.open(msg, 'Close', { duration: 3000 });
       },
     });

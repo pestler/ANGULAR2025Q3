@@ -1,12 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
-const sidebarSections = ['Overview', 'About'] as const;
-type SidebarSection = (typeof sidebarSections)[number];
+export const ROUTES = {
+  dashboard: {
+    overview: '/dashboard/overview' as const,
+    about: '/dashboard/about' as const,
+  },
+  login: '/login' as const,
+  notFound: '/not-found' as const,
+};
 
 export interface SidebarItem {
-  label: SidebarSection;
-  route: string;
+  label: 'Overview' | 'About';
+  route: (typeof ROUTES.dashboard)[keyof typeof ROUTES.dashboard];
   icon?: string;
 }
 
@@ -20,11 +26,14 @@ export interface SidebarItem {
 export class SidebarMenuComponent {
   private readonly router = inject(Router);
 
-  readonly items: SidebarItem[] = sidebarSections.map((label) => ({
-    label,
-    route: `/${label.toLowerCase()}`,
-    icon: `icon-${label.toLowerCase()}`,
-  }));
+  readonly items: SidebarItem[] = [
+    {
+      label: 'Overview',
+      route: ROUTES.dashboard.overview,
+      icon: 'icon-overview',
+    },
+    { label: 'About', route: ROUTES.dashboard.about, icon: 'icon-about' },
+  ];
 
   get currentRoute(): string {
     return this.router.url.split('?')[0].split('#')[0];

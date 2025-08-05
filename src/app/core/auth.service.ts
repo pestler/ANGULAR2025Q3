@@ -1,71 +1,59 @@
-import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  BehaviorSubject,
-  catchError,
-  Observable,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
-import { Router } from '@angular/router';
+import { inject, Injectable, signal } from '@angular/core';
 import { TokenService } from './token.service';
-import { apiRoutes } from '../shared/api/api-routes';
+import { Profile } from './models/profile.model';
+import { Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
-export interface Profile {
-  fullName: string;
-  initials: string;
+export interface LoginPayload {
+  userName: string;
+  password: string;
 }
 
+export interface LoginResponse {
+  token: string;
+}
+
+import { ApiService } from './api.service';
+
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private token = inject(TokenService);
-  private router = inject(Router);
+  private tokenService = inject(TokenService);
+  private api = inject(ApiService);
 
-  private state = new BehaviorSubject<Profile | null>(null);
-  readonly profile$ = this.state.asObservable();
-
-  isAuthenticated(): boolean {
-    return this.state.value !== null;
-  }
+  profile = signal<Profile | null>(null);
 
   init(): void {
-    const token = this.token.get();
+    const token = this.tokenService.get();
     if (!token) return;
 
-    this.http
-      .get<Profile>(apiRoutes.auth.profile)
-      .pipe(
-        catchError(() => {
-          this.token.clear();
-          this.router.navigate(['/login']);
-          return of(null);
-        }),
-      )
-      .subscribe((profile) => {
-        if (profile) this.state.next(profile);
-      });
+    this.http.get<Profile>(this.api.resolve('/user/profile')).subscribe({
+      next: (profile) => this.profile.set(profile),
+      error: () => this.logout(),
+    });
   }
 
   login(userName: string, password: string): Observable<Profile> {
+    const payload: LoginPayload = { userName, password };
+
     return this.http
-      .post<{ token: string }>(apiRoutes.auth.login, { userName, password })
+      .post<LoginResponse>(this.api.resolve('/user/login'), payload)
       .pipe(
-        tap((res) => console.log('Token:', res.token)),
-        switchMap((res) => {
-          this.token.set(res.token);
-          return this.http.get<Profile>(apiRoutes.auth.profile);
-        }),
-        tap((profile) => {
-          console.log('Profile:', profile);
-          this.state.next(profile);
-        }),
+        tap((res) => this.tokenService.set(res.token)),
+        switchMap(() =>
+          this.http.get<Profile>(this.api.resolve('/user/profile')),
+        ),
+        tap((profile) => this.profile.set(profile)),
       );
   }
 
   logout(): void {
-    this.token.clear();
-    this.state.next(null);
-    this.router.navigate(['/login']);
+    this.tokenService.clear();
+    this.profile.set(null);
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.tokenService.get();
   }
 }

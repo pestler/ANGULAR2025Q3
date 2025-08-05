@@ -1,15 +1,16 @@
-export class TokenService {
-  private readonly key = 'auth_token';
+import { Injectable } from '@angular/core';
 
-  get(): string | null {
-    return localStorage.getItem(this.key);
+@Injectable({ providedIn: 'root' })
+export class TokenService {
+  set(token: string): void {
+    localStorage.setItem('access_token', token);
   }
 
-  set(token: string): void {
-    localStorage.setItem(this.key, token);
+  get(): string | null {
+    return localStorage.getItem('access_token');
   }
 
   clear(): void {
-    localStorage.removeItem(this.key);
+    localStorage.removeItem('access_token');
   }
 }
