@@ -1,7 +1,44 @@
 .sidebar-footer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 12px;
+  gap: 12px;
+}
+
+.logout-container {
+  width: 100%;
+  display: flex;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #6cf;
+  }
+
+  mat-icon {
+    font-size: 20px;
+  }
+
+  .logout-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.rs-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
 }
 
 .rs-icon {
@@ -15,7 +52,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
   box-shadow: 0 0 2px rgb(0 0 0 / 40%);
   transition:
     background-color 0.2s ease,
@@ -23,7 +59,6 @@
 }
 
 .rs-label {
-  flex-grow: 1;
   opacity: 1;
   transition:
     background-color 0.2s ease,
@@ -40,9 +75,6 @@
   font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.2s ease;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
 
   &:hover {
     color: #6cf;
