@@ -3,12 +3,17 @@
     <a
       class="logout-button"
       [routerLink]="['/login']"
-      (click)="auth.logout()"
+      (click)="logout()"
       aria-label="Logout"
     >
       <mat-icon>logout</mat-icon>
       <span class="logout-label">Logout</span>
     </a>
+  </div>
+
+  <div class="user-info" *ngIf="auth.profile() as user">
+    <div class="initials-circle">{{ user.initials }}</div>
+    <div class="user-name">{{ user.fullName }}</div>
   </div>
 
   <div class="rs-container">

@@ -1,10 +1,10 @@
 <nav class="sidebar-menu" role="navigation" aria-label="Sidebar">
-  @for (item of items; track item.route) {
+  @for (item of items(); track item.route) {
     <a
       [routerLink]="item.route"
       class="menu-item"
-      [ngClass]="{ active: item.route === currentRoute }"
-      [attr.aria-current]="item.route === currentRoute ? 'page' : null"
+      [ngClass]="{ active: item.route === activeItem()?.route }"
+      [attr.aria-current]="item.route === activeItem()?.route ? 'page' : null"
     >
       <i *ngIf="item.icon" [ngClass]="item.icon" aria-hidden="true"></i>
       <span>{{ item.label }}</span>

@@ -21,12 +21,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'overview',
+        path: '',
+        redirectTo: './overview/overview',
+        pathMatch: 'prefix',
+      },
+      {
+        path: ':dashboardId/:tabId',
         loadComponent: () =>
           import('./dashboard/sections/smart-view/smart-view.component').then(
             (m) => m.SmartViewComponent,
           ),
-        data: { page: 'overview' },
       },
       {
         path: 'about',

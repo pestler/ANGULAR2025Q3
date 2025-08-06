@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-
+import { environment } from 'environments/environment';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private readonly baseUrl = 'http://localhost:3004';
+  private readonly baseUrl = environment.apiUrl;
 
   resolve(path: string): string {
     if (!path.startsWith('/')) {

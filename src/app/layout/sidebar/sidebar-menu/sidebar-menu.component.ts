@@ -1,18 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-
-export const ROUTES = {
-  dashboard: {
-    overview: '/dashboard/overview' as const,
-    about: '/dashboard/about' as const,
-  },
-  login: '/login' as const,
-  notFound: '/not-found' as const,
-};
+import { Component, inject, signal } from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
+import { DashboardService } from 'app/core/services/dashboard.service';
+import { filter } from 'rxjs/operators';
 
 export interface SidebarItem {
-  label: 'Overview' | 'About';
-  route: (typeof ROUTES.dashboard)[keyof typeof ROUTES.dashboard];
+  label: string;
+  route: string;
   icon?: string;
 }
 
@@ -25,17 +23,45 @@ export interface SidebarItem {
 })
 export class SidebarMenuComponent {
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly dashboardService = inject(DashboardService);
 
-  readonly items: SidebarItem[] = [
-    {
-      label: 'Overview',
-      route: ROUTES.dashboard.overview,
-      icon: 'icon-overview',
-    },
-    { label: 'About', route: ROUTES.dashboard.about, icon: 'icon-about' },
-  ];
+  readonly items = signal<SidebarItem[]>([]);
+  readonly activeItem = signal<SidebarItem | null>(null);
 
-  get currentRoute(): string {
-    return this.router.url.split('?')[0].split('#')[0];
+  constructor() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateActiveItem(this.router.url);
+      });
+  }
+
+  ngOnInit(): void {
+    this.dashboardService.getDashboards().then((dashboards) => {
+      const sidebarItems = dashboards.map((d) => {
+        const defaultTab = d.tabs?.find((t) => t.id !== 'usage') ??
+          d.tabs?.[0] ?? { id: 'overview' };
+
+        return {
+          label: d.title,
+          route: `/dashboard/${d.id}/${defaultTab.id}`,
+          icon: `icon-${d.icon}`,
+        };
+      });
+
+      this.items.set(sidebarItems);
+      this.updateActiveItem(this.router.url); // initial selection
+    });
+  }
+
+  private updateActiveItem(url: string): void {
+    const segments = url.split('/');
+    const dashboardId = segments[2]; // /dashboard/:dashboardId/:tabId
+
+    const match = this.items().find((item) =>
+      item.route.includes(`/${dashboardId}/`),
+    );
+    this.activeItem.set(match ?? null);
   }
 }

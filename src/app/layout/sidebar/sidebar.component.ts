@@ -20,7 +20,6 @@ export class SidebarComponent {
   isOpen = true;
   isTablet = false;
   isTabletOpen = false;
-
   constructor() {
     this.updateLayout(window.innerWidth);
   }

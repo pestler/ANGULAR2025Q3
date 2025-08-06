@@ -1,22 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { SmartCard, Tab, LayoutType } from '../models/models';
+import { firstValueFrom } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RawMockDataService {
-  async getTab(tabId: string): Promise<{ cards: SmartCard[] } | undefined> {
-    const response = await fetch('./assets/mock-data.json');
-    if (!response.ok) {
-      console.error('Failed to load mock-data.json');
+  private readonly http = inject(HttpClient);
+  private readonly dashboardsUrl = `${environment.apiUrl}/dashboards`;
+
+  async getTab(
+    dashboardId: string,
+    tabId: string,
+  ): Promise<{ cards: SmartCard[] } | undefined> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<{ id: string; tabs: Tab[] }[]>(this.dashboardsUrl),
+      );
+
+      const dashboard = response.find((d) => d.id === dashboardId);
+      if (!dashboard) {
+        console.warn(`Dashboard "${dashboardId}" not found`);
+        return undefined;
+      }
+
+      const rawTab = dashboard.tabs.find((tab) => tab.id === tabId);
+      if (!rawTab) {
+        console.warn(`Tab "${tabId}" not found in dashboard "${dashboardId}"`);
+        return undefined;
+      }
+
+      return {
+        cards: rawTab.cards.map((card) => this.normalizeCard(card)),
+      };
+    } catch (error) {
+      console.error('Failed to load dashboard data', error);
       return undefined;
     }
-
-    const data: { tabs: Tab[] } = await response.json();
-    const rawTab = data.tabs.find((tab) => tab.id === tabId);
-    if (!rawTab) return undefined;
-
-    return {
-      cards: rawTab.cards.map((card) => this.normalizeCard(card)),
-    };
   }
 
   private normalizeCard(card: SmartCard): SmartCard {
@@ -28,14 +48,13 @@ export class RawMockDataService {
   }
 
   private normalizeLayout(layout: string): LayoutType {
-    if (
-      layout === 'horizontalLayout' ||
-      layout === 'verticalLayout' ||
-      layout === 'singleDevice'
-    ) {
-      return layout;
+    switch (layout) {
+      case 'horizontalLayout':
+      case 'verticalLayout':
+      case 'singleDevice':
+        return layout;
+      default:
+        return 'verticalLayout';
     }
-
-    return 'verticalLayout';
   }
 }
