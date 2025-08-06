@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Profile } from './models/profile.model';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { ApiService } from './api.service';
 
 export interface LoginPayload {
   userName: string;
@@ -14,8 +15,6 @@ export interface LoginResponse {
   token: string;
 }
 
-import { ApiService } from './api.service';
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
@@ -23,6 +22,7 @@ export class AuthService {
   private api = inject(ApiService);
 
   profile = signal<Profile | null>(null);
+  isAuthenticated = this.tokenService.isAuthenticated;
 
   init(): void {
     const token = this.tokenService.get();
@@ -51,9 +51,5 @@ export class AuthService {
   logout(): void {
     this.tokenService.clear();
     this.profile.set(null);
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.tokenService.get();
   }
 }

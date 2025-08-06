@@ -1,7 +1,7 @@
 <div class="sensor" [ngClass]="layout">
   <mat-icon class="sensor-icon">{{ sensor.icon }}</mat-icon>
   <span class="sensor-label">{{ sensor.label }}</span>
-  <span class="sensor-value">
-    {{ sensor.value.amount | sensorValue }} {{ sensor.value.unit }}
+  <span class="sensor-value" *ngIf="sensor?.value as value">
+    {{ value | sensorValue }}
   </span>
 </div>
