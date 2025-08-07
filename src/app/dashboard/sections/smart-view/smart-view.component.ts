@@ -1,11 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, signal, computed, effect } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DashboardService } from 'app/core/services/dashboard.service';
+import { RawMockDataService } from 'app/core/services/raw-mock-data.service';
+import { SmartCard } from 'app/core/models/models';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
-
-import { RawMockDataService } from 'app/core/services/raw-mock-data.service';
 import { CardListComponent } from 'app/shared/card/card-list/card-list.component';
-import { LayoutType, SmartCard } from 'app/core/models/models';
 
 @Component({
   selector: 'app-smart-view',
@@ -14,62 +14,73 @@ import { LayoutType, SmartCard } from 'app/core/models/models';
   templateUrl: './smart-view.component.html',
   styleUrls: ['./smart-view.component.scss'],
 })
-export class SmartViewComponent implements OnInit {
+export class SmartViewComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly dashboardService = inject(DashboardService);
   private readonly raw = inject(RawMockDataService);
 
-  selectedIndex = 0;
-  cards: SmartCard[] = [];
+  readonly dashboardId = signal('');
+  readonly tabId = signal('');
+  readonly cards = signal<SmartCard[]>([]);
 
-  dashboardId = '';
-  tabIds: string[] = [];
+  constructor() {
+    const params = this.route.snapshot.paramMap;
+    this.dashboardId.set(params.get('dashboardId') ?? '');
+    this.tabId.set(params.get('tabId') ?? '');
 
-  ngOnInit(): void {
-    /* this.dashboardId = this.route.snapshot.paramMap.get('dashboardId') ?? '';
-    const initialTabId = this.route.snapshot.paramMap.get('tabId') ?? ''; */
-    this.dashboardId = this.route.snapshot.paramMap.get('dashboardId') ?? '';
-    const initialTabId =
-      this.route.snapshot.paramMap.get('tabId') ?? 'overview';
+    effect(() => {
+      const tabId = this.validTabId();
+      this.loadTab(tabId);
+    });
 
-    this.loadTab(initialTabId);
-
-    this.loadTab(initialTabId);
+    this.init();
   }
 
-  async loadTab(tabId: string): Promise<void> {
-    if (!this.dashboardId || !tabId) return;
+  readonly tabIds = computed(() => {
+    const dashboard = this.dashboardService.getDashboard(this.dashboardId());
+    return dashboard?.tabs?.map((t) => t.id) ?? [];
+  });
 
-    const tab = await this.raw.getTab(this.dashboardId, tabId);
-    this.cards = tab?.cards.map((card) => this.toSmartCard(card)) ?? [];
+  readonly validTabId = computed(() => {
+    const requested = this.tabId();
+    const available = this.tabIds();
+    return available.includes(requested) ? requested : (available[0] ?? '');
+  });
 
-    if (tab && !this.tabIds.includes(tabId)) {
-      this.tabIds.push(tabId);
+  readonly selectedIndex = computed(() =>
+    this.tabIds().indexOf(this.validTabId()),
+  );
+
+  readonly selectedTab = computed(() => {
+    const dashboard = this.dashboardService.getDashboard(this.dashboardId());
+    return dashboard?.tabs?.find((t) => t.id === this.validTabId()) ?? null;
+  });
+
+  async init(): Promise<void> {
+    await this.dashboardService.load();
+
+    const dashboard = this.dashboardService.getDashboard(this.dashboardId());
+    if (!dashboard || !dashboard.tabs?.length) {
+      console.warn(
+        `Dashboard '${this.dashboardId()}' not found or has no tabs`,
+      );
+      this.cards.set([]);
+      return;
     }
+
+    const tabId = this.validTabId();
+    const tab = await this.raw.getTab(this.dashboardId(), tabId);
+    this.cards.set(tab?.cards ?? []);
+  }
+
+  private async loadTab(tabId: string): Promise<void> {
+    const tab = await this.raw.getTab(this.dashboardId(), tabId);
+    this.cards.set(tab?.cards ?? []);
   }
 
   async switchTab(index: number): Promise<void> {
-    this.selectedIndex = index;
-    const tabId = this.tabIds[index];
-    await this.loadTab(tabId);
-  }
-
-  private toSmartCard(card: SmartCard): SmartCard {
-    return {
-      id: card.id,
-      title: card.title,
-      layout: this.normalizeLayout(card.layout),
-      items: [...card.items],
-    };
-  }
-
-  private normalizeLayout(layout: string): LayoutType {
-    switch (layout) {
-      case 'horizontalLayout':
-      case 'verticalLayout':
-      case 'singleDevice':
-        return layout;
-      default:
-        return 'verticalLayout';
-    }
+    const tabId = this.tabIds()[index];
+    this.tabId.set(tabId);
   }
 }

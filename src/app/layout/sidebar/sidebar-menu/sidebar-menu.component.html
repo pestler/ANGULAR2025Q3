@@ -3,8 +3,10 @@
     <a
       [routerLink]="item.route"
       class="menu-item"
-      [ngClass]="{ active: item.route === activeItem()?.route }"
-      [attr.aria-current]="item.route === activeItem()?.route ? 'page' : null"
+      [ngClass]="{ active: item.dashboardId === activeItem()?.dashboardId }"
+      [attr.aria-current]="
+        item.dashboardId === activeItem()?.dashboardId ? 'page' : null
+      "
     >
       <i *ngIf="item.icon" [ngClass]="item.icon" aria-hidden="true"></i>
       <span>{{ item.label }}</span>

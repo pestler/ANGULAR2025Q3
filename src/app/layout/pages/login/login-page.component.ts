@@ -45,7 +45,7 @@ export class LoginPageComponent {
     const { userName, password } = this.form.value;
 
     this.auth.login(userName!, password!).subscribe({
-      next: () => this.router.navigate(['/dashboard/overview/overview']),
+      next: () => this.router.navigate(['/dashboard/overview']),
       error: (err) => {
         const msg =
           err.status === 401

@@ -21,9 +21,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: '',
-        redirectTo: './overview/overview',
-        pathMatch: 'prefix',
+        path: ':dashboardId',
+        loadComponent: () =>
+          import('./dashboard/sections/smart-view/smart-view.component').then(
+            (m) => m.SmartViewComponent,
+          ),
       },
       {
         path: ':dashboardId/:tabId',
