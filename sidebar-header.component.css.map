@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/sidebar/sidebar-header/sidebar-header.component.scss"],
+  "sourcesContent": [".sidebar-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  text-align: center;\n  gap: 10px;\n  padding: 10px;\n}\n\n.sidebar-title {\n  display: block;\n  width: 160px;\n  white-space: nowrap;\n  transition:\n    width 0.3s ease,\n    opacity 0.3s ease;\n  opacity: 1;\n}\n\n.sidebar.closed .sidebar-title {\n  width: 0;\n  opacity: 0;\n}\n\n.burger-button {\n  width: 32px;\n  height: 32px;\n}\n"],
+  "mappings": "AAAA,CAAA,eACE,QAAA,KACA,eAAA,IACA,YAAA,OACA,WAAA,OACA,IAAA,KALF,QAME,KAGF,CAAA,cACE,QAAA,MACA,MAAA,MACA,YAAA,OACA,WACE,MAAA,IAAA,IAAA,CAAA,QAAA,IAAA,KAEF,QAAA,EAGF,CAAA,OAAA,CAAA,OAAA,CAVA,cAWE,MAAA,EACA,QAAA,EAGF,CAAA,cACE,MAAA,KACA,OAAA",
+  "names": []
+}
