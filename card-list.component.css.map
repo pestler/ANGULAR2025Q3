@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/app/shared/card/card-list/card-list.component.scss"],
-  "sourcesContent": [".card-list {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 1rem;\n  justify-content: center;\n  padding: 1rem;\n  width: 100%;\n  margin: 0 auto;\n\n  @media (width <= 560px) {\n    flex-flow: column nowrap;\n  }\n}\n\n.app-card {\n  @media (width <= 560px) {\n    width: 100%;\n  }\n}\n"],
-  "mappings": "AAAA,CAAA,UACE,QAAA,KACA,UAAA,KACA,IAAA,KACA,gBAAA,OAJF,QAKE,KACA,MAAA,KANF,OAOE,EAAA,KAEA,OAAA,CAAA,MAAA,CAAA,EAAA,OATF,CAAA,UAUI,UAAA,OAAA,QAKF,OAAA,CAAA,MAAA,CAAA,EAAA,OADF,CAAA,SAEI,MAAA",
+  "sourcesContent": [".card-list {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 1rem;\n  justify-content: center;\n  padding: 1rem;\n  margin: 0 auto;\n\n  @media (width <= 560px) {\n    flex-flow: column nowrap;\n  }\n}\n\n.app-card {\n  @media (width <= 560px) {\n    width: 100%;\n  }\n}\n"],
+  "mappings": "AAAA,CAAA,UACE,QAAA,KACA,UAAA,KACA,IAAA,KACA,gBAAA,OAJF,QAKE,KALF,OAME,EAAA,KAEA,OAAA,CAAA,MAAA,CAAA,EAAA,OARF,CAAA,UASI,UAAA,OAAA,QAKF,OAAA,CAAA,MAAA,CAAA,EAAA,OADF,CAAA,SAEI,MAAA",
   "names": []
 }
