@@ -1,11 +1,13 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { DashboardService } from 'app/core/services/dashboard.service';
 import { RawMockDataService } from 'app/core/services/raw-mock-data.service';
-import { SmartCard } from 'app/core/models/models';
+import { SmartCard, Tab } from 'app/core/models/models';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CardListComponent } from 'app/shared/card/card-list/card-list.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-smart-view',
@@ -20,67 +22,98 @@ export class SmartViewComponent {
   private readonly dashboardService = inject(DashboardService);
   private readonly raw = inject(RawMockDataService);
 
-  readonly dashboardId = signal('');
+  readonly dashboardId = toSignal(
+    this.route.paramMap.pipe(map((params) => params.get('dashboardId') ?? '')),
+    { initialValue: '' },
+  );
+
   readonly tabId = signal('');
+  readonly tabs = signal<Tab[]>([]);
   readonly cards = signal<SmartCard[]>([]);
 
-  constructor() {
-    const params = this.route.snapshot.paramMap;
-    this.dashboardId.set(params.get('dashboardId') ?? '');
-    this.tabId.set(params.get('tabId') ?? '');
-
-    effect(() => {
-      const tabId = this.validTabId();
-      this.loadTab(tabId);
-    });
-
-    this.init();
-  }
-
-  readonly tabIds = computed(() => {
-    const dashboard = this.dashboardService.getDashboard(this.dashboardId());
-    return dashboard?.tabs?.map((t) => t.id) ?? [];
-  });
+  readonly tabIds = computed(() => this.tabs().map((t) => t.id));
 
   readonly validTabId = computed(() => {
     const requested = this.tabId();
     const available = this.tabIds();
-    return available.includes(requested) ? requested : (available[0] ?? '');
+    const valid = available.includes(requested)
+      ? requested
+      : (available[0] ?? '');
+    return valid;
   });
 
   readonly selectedIndex = computed(() =>
     this.tabIds().indexOf(this.validTabId()),
   );
 
-  readonly selectedTab = computed(() => {
-    const dashboard = this.dashboardService.getDashboard(this.dashboardId());
-    return dashboard?.tabs?.find((t) => t.id === this.validTabId()) ?? null;
-  });
+  readonly selectedTab = computed(
+    () => this.tabs().find((t) => t.id === this.validTabId()) ?? null,
+  );
 
-  async init(): Promise<void> {
+  constructor() {
+    effect(() => {
+      this.loadDashboard();
+    });
+
+    effect(() => {
+      const tabs = this.tabs();
+      if (!tabs.length) return;
+
+      const tabId = this.validTabId();
+      this.loadTab(tabId);
+    });
+  }
+
+  private lastLoadedTabId = '';
+
+  private async loadDashboard(): Promise<void> {
+    const id = this.dashboardId();
+
     await this.dashboardService.load();
 
-    const dashboard = this.dashboardService.getDashboard(this.dashboardId());
-    if (!dashboard || !dashboard.tabs?.length) {
-      console.warn(
-        `Dashboard '${this.dashboardId()}' not found or has no tabs`,
-      );
+    const dashboard = this.dashboardService.getDashboard(id);
+    if (!dashboard) {
+      this.tabs.set([]);
       this.cards.set([]);
       return;
     }
 
-    const tabId = this.validTabId();
-    const tab = await this.raw.getTab(this.dashboardId(), tabId);
-    this.cards.set(tab?.cards ?? []);
+    const tabs = await this.raw.getTabs(id);
+
+    this.tabs.set(tabs);
   }
 
   private async loadTab(tabId: string): Promise<void> {
+    if (!tabId) {
+      console.warn('Empty tabId, skipping load');
+      this.cards.set([]);
+      return;
+    }
+
+    if (tabId === this.lastLoadedTabId) {
+      return;
+    }
+
+    this.lastLoadedTabId = tabId;
+
     const tab = await this.raw.getTab(this.dashboardId(), tabId);
-    this.cards.set(tab?.cards ?? []);
+
+    if (!tab) {
+      console.warn(`Tab '${tabId}' not found`);
+      this.cards.set([]);
+      return;
+    }
+    this.cards.set(tab.cards);
   }
 
   async switchTab(index: number): Promise<void> {
     const tabId = this.tabIds()[index];
     this.tabId.set(tabId);
+
+    await this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tabId },
+      queryParamsHandling: 'merge',
+    });
   }
 }

@@ -15,16 +15,10 @@ export class RawMockDataService {
   ): Promise<{ cards: SmartCard[] } | undefined> {
     try {
       const response = await firstValueFrom(
-        this.http.get<{ id: string; tabs: Tab[] }[]>(this.dashboardsUrl),
+        this.http.get<{ tabs: Tab[] }>(`${this.dashboardsUrl}/${dashboardId}`),
       );
 
-      const dashboard = response.find((d) => d.id === dashboardId);
-      if (!dashboard) {
-        console.warn(`Dashboard "${dashboardId}" not found`);
-        return undefined;
-      }
-
-      const rawTab = dashboard.tabs.find((tab) => tab.id === tabId);
+      const rawTab = response.tabs.find((tab) => tab.id === tabId);
       if (!rawTab) {
         console.warn(`Tab "${tabId}" not found in dashboard "${dashboardId}"`);
         return undefined;
@@ -34,7 +28,7 @@ export class RawMockDataService {
         cards: rawTab.cards.map((card) => this.normalizeCard(card)),
       };
     } catch (error) {
-      console.error('Failed to load dashboard data', error);
+      console.error('Failed to load dashboard tab data', error);
       return undefined;
     }
   }
@@ -55,6 +49,20 @@ export class RawMockDataService {
         return layout;
       default:
         return 'verticalLayout';
+    }
+  }
+  async getTabs(dashboardId: string): Promise<Tab[]> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<{ tabs: Tab[] }>(`${this.dashboardsUrl}/${dashboardId}`),
+      );
+      return response.tabs;
+    } catch (error) {
+      console.error(
+        `Failed to load tabs for dashboard "${dashboardId}"`,
+        error,
+      );
+      return [];
     }
   }
 }

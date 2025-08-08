@@ -21,10 +21,8 @@ export class DashboardService {
   readonly allDashboardIds = computed(() => this.dashboards().map((d) => d.id));
 
   hasDashboard = (id: string): boolean => id in this.dashboardMap();
-
   getDashboard = (id: string): Dashboard | null =>
     this.dashboardMap()[id] ?? null;
-
   async load(): Promise<void> {
     if (this.loaded) return;
 
