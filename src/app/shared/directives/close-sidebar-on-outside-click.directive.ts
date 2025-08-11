@@ -4,9 +4,10 @@ import {
   inject,
   OnInit,
   OnDestroy,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import { SidebarComponent } from 'app/layout/sidebar/sidebar.component';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ import { filter } from 'rxjs/operators';
 export class CloseSidebarOnOutsideClickDirective implements OnInit, OnDestroy {
   private el = inject(ElementRef);
   private router = inject(Router);
-  private sidebar = inject(SidebarComponent);
+  @Output() close = new EventEmitter<void>();
 
   private subs = new Subscription();
 
@@ -28,11 +29,13 @@ export class CloseSidebarOnOutsideClickDirective implements OnInit, OnDestroy {
           (event) => !this.el.nativeElement.contains(event.target as Node),
         ),
       )
-      .subscribe(() => this.sidebar.closeSidebar());
+
+      .subscribe(() => this.close.emit());
 
     const navSub = this.router.events
       .pipe(filter((e) => e instanceof NavigationStart))
-      .subscribe(() => this.sidebar.closeSidebar());
+
+      .subscribe(() => this.close.emit());
 
     this.subs.add(clickSub);
     this.subs.add(navSub);

@@ -4,10 +4,10 @@ import { environment } from 'environments/environment';
 export class ApiService {
   private readonly baseUrl = environment.apiUrl;
 
-  resolve(path: string): string {
+  resolve(path: string, prefix = '/api'): string {
     if (!path.startsWith('/')) {
       throw new Error(`API path must start with '/': received '${path}'`);
     }
-    return `${this.baseUrl}/api${path}`;
+    return `${this.baseUrl}${prefix}${path}`;
   }
 }

@@ -4,7 +4,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { DashboardService } from 'app/core/services/dashboard.service';
 import { RawMockDataService } from 'app/core/services/raw-mock-data.service';
 import { SmartCard, Tab } from 'app/core/models/models';
-import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CardListComponent } from 'app/shared/card/card-list/card-list.component';
 import { map } from 'rxjs';
@@ -12,7 +11,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'app-smart-view',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, CardListComponent],
+  imports: [MatTabsModule, CardListComponent],
   templateUrl: './smart-view.component.html',
   styleUrls: ['./smart-view.component.scss'],
 })
@@ -27,7 +26,11 @@ export class SmartViewComponent {
     { initialValue: '' },
   );
 
-  readonly tabId = signal('');
+  readonly tabId = toSignal(
+    this.route.queryParamMap.pipe(map((params) => params.get('tabId') ?? '')),
+    { initialValue: '' },
+  );
+
   readonly tabs = signal<Tab[]>([]);
   readonly cards = signal<SmartCard[]>([]);
 
@@ -42,50 +45,47 @@ export class SmartViewComponent {
     return valid;
   });
 
-  readonly selectedIndex = computed(() =>
-    this.tabIds().indexOf(this.validTabId()),
-  );
+  readonly selectedIndex = computed(() => {
+    const validId = this.validTabId();
 
-  readonly selectedTab = computed(
-    () => this.tabs().find((t) => t.id === this.validTabId()) ?? null,
-  );
-
-  constructor() {
-    effect(() => {
-      this.loadDashboard();
-    });
-
-    effect(() => {
-      const tabs = this.tabs();
-      if (!tabs.length) return;
-
-      const tabId = this.validTabId();
-      this.loadTab(tabId);
-    });
-  }
+    return validId ? this.tabIds().indexOf(validId) : 0;
+  });
 
   private lastLoadedTabId = '';
 
-  private async loadDashboard(): Promise<void> {
-    const id = this.dashboardId();
+  constructor() {
+    effect(() => {
+      const id = this.dashboardId();
+      if (id) {
+        this.loadDashboard(id);
+      }
+    });
 
+    effect(() => {
+      const dId = this.dashboardId();
+      const tId = this.validTabId();
+
+      if (dId && tId) {
+        this.loadTab(dId, tId);
+      } else {
+        this.cards.set([]);
+      }
+    });
+  }
+
+  private async loadDashboard(id: string): Promise<void> {
     await this.dashboardService.load();
-
     const dashboard = this.dashboardService.getDashboard(id);
     if (!dashboard) {
       this.tabs.set([]);
-      this.cards.set([]);
       return;
     }
-
     const tabs = await this.raw.getTabs(id);
-
     this.tabs.set(tabs);
   }
 
-  private async loadTab(tabId: string): Promise<void> {
+  private async loadTab(dashboardId: string, tabId: string): Promise<void> {
     if (!tabId) {
-      console.warn('Empty tabId, skipping load');
       this.cards.set([]);
       return;
     }
@@ -93,27 +93,23 @@ export class SmartViewComponent {
     if (tabId === this.lastLoadedTabId) {
       return;
     }
-
     this.lastLoadedTabId = tabId;
 
-    const tab = await this.raw.getTab(this.dashboardId(), tabId);
+    const tab = await this.raw.getTab(dashboardId, tabId);
 
-    if (!tab) {
-      console.warn(`Tab '${tabId}' not found`);
-      this.cards.set([]);
-      return;
+    if (this.validTabId() === tabId) {
+      this.cards.set(tab?.cards ?? []);
     }
-    this.cards.set(tab.cards);
   }
 
   async switchTab(index: number): Promise<void> {
     const tabId = this.tabIds()[index];
-    this.tabId.set(tabId);
-
-    await this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { tabId },
-      queryParamsHandling: 'merge',
-    });
+    if (tabId) {
+      await this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { tabId },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 }

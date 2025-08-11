@@ -24,6 +24,7 @@ export interface Sensor {
     amount: number;
     unit: string;
   };
+  id: string;
 }
 
 export interface Device {
@@ -31,4 +32,5 @@ export interface Device {
   icon: string;
   label: string;
   state: boolean;
+  id: string;
 }

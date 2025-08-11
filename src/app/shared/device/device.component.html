@@ -1,8 +1,5 @@
-<div class="device" [class.device-on]="state">
-  <mat-icon
-    class="device-icon"
-    [ngStyle]="{ color: state ? '#FFC107' : '#BDBDBD' }"
-  >
+<div class="device" [class.device-on]="device.state">
+  <mat-icon class="device-icon">
     {{ device.icon }}
   </mat-icon>
 
@@ -10,9 +7,9 @@
 
   <mat-slide-toggle
     class="device-toggle"
-    [color]="state ? 'primary' : 'warn'"
-    [checked]="state"
+    [color]="device.state ? 'primary' : 'warn'"
+    [checked]="device.state"
     (change)="onToggle()"
-    [attr.aria-label]="'Toggle '"
+    [attr.aria-label]="'Toggle ' + device.label"
   ></mat-slide-toggle>
 </div>

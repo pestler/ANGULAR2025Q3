@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { TokenService } from './token.service';
 import { Profile } from './models/profile.model';
 import { Observable } from 'rxjs';
@@ -20,6 +21,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
   private api = inject(ApiService);
+  private router = inject(Router);
 
   profile = signal<Profile | null>(null);
   isAuthenticated = this.tokenService.isAuthenticated;
@@ -51,5 +53,6 @@ export class AuthService {
   logout(): void {
     this.tokenService.clear();
     this.profile.set(null);
+    this.router.navigate(['/login']);
   }
 }

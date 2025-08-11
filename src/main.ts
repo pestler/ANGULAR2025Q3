@@ -13,8 +13,8 @@ bootstrapApplication(App, {
   providers: [
     ...(appConfig.providers ?? []),
     provideHttpClient(withInterceptors([authInterceptor])),
-    { provide: TokenService, useClass: TokenService },
-    { provide: AuthService, useClass: AuthService },
+    TokenService,
+    AuthService,
     provideRouter(routes),
   ],
 }).catch(console.error);

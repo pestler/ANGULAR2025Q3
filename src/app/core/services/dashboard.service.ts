@@ -12,7 +12,7 @@ export class DashboardService {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
-  private loaded = false;
+  private loadPromise: Promise<void> | null = null;
 
   readonly dashboardMap = computed(() =>
     Object.fromEntries(this.dashboards().map((d) => [d.id, d])),
@@ -23,25 +23,41 @@ export class DashboardService {
   hasDashboard = (id: string): boolean => id in this.dashboardMap();
   getDashboard = (id: string): Dashboard | null =>
     this.dashboardMap()[id] ?? null;
-  async load(): Promise<void> {
-    if (this.loaded) return;
 
-    this.loading.set(true);
-    try {
-      const data = await firstValueFrom(
-        this.http.get<Dashboard[]>(`${environment.apiUrl}/dashboards`),
-      );
-      this.dashboards.set(data);
-      this.error.set(null);
-      this.loaded = true;
-    } catch (err: unknown) {
-      const message =
-        err instanceof HttpErrorResponse ? err.message : 'Unknown error';
-      console.error('Dashboard fetch failed:', err);
-      this.dashboards.set([]);
-      this.error.set(message);
-    } finally {
-      this.loading.set(false);
+  async load(forceReload = false): Promise<void> {
+    if (forceReload) {
+      this.loadPromise = null;
     }
+
+    if (this.loadPromise) {
+      return this.loadPromise;
+    }
+
+    this.loadPromise = (async (): Promise<void> => {
+      this.loading.set(true);
+      this.error.set(null);
+
+      try {
+        const data = await firstValueFrom(
+          this.http.get<Dashboard[]>(`${environment.apiUrl}/dashboards`),
+        );
+        this.dashboards.set(data);
+      } catch (err: unknown) {
+        let message = 'An unknown error occurred';
+        if (err instanceof HttpErrorResponse) {
+          message =
+            typeof err.error === 'string'
+              ? err.error
+              : (err.error?.message ?? err.message);
+        }
+        console.error('Dashboard fetch failed:', err);
+        this.dashboards.set([]);
+        this.error.set(message);
+      } finally {
+        this.loading.set(false);
+      }
+    })();
+
+    return this.loadPromise;
   }
 }

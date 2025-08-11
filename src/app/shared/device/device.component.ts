@@ -33,15 +33,9 @@ export interface DeviceModel {
 })
 export class DeviceComponent {
   @Input() device!: DeviceModel;
-  @Input() index!: number;
-  @Input() state!: boolean;
   @Output() stateChange = new EventEmitter<boolean>();
 
   onToggle(): void {
-    this.stateChange.emit(!this.state);
-  }
-
-  get statusColor(): 'primary' | 'warn' {
-    return this.device.state ? 'primary' : 'warn';
+    this.stateChange.emit(!this.device.state);
   }
 }

@@ -27,13 +27,7 @@ export const routes: Routes = [
             (m) => m.SmartViewComponent,
           ),
       },
-      {
-        path: ':dashboardId/:tabId',
-        loadComponent: () =>
-          import('./dashboard/sections/smart-view/smart-view.component').then(
-            (m) => m.SmartViewComponent,
-          ),
-      },
+
       {
         path: 'about',
         component: AboutPageComponent,

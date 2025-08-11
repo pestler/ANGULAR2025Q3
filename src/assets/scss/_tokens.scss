@@ -1,33 +1,22 @@
-// 🎨 Color tokens
 $background-slide-blue-color: #1e88e5;
 $text-blue-color: #fff;
 $background-dark-color: #000;
 $text-light-color: #eee;
-
-// 📐 Spacing scale
 $spacing-xxs: 0.25rem;
 $spacing-xs: 0.5rem;
 $spacing-sm: 0.75rem;
 $spacing-md: 1rem;
 $spacing-lg: 1.5rem;
 $spacing-xl: 2rem;
-
-// 🧱 Border radius
 $radius-sm: 4px;
 $radius-md: 6px;
 $radius-lg: 8px;
-
-// 🔠 Typography
 $font-size-sm: 0.875rem;
 $font-size-md: 1rem;
 $font-size-lg: 1.25rem;
-
-// 📱 Breakpoints
 $breakpoint-sm: 600px;
 $breakpoint-md: 960px;
 $breakpoint-lg: 1280px;
-
-// ⚙️ Z-index
 $z-overlay: 1000;
 $z-modal: 1100;
 $z-toast: 1200;

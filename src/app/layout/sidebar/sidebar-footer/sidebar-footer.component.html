@@ -11,10 +11,16 @@
     </a>
   </div>
 
-  <div class="user-info" *ngIf="auth.profile() as user">
-    <div class="initials-circle">{{ user.initials }}</div>
-    <div class="user-name">{{ user.fullName }}</div>
-  </div>
+  @if (auth.profile(); as user) {
+    <div class="user-info">
+      <div class="initials-circle">{{ user.initials }}</div>
+      <div class="user-name">{{ user.fullName }}</div>
+    </div>
+  } @else {
+    <div class="user-info">
+      <div class="user-name">anonym user</div>
+    </div>
+  }
 
   <div class="rs-container">
     <span class="rs-icon">RS</span>

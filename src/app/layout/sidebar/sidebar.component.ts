@@ -1,8 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { SidebarHeaderComponent } from './sidebar-header/sidebar-header.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { SidebarFooterComponent } from './sidebar-footer/sidebar-footer.component';
 import { CloseSidebarOnOutsideClickDirective } from 'app/shared/directives/close-sidebar-on-outside-click.directive';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,42 +13,49 @@ import { CloseSidebarOnOutsideClickDirective } from 'app/shared/directives/close
     SidebarMenuComponent,
     SidebarFooterComponent,
     CloseSidebarOnOutsideClickDirective,
+    CommonModule,
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  isOpen = true;
-  isTablet = false;
-  isTabletOpen = false;
+  isOpen = signal(true);
+  isTablet = signal(false);
+  isTabletOpen = signal(false);
+
   constructor() {
     this.updateLayout(window.innerWidth);
   }
 
-  @HostListener('window:resize', ['$event.target.innerWidth'])
-  onResize(width: number): void {
-    this.updateLayout(width);
+  @HostListener('window:resize')
+  onResize(): void {
+    this.updateLayout(window.innerWidth);
   }
 
   private updateLayout(width: number): void {
-    this.isTablet = width <= 768;
-    if (this.isTablet) {
-      this.isOpen = false;
-      this.isTabletOpen = false;
+    this.isTablet.set(width <= 768);
+
+    if (this.isTablet()) {
+      this.isOpen.set(false);
+      this.isTabletOpen.set(false);
+    } else {
+      this.isOpen.set(true);
+      this.isTabletOpen.set(false);
     }
   }
 
   toggleSidebar(): void {
-    if (this.isTablet) {
-      this.isTabletOpen = true;
-      this.isOpen = true;
+    if (this.isTablet()) {
+      this.isTabletOpen.set(true);
+      this.isOpen.set(true);
     } else {
-      this.isOpen = !this.isOpen;
-      this.isTabletOpen = false;
+      this.isOpen.update((currentValue) => !currentValue);
+      this.isTabletOpen.set(false);
     }
   }
+
   closeSidebar(): void {
-    this.isOpen = false;
-    this.isTabletOpen = false;
+    this.isOpen.set(false);
+    this.isTabletOpen.set(false);
   }
 }

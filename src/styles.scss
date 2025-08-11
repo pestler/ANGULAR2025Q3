@@ -1,49 +1,26 @@
+@use "assets/scss/theme" as theme;
 @use "@angular/material" as mat;
 @use "assets/scss/fonts";
 @use "assets/scss/overrides";
 @use "assets/scss/colors";
 @use "assets/scss/common";
-
-$theme: mat.define-theme(
-  (
-    color: (
-      theme-type: dark,
-      primary: mat.$cyan-palette,
-    ),
-  )
-);
+@include mat.core;
 
 html {
   height: 100%;
   color-scheme: dark;
 
-  @include mat.theme(
-    (
-      color: mat.$cyan-palette,
-      typography: Roboto,
-    ),
-    $overrides: (
-      surface: #424242,
-      surface-variant: #616161,
-      surface-container: #333,
-      corner-full: 15px,
-      corner-extra-large: 20px
-    )
-  );
-  @include mat.color-variants-backwards-compatibility($theme);
-  @include mat.typography-hierarchy($theme, $back-compat: true);
+  @include mat.all-component-themes(theme.$theme);
 }
 
 body {
-  background: var(--mat-sys-surface-bright);
-  color: var(--mat-sys-on-surface);
+  background: var(--mat-sys-surface-container-lowest, #333);
+  color: var(--mat-sys-on-surface, white);
   height: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
   display: flex;
   flex-direction: column;
-
-  // overflow-x: hidden;
   overflow: hidden;
 }
 

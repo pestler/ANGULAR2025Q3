@@ -20,6 +20,6 @@ export interface SensorModel {
   styleUrls: ['./sensor.component.scss'],
 })
 export class SensorComponent {
-  @Input() sensor!: SensorModel;
+  @Input() sensor: SensorModel | undefined;
   @Input() layout: 'horizontal' | 'vertical' | 'single' = 'horizontal';
 }

@@ -32,7 +32,7 @@
             ],
             "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": ["src", "src/styles"]
+              "includePaths": ["src", "src/styles", "src/assets/scss"]
             },
             "scripts": []
           },
@@ -95,7 +95,7 @@
             "styles": ["src/styles.scss"],
             "scripts": [],
             "stylePreprocessorOptions": {
-              "includePaths": ["src", "src/styles"]
+              "includePaths": ["src", "src/styles", "src/assets/scss"]
             }
           }
         },

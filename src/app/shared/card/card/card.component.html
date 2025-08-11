@@ -1,51 +1,64 @@
-<mat-card class="card" appearance="outlined" [ngClass]="getCardStyleClass()">
+<mat-card class="card" appearance="outlined" [ngClass]="cardStyleClass()">
   <mat-card-title class="card-header">
     <div class="card-header-button">
       <span class="card-title">{{ card.title }}</span>
-      <button mat-button *ngIf="devices.length" (click)="toggleGroup()">
-        {{ getStatusLabel() }}
-      </button>
-    </div>
 
-    <mat-divider />
-
-    <div class="card-body" [ngSwitch]="layoutVariant">
-      <div *ngSwitchCase="'single'" class="card-single">
-        <app-device
-          class="card-h"
-          *ngFor="let d of devices"
-          [device]="d"
-          [label]="d.label"
-          [icon]="d.icon"
-          [(state)]="d.state"
-        />
-        <app-sensor *ngIf="sensors.length" [sensor]="sensors[0]" />
-      </div>
-
-      <div *ngSwitchCase="'horizontal'" class="card-horizontal">
-        <app-device
-          class="card-h"
-          *ngFor="let d of devices"
-          [device]="d"
-          [label]="d.label"
-          [icon]="d.icon"
-          [(state)]="d.state"
-        />
-
-        <app-sensor class="card-h" *ngFor="let s of sensors" [sensor]="s" />
-      </div>
-
-      <div *ngSwitchDefault class="card-vertical">
-        <app-device
-          class="card-h"
-          *ngFor="let d of devices"
-          [device]="d"
-          [label]="d.label"
-          [icon]="d.icon"
-          [(state)]="d.state"
-        />
-        <app-sensor class="card-v" *ngFor="let s of sensors" [sensor]="s" />
-      </div>
+      @if (devices.length) {
+        <button mat-button (click)="toggleGroup()">
+          {{ getStatusLabel() }}
+        </button>
+      }
     </div>
   </mat-card-title>
+
+  <mat-divider />
+
+  <div class="card-body">
+    @switch (layoutVariant) {
+      @case ("single") {
+        <div class="card-single">
+          @for (d of devices; track d.id) {
+            <app-device
+              class="card-h"
+              [device]="d"
+              (stateChange)="onDeviceToggled(d, $event)"
+            />
+          }
+          @if (sensors.length) {
+            <app-sensor [sensor]="sensors[0]" />
+          }
+        </div>
+      }
+
+      @case ("horizontal") {
+        <div class="card-horizontal">
+          @for (d of devices; track d.id) {
+            <app-device
+              class="card-h"
+              [device]="d"
+              (stateChange)="onDeviceToggled(d, $event)"
+            />
+          }
+          @for (s of sensors; track s.id) {
+            <app-sensor class="card-h" [sensor]="s" />
+          }
+        </div>
+      }
+
+      @default {
+        <div class="card-vertical">
+          @for (d of devices; track d.id) {
+            <app-device
+              class="card-h"
+              [device]="d"
+              (stateChange)="onDeviceToggled(d, $event)"
+            />
+          }
+          @for (s of sensors; track s.id) {
+            <app-sensor class="card-v" [sensor]="s" />
+          }
+        </div>
+      }
+    }
+  </div>
 </mat-card>

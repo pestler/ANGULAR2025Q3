@@ -8,12 +8,18 @@
   color: white;
 }
 
-.device-icon {
-  font-size: 28px;
-}
-
 .device-label {
   flex-grow: 1;
   font-weight: 500;
   font-size: 1rem;
+}
+
+.device-icon {
+  font-size: 28px;
+  color: #bdbdbd;
+  transition: color 0.3s ease;
+}
+
+.device.device-on .device-icon {
+  color: #ffc107;
 }

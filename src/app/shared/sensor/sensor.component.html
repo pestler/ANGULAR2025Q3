@@ -1,10 +1,12 @@
-<div class="sensor" [ngClass]="layout">
-  <mat-icon class="sensor-icon">{{ sensor.icon }}</mat-icon>
-  <span class="sensor-label">{{ sensor.label }}</span>
+@if (sensor) {
+  <div class="sensor" [ngClass]="layout">
+    <mat-icon class="sensor-icon">{{ sensor.icon }}</mat-icon>
+    <span class="sensor-label">{{ sensor.label }}</span>
 
-  @if (sensor?.value) {
-    <span class="sensor-value">
-      {{ sensor.value | sensorValue }}
-    </span>
-  }
-</div>
+    @if (sensor.value) {
+      <span class="sensor-value">
+        {{ sensor.value | sensorValue }}
+      </span>
+    }
+  </div>
+}

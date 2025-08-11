@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -49,48 +49,42 @@ export class CardComponent {
     return this.card.items.filter((i): i is Sensor => i.type === 'sensor');
   }
 
-  getSensorLayout(): 'horizontal' | 'vertical' {
-    return this.card.layout === 'horizontalLayout' ? 'horizontal' : 'vertical';
-  }
-
-  toggleGroup(): void {
-    const newState = !this.groupState;
-    this.devices.forEach((d) => (d.state = newState));
-  }
-
   get groupState(): boolean {
     return this.devices.some((d) => d.state);
   }
+
+  readonly cardStyleClass = computed(() => {
+    const firstItem = this.card.items[0];
+    if (firstItem?.type === 'device') {
+      return firstItem.state ? 'card--on' : 'card--off';
+    }
+    if (firstItem?.type === 'sensor') {
+      const label = firstItem.label?.toLowerCase();
+      if (label?.includes('temp')) return 'card--temp';
+      if (label?.includes('humidity')) return 'card--humidity';
+      return firstItem.value?.amount ? 'card--occupied' : 'card--clear';
+    }
+    return 'card--clear';
+  });
 
   getStatusLabel(): string {
     return this.groupState ? 'On' : 'Off';
   }
 
-  getCardStyleClass(): string {
-    const i = this.card.items[0];
-    if (i?.type === 'device') return i.state ? 'card--on' : 'card--off';
-    if (i?.type === 'sensor') {
-      const label = i.label?.toLowerCase();
-      if (label?.includes('temp')) return 'card--temp';
-      if (label?.includes('humidity')) return 'card--humidity';
-      return i.value?.amount ? 'card--occupied' : 'card--clear';
-    }
-    return 'card--clear';
+  toggleGroup(): void {
+    const newState = !this.groupState;
+
+    this.card.items = this.card.items.map((item) => {
+      if (item.type === 'device') {
+        return { ...item, state: newState };
+      }
+      return item;
+    });
   }
 
-  onDeviceToggled(device: Device): void {
-    const index = this.devices.indexOf(device);
-    if (index === -1) return;
-
-    const updated = {
-      ...device,
-      state: !device.state,
-    };
-
+  onDeviceToggled(device: Device, newState: boolean): void {
     this.card.items = this.card.items.map((item) =>
-      item.type === 'device' && this.devices.indexOf(item) === index
-        ? updated
-        : item,
+      item === device ? { ...item, state: newState } : item,
     );
   }
 }

@@ -2,15 +2,15 @@
   [selectedIndex]="selectedIndex()"
   (selectedIndexChange)="switchTab($event)"
 >
-  <mat-tab *ngFor="let tab of tabs(); let i = index" [label]="tab.id">
-    <ng-container *ngIf="cards()?.length > 0; else emptyState">
-      <app-card-list [cards]="cards()" />
-    </ng-container>
-  </mat-tab>
+  @for (tab of tabs(); track tab.id) {
+    <mat-tab [label]="tab.id">
+      @if (cards().length > 0) {
+        <app-card-list [cards]="cards()" />
+      } @else {
+        <section class="empty-state">
+          <p>No cards to display</p>
+        </section>
+      }
+    </mat-tab>
+  }
 </mat-tab-group>
-
-<ng-template #emptyState>
-  <section class="empty-state">
-    <p>No cards to display</p>
-  </section>
-</ng-template>
