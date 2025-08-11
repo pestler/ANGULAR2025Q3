@@ -1,61 +1,46 @@
-.connection-box.height-40 .mat-mdc-form-field-infix {
-  padding: 0;
-}
+@use "tokens" as t;
 
-/* stylelint-disable selector-class-pattern */
-.connection-box
-  .mat-mdc-text-field-wrapper
-  .mdc-text-field--outlined
-  .mat-mdc-form-field-infix {
-  padding-left: 10px;
-}
-/* stylelint-enable selector-class-pattern */
-
-/* === MAT CHIP === */
 .mat-mdc-chip.mat-primary {
-  border-radius: 4px;
+  border-radius: t.$radius-sm;
 }
 
-/* === TOOLTIP === */
 .mdc-tooltip-surface {
-  background-color: #333;
-  color: white;
+  background-color: t.$background-dark-color;
+  color: t.$text-light-color;
 }
 
-/* === GO-TO-TOP ICON === */
 .mdc-icon-button.go-to-top {
   position: fixed;
-  bottom: 70px;
-  right: 12px;
+  bottom: t.$spacing-xl * 2;
+  right: t.$spacing-sm;
 }
 
-/* === PAGINATOR === */
 .mat-paginator-sticky {
   bottom: 0;
   position: sticky;
   z-index: 10;
 }
 
-/* === LINKS === */
-mat-icon.link {
+.app-link-icon {
   vertical-align: middle;
-  color: #6495ed;
+  color: var(--color-route);
 }
 
-mat-icon.link:hover {
-  color: #81a6e9;
+.app-link-icon:hover {
+  filter: brightness(1.2);
 }
 
-a.link,
-a.link:visited {
-  color: #6495ed;
+.app-link-text,
+.app-link-text:visited {
+  color: var(--color-route);
+  text-decoration: none;
 }
 
-a.link:hover {
-  color: #81a6e9;
+.app-link-text:hover {
+  text-decoration: underline;
+  filter: brightness(1.2);
 }
 
-/* === TEXT ALIGNMENT === */
 .text-align-center {
   text-align: center;
 }
@@ -64,53 +49,30 @@ a.link:hover {
   text-align: right;
 }
 
-.text-align-right-i {
-  text-align: right !important;
-}
-
-/* === TYPOGRAPHY === */
-.monospace {
+.font-monospace {
   font-family: monospace;
 }
 
-.semi-bold {
+.font-weight-medium {
   font-weight: 500;
 }
 
-.bold {
+.font-weight-bold {
   font-weight: bold;
 }
 
-.italic {
+.font-style-italic {
   font-style: italic;
 }
 
-.text-small-7 {
-  font-size: 0.7rem !important;
+.font-size-sm {
+  font-size: t.$font-size-sm;
 }
 
-.text-small {
-  font-size: 0.8rem !important;
-}
-
-/* === BREAK CONTROL === */
 .word-break-all {
-  word-break: break-all !important;
+  word-break: break-all;
 }
 
-.word-break-word {
-  overflow-wrap: break-word !important;
-}
-
-/* === BODY FONT === */
-@font-face {
-  font-family: CustomFont;
-  src: url("../fonts/KFOlCnqEu92Fr1MmEU9fBBc4.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-.body-text {
-  font-family: CustomFont, sans-serif;
+.overflow-wrap-word {
+  overflow-wrap: break-word;
 }

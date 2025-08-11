@@ -7,9 +7,9 @@
 }
 
 @font-face {
-  font-family: ShareTechMono-Regular;
+  font-family: "Share Tech Mono";
   src: url("../fonts/ShareTechMono-Regular.ttf") format("truetype");
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -18,9 +18,9 @@
   font-family: "Material Icons", sans-serif;
   font-weight: normal;
   font-style: normal;
-  font-size: 24px !important;
-  height: 24px !important;
-  width: 24px !important;
+  font-size: 24px;
+  height: 24px;
+  width: 24px;
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -31,7 +31,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Roboto fonts — latin-ext and latin with fallback */
 @font-face {
   font-family: Roboto;
   font-style: normal;
