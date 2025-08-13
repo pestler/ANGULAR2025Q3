@@ -1,13 +1,14 @@
 .logout-label,
 .rs-label,
 .user-name {
-  display: block; // или inline-block
+  display: block;
   white-space: nowrap;
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
 
   &.hidden {
     opacity: 0;
+    display: none;
     pointer-events: none;
   }
 }
