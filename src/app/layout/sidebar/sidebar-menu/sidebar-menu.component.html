@@ -6,10 +6,14 @@
       [ngClass]="{ active: item === activeItem() }"
       [attr.aria-current]="item === activeItem() ? 'page' : null"
     >
-      @if (item.icon) {
-        <i [ngClass]="item.icon" aria-hidden="true"></i>
-      }
+      @if (item.icon) {}
+      <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
       <span>{{ item.label }}</span>
     </a>
+  } @empty {
+    <div>
+      You don’t have any dashboards yet. They’ll appear here as soon as you
+      create them
+    </div>
   }
 </nav>

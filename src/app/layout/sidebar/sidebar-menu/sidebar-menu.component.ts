@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DashboardService } from 'app/core/services/dashboard.service';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface SidebarItem {
   label: string;
@@ -15,14 +16,13 @@ export interface SidebarItem {
 @Component({
   selector: 'app-sidebar-menu',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, MatIconModule],
   templateUrl: './sidebar-menu.component.html',
   styleUrls: ['./sidebar-menu.component.scss'],
 })
 export class SidebarMenuComponent {
   private readonly router = inject(Router);
   private readonly dashboardService = inject(DashboardService);
-  constructor() {}
 
   readonly currentDashboardId = toSignal(
     this.router.events.pipe(
@@ -36,9 +36,9 @@ export class SidebarMenuComponent {
 
   readonly items = computed(() =>
     this.dashboardService.dashboards().map((d) => ({
-      label: d.title,
       route: `/dashboard/${d.id}`,
-      icon: `icon-${d.icon}`,
+      icon: d.icon,
+      label: d.title,
       dashboardId: d.id,
     })),
   );
