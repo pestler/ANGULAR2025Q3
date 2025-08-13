@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { AuthService } from 'app/core/auth.service';
@@ -11,6 +11,8 @@ import { AuthService } from 'app/core/auth.service';
   imports: [MatIconModule, RouterLink],
 })
 export class SidebarFooterComponent {
+  @Input() isClosed = false;
+  @Input() isTablet = false;
   // eslint-disable-next-line no-unused-vars
   constructor(public auth: AuthService) {}
 

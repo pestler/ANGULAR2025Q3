@@ -1,69 +1,7 @@
-.sidebar {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  border-right: 1px solid #ddd;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1;
-
-  .sidebar-list,
-  .sidebar-footer {
-    width: min-content;
-    opacity: 1;
-    pointer-events: auto;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  &.closed {
-    width: 48px;
-    min-width: 48px;
-    border-right: none;
-
-    .sidebar-list,
-    .sidebar-footer {
-      width: min-content;
-      opacity: 0;
-      pointer-events: none;
-    }
-  }
-
-  &.collapsed {
-    display: none;
-    transform: translateX(-100%);
-    transition: transform 0.5s ease-in-out;
-  }
-
-  &.tablet-open {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: min-content;
-    transform: translateX(0);
-    z-index: 1000;
-    box-shadow: 2px 0 12px rgb(0 0 0 / 20%);
-    background-color: #333;
-    border-right: 1px solid #e0e0e0;
-
-    .sidebar-list,
-    .sidebar-footer {
-      width: min-content;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    &.burger-button {
-      display: none;
-    }
-  }
-}
-
 .burger-button {
   position: absolute;
   top: 28px;
-  left: 8px;
+  left: 15px;
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -100,5 +38,45 @@
 
   &::after {
     top: 21px;
+  }
+}
+
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #e0e0e0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+
+  &.closed {
+    width: auto;
+  }
+
+  &.collapsed {
+    display: none;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  &.tablet-open {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    transform: translateX(0);
+    z-index: 1000;
+    box-shadow: 2px 0 12px rgb(0 0 0 / 20%);
+    background-color: #333;
+    border-right: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+
+    .burger-button {
+      display: none;
+    }
   }
 }

@@ -1,4 +1,10 @@
-<header class="sidebar-header" [class.closed]="!isOpen">
+<header class="sidebar-header">
   <span class="burger-button"></span>
-  <h2 class="sidebar-title">Smart Home UI</h2>
+  <h2
+    class="header-title"
+    [class.hidden]="isClosed"
+    [class.tablet-view]="isTablet"
+  >
+    Smart Home UI
+  </h2>
 </header>

@@ -7,14 +7,25 @@
       aria-label="Logout"
     >
       <mat-icon>logout</mat-icon>
-      <span class="logout-label">Logout</span>
+      <span
+        class="logout-label"
+        [class.hidden]="isClosed"
+        [class.tablet-view]="isTablet"
+        >Logout</span
+      >
     </a>
   </div>
 
   @if (auth.profile(); as user) {
     <div class="user-info">
+      <div
+        class="user-name"
+        [class.hidden]="isClosed"
+        [class.tablet-view]="isTablet"
+      >
+        {{ user.fullName }}
+      </div>
       <div class="initials-circle">{{ user.initials }}</div>
-      <div class="user-name">{{ user.fullName }}</div>
     </div>
   } @else {
     <div class="user-info">
@@ -23,8 +34,14 @@
   }
 
   <div class="rs-container">
-    <span class="rs-icon">RS</span>
-    <span class="rs-label">
+    <span class="rs-icon">
+      <a href="https://rs.school/courses/angular" class="rs-link"> RS </a>
+    </span>
+    <span
+      class="rs-label"
+      [class.hidden]="isClosed"
+      [class.tablet-view]="isTablet"
+    >
       <a href="https://rs.school/courses/angular" class="rs-link">
         RS School. Angular
       </a>

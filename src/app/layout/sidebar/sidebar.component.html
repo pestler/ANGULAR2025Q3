@@ -1,6 +1,6 @@
 <span
   class="burger-button"
-  [class.hidden]="isTablet() && isTabletOpen"
+  [class.hidden]="isTablet() && isTabletOpen()"
   role="button"
   tabindex="0"
   aria-label="Toggle menu"
@@ -12,9 +12,19 @@
 
 <ng-template #sidebarContent>
   <div class="sidebar-list">
-    <app-sidebar-header></app-sidebar-header>
-    <app-sidebar-menu></app-sidebar-menu>
-    <app-sidebar-footer></app-sidebar-footer>
+    <app-sidebar-header
+      [isClosed]="!isOpen()"
+      [isTablet]="isTablet()"
+    ></app-sidebar-header>
+
+    <app-sidebar-menu
+      [isClosed]="!isOpen()"
+      [isTablet]="isTablet()"
+    ></app-sidebar-menu>
+    <app-sidebar-footer
+      [isClosed]="!isOpen()"
+      [isTablet]="isTablet()"
+    ></app-sidebar-footer>
   </div>
 </ng-template>
 

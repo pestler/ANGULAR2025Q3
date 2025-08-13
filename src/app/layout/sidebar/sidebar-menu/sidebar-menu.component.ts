@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, Input } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DashboardService } from 'app/core/services/dashboard.service';
 import { filter, map } from 'rxjs/operators';
@@ -23,6 +23,8 @@ export interface SidebarItem {
 export class SidebarMenuComponent {
   private readonly router = inject(Router);
   private readonly dashboardService = inject(DashboardService);
+  @Input() isClosed = false;
+  @Input() isTablet = false;
 
   readonly currentDashboardId = toSignal(
     this.router.events.pipe(

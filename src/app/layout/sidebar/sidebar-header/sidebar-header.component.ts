@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./sidebar-header.component.scss'],
 })
 export class SidebarHeaderComponent {
-  @Input() isOpen = true;
+  @Input() isClosed = false;
+  @Input() isTablet = false;
 }

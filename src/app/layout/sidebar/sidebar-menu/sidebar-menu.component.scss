@@ -31,3 +31,16 @@
     background-color: #03a9f4 !important;
   }
 }
+
+.sidebar-title {
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+
+  &.hidden,
+  .tablet-view {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+  }
+}
