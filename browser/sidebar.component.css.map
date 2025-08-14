@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/sidebar/sidebar.component.scss"],
+  "sourcesContent": [".sidebar {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  width: 250px;\n  height: 100vh;\n  border-right: 1px solid #ddd;\n  border-left: 1px solid #e0e0e0;\n  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  z-index: 1;\n\n  &.closed {\n    width: auto;\n  }\n\n  &.collapsed {\n    width: auto;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  &.tablet-open {\n    position: relative;\n    top: 0;\n    left: 0;\n    height: 100vh;\n    width: 250px;\n    transform: translateX(0);\n    z-index: 1000;\n    box-shadow: 2px 0 12px rgb(0 0 0 / 20%);\n    border-right: 1px solid #e0e0e0;\n    border-left: 1px solid #e0e0e0;\n  }\n}\n"],
+  "mappings": "AAAA,CAAA,QACE,SAAA,SACA,QAAA,KACA,eAAA,OACA,MAAA,MACA,OAAA,MACA,aAAA,IAAA,MAAA,KACA,YAAA,IAAA,MAAA,QACA,WAAA,MAAA,IAAA,aAAA,EAAA,CAAA,CAAA,CAAA,EAAA,CAAA,GACA,QAAA,EAEA,CAXF,OAWE,CAAA,OACE,MAAA,KAGF,CAfF,OAeE,CAAA,UACE,MAAA,KACA,WAAA,UAAA,IAAA,YAGF,CApBF,OAoBE,CAAA,YACE,SAAA,SACA,IAAA,EACA,KAAA,EACA,OAAA,MACA,MAAA,MACA,UAAA,UAAA,GACA,QAAA,KACA,WAAA,IAAA,EAAA,KAAA,MACA,aAAA,IAAA,MAAA,QACA,YAAA,IAAA,MAAA",
+  "names": []
+}
