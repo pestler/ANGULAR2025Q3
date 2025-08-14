@@ -1,49 +1,47 @@
-<footer class="sidebar-footer">
-  @if (auth.profile(); as user) {
-    <div class="user-info">
-      <div
-        class="user-name"
-        [class.hidden]="isClosed"
-        [class.tablet-view]="isTablet"
-      >
-        {{ user.fullName }}
-      </div>
-      <div class="initials-circle">{{ user.initials }}</div>
-    </div>
-  } @else {
-    <div class="user-info">
-      <div class="user-name">anonym user</div>
-    </div>
-  }
-  <div class="logout-container">
-    <a
-      class="logout-button"
-      [routerLink]="['/login']"
-      (click)="logout()"
-      aria-label="Logout"
-    >
-      <mat-icon>logout</mat-icon>
-      <span
-        class="logout-label"
-        [class.hidden]="isClosed"
-        [class.tablet-view]="isTablet"
-        >Logout</span
-      >
-    </a>
-  </div>
-
-  <div class="rs-container">
-    <span class="rs-icon">
-      <a href="https://rs.school/courses/angular" class="rs-link"> RS </a>
-    </span>
-    <span
-      class="rs-label"
+@if (auth.profile(); as user) {
+  <div class="user-info">
+    <div
+      class="user-name"
       [class.hidden]="isClosed"
       [class.tablet-view]="isTablet"
     >
-      <a href="https://rs.school/courses/angular" class="rs-link">
-        RS School. Angular
-      </a>
-    </span>
+      {{ user.fullName }}
+    </div>
+    <div class="initials-circle">{{ user.initials }}</div>
   </div>
-</footer>
+} @else {
+  <div class="user-info">
+    <div class="user-name">anonym user</div>
+  </div>
+}
+<div class="logout-container">
+  <a
+    class="logout-button"
+    [routerLink]="['/login']"
+    (click)="logout()"
+    aria-label="Logout"
+  >
+    <mat-icon>logout</mat-icon>
+    <span
+      class="logout-label"
+      [class.hidden]="isClosed"
+      [class.tablet-view]="isTablet"
+      >Logout</span
+    >
+  </a>
+</div>
+
+<div class="rs-container">
+  <span class="rs-icon">
+    <a href="https://rs.school/courses/angular" class="rs-link"> RS </a>
+  </span>
+  <span
+    class="rs-label"
+    [class.hidden]="isClosed"
+    [class.tablet-view]="isTablet"
+  >
+    <a href="https://rs.school/courses/angular" class="rs-link">
+      RS School. Angular
+    </a>
+  </span>
+</div>

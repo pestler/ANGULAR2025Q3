@@ -1,9 +1,13 @@
+app-sidebar-footer {
+  flex-grow: 1;
+}
+
 .sidebar {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 250px;
-  height: 100vh;
+  height: 100%;
   border-right: 1px solid #ddd;
   border-left: 1px solid #e0e0e0;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -22,7 +26,7 @@
     position: relative;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100%;
     width: 250px;
     transform: translateX(0);
     z-index: 1000;
@@ -30,4 +34,11 @@
     border-right: 1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
   }
+}
+
+.sidebar-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }

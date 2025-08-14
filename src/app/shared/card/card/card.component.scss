@@ -7,7 +7,7 @@
   box-sizing: border-box;
   width: max-content;
 
-  @media (width <= 560px) {
+  @media (width <=560px) {
     width: 100%;
   }
 }
@@ -70,10 +70,20 @@
   flex-direction: row;
   display: flex;
   width: 100%;
+  justify-content: space-between;
+  background-color: var(--mat-sys-surface-container-high);
+
+  @media (width <=420px) {
+    flex-direction: column;
+  }
 }
 
 .card-vertical {
   flex-direction: column;
   display: flex;
   width: 100%;
+
+  @media (width <=420px) {
+    flex-direction: column;
+  }
 }
