@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/layout/shell/shell.component.scss"],
-  "sourcesContent": [".shell-layout {\n  display: flex;\n  height: 100vh;\n  width: 100%;\n}\n\n.shell-content {\n  flex: 1;\n  overflow: auto;\n}\n"],
-  "mappings": "AAAA,CAAA,aACE,QAAA,KACA,OAAA,MACA,MAAA,KAGF,CAAA,cACE,KAAA,EACA,SAAA",
-  "names": []
-}

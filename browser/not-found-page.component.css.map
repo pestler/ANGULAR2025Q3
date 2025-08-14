@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/layout/pages/not-found/not-found-page.component.scss"],
-  "sourcesContent": ["mat-card {\n  text-align: center;\n  margin: 2rem auto;\n  max-width: 400px;\n}\n"],
-  "mappings": "AAAA,SACE,WAAA,OADF,OAEE,KAAA,KACA,UAAA",
-  "names": []
-}

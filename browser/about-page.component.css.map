@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/layout/pages/about/about-page.component.scss"],
-  "sourcesContent": [".about-box {\n  padding: 3rem 4rem;\n}\n\n.title {\n  font-size: 3rem;\n  font-weight: 600;\n  margin-bottom: 12px;\n}\n\n.section-title {\n  font-size: 2rem;\n  font-weight: 500;\n  margin-top: 24px;\n  margin-bottom: 8px;\n}\n\n.features,\n.tech-stack {\n  padding-left: 16px;\n  margin-bottom: 16px;\n}\n\n.intro {\n  font-size: 16px;\n  line-height: 1.6;\n}\n\n.footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-top: 24px;\n  font-size: 14px;\n}\n\n.alias {\n  font-style: italic;\n  margin-left: 4px;\n}\n"],
-  "mappings": "AAAA,CAAA,UAAA,QACE,KAAA,KAGF,CAAA,MACE,UAAA,KACA,YAAA,IACA,cAAA,KAGF,CAAA,cACE,UAAA,KACA,YAAA,IACA,WAAA,KACA,cAAA,IAGF,CAAA,SAAA,CAAA,WAEE,aAAA,KACA,cAAA,KAGF,CAAA,MACE,UAAA,KACA,YAAA,IAGF,CAAA,OACE,QAAA,KACA,gBAAA,cACA,YAAA,OACA,WAAA,KACA,UAAA,KAGF,CAAA,MACE,WAAA,OACA,YAAA",
-  "names": []
-}
