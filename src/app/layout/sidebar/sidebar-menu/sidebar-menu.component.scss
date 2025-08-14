@@ -13,11 +13,6 @@
   column-gap: 1rem;
   transition: background-color linear 0.25s;
 
-  i {
-    font-size: 1rem;
-    color: inherit;
-  }
-
   &.active {
     background-color: #03a9f4 !important;
   }
@@ -30,15 +25,28 @@
     outline: none;
     background-color: #03a9f4 !important;
   }
+
+  .sidebar.closed &,
+  .sidebar.collapsed & {
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  i {
+    font-size: 1rem;
+    color: inherit;
+  }
 }
 
 .sidebar-title {
   white-space: nowrap;
   opacity: 1;
-  transition: opacity 0.2s ease-in-out;
+  transition:
+    opacity 0.2s ease-in-out,
+    width 0.2s ease-in-out;
+  width: auto;
 
-  &.hidden,
-  .tablet-view {
+  &.hidden {
     opacity: 0;
     display: none;
     pointer-events: none;

@@ -4,6 +4,8 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { SidebarFooterComponent } from './sidebar-footer/sidebar-footer.component';
 import { CloseSidebarOnOutsideClickDirective } from 'app/shared/directives/close-sidebar-on-outside-click.directive';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +16,8 @@ import { CommonModule } from '@angular/common';
     SidebarFooterComponent,
     CloseSidebarOnOutsideClickDirective,
     CommonModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
@@ -46,8 +50,9 @@ export class SidebarComponent {
 
   toggleSidebar(): void {
     if (this.isTablet()) {
-      this.isTabletOpen.set(true);
-      this.isOpen.set(true);
+      this.isTabletOpen.update((currentValue) => !currentValue);
+
+      this.isOpen.set(this.isTabletOpen());
     } else {
       this.isOpen.update((currentValue) => !currentValue);
       this.isTabletOpen.set(false);

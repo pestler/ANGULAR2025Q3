@@ -1,18 +1,7 @@
-<span
-  class="burger-button"
-  [class.hidden]="isTablet() && isTabletOpen()"
-  role="button"
-  tabindex="0"
-  aria-label="Toggle menu"
-  (click)="toggleSidebar()"
-  (keydown.enter)="toggleSidebar()"
->
-  <span></span>
-</span>
-
 <ng-template #sidebarContent>
   <div class="sidebar-list">
     <app-sidebar-header
+      (toggle)="toggleSidebar()"
       [isClosed]="!isOpen()"
       [isTablet]="isTablet()"
     ></app-sidebar-header>
