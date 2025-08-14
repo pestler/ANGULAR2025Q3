@@ -1,21 +1,4 @@
 <footer class="sidebar-footer">
-  <div class="logout-container">
-    <a
-      class="logout-button"
-      [routerLink]="['/login']"
-      (click)="logout()"
-      aria-label="Logout"
-    >
-      <mat-icon>logout</mat-icon>
-      <span
-        class="logout-label"
-        [class.hidden]="isClosed"
-        [class.tablet-view]="isTablet"
-        >Logout</span
-      >
-    </a>
-  </div>
-
   @if (auth.profile(); as user) {
     <div class="user-info">
       <div
@@ -32,6 +15,22 @@
       <div class="user-name">anonym user</div>
     </div>
   }
+  <div class="logout-container">
+    <a
+      class="logout-button"
+      [routerLink]="['/login']"
+      (click)="logout()"
+      aria-label="Logout"
+    >
+      <mat-icon>logout</mat-icon>
+      <span
+        class="logout-label"
+        [class.hidden]="isClosed"
+        [class.tablet-view]="isTablet"
+        >Logout</span
+      >
+    </a>
+  </div>
 
   <div class="rs-container">
     <span class="rs-icon">

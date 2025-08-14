@@ -7,7 +7,7 @@
       [attr.aria-current]="item === activeItem() ? 'page' : null"
     >
       @if (item.icon) {}
-      <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+      <mat-icon class="item-icon" aria-hidden="true">{{ item.icon }}</mat-icon>
       <span
         class="sidebar-title"
         [class.hidden]="isClosed"
