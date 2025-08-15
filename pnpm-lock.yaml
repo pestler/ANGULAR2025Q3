@@ -31,6 +31,18 @@ importers:
       "@angular/router":
         specifier: ^20.1.0
         version: 20.1.6(@angular/common@20.1.6(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.6(@angular/animations@20.1.6(@angular/common@20.1.6(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.6(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
+      "@ngrx/effects":
+        specifier: ^20.0.0
+        version: 20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(@ngrx/store@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(rxjs@7.8.2)
+      "@ngrx/entity":
+        specifier: ^20.0.0
+        version: 20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(@ngrx/store@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(rxjs@7.8.2)
+      "@ngrx/store":
+        specifier: ^20.0.0
+        version: 20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      immer:
+        specifier: ^10.1.1
+        version: 10.1.1
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -2649,6 +2661,35 @@ packages:
         integrity: sha512-Sqih1YARrmMoHlXGgI9JrrgkzxcaaEso0AH+Y7j8NHonUs+xe4iDsgC3IBIDNdzEewbNpccNN6hip+b5vmyRLw==,
       }
     engines: { node: ">= 10" }
+
+  "@ngrx/effects@20.0.0":
+    resolution:
+      {
+        integrity: sha512-iwNNPaDwGK7KGOEa1FBOvzLiJdgto8/Ba5ALH9pWsonGoEtQdaS6qUwG8DBA4G2xj+1DYKg6/jIghlKXX1nA6g==,
+      }
+    peerDependencies:
+      "@angular/core": ^20.0.0
+      "@ngrx/store": 20.0.0
+      rxjs: ^6.5.3 || ^7.5.0
+
+  "@ngrx/entity@20.0.0":
+    resolution:
+      {
+        integrity: sha512-2smrxb0c3ceLPYt+VbZnM+VZSaT18JAEKqHB+jVasUYOWgXlZUUVC4syoqb2RiR2ek0Em0swlBC46XkB0Qu1Hw==,
+      }
+    peerDependencies:
+      "@angular/core": ^20.0.0
+      "@ngrx/store": 20.0.0
+      rxjs: ^6.5.3 || ^7.5.0
+
+  "@ngrx/store@20.0.0":
+    resolution:
+      {
+        integrity: sha512-UVj6UVayXknq1V/OXSGAVG+CdSXYg+oFM6T4aplcP2fuq/4oHtnVi93hkIYa9OU+rhAuHvfRsOsGsTtxlpj52w==,
+      }
+    peerDependencies:
+      "@angular/core": ^20.0.0
+      rxjs: ^6.5.3 || ^7.5.0
 
   "@ngtools/webpack@20.1.5":
     resolution:
@@ -5777,6 +5818,12 @@ packages:
       }
     engines: { node: ">=0.10.0" }
     hasBin: true
+
+  immer@10.1.1:
+    resolution:
+      {
+        integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==,
+      }
 
   immutable@5.1.3:
     resolution:
@@ -11088,6 +11135,26 @@ snapshots:
       "@napi-rs/nice-win32-x64-msvc": 1.0.4
     optional: true
 
+  "@ngrx/effects@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(@ngrx/store@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(rxjs@7.8.2)":
+    dependencies:
+      "@angular/core": 20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1)
+      "@ngrx/store": 20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      rxjs: 7.8.2
+      tslib: 2.8.1
+
+  "@ngrx/entity@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(@ngrx/store@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(rxjs@7.8.2)":
+    dependencies:
+      "@angular/core": 20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1)
+      "@ngrx/store": 20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      rxjs: 7.8.2
+      tslib: 2.8.1
+
+  "@ngrx/store@20.0.0(@angular/core@20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)":
+    dependencies:
+      "@angular/core": 20.1.6(@angular/compiler@20.1.6)(rxjs@7.8.2)(zone.js@0.15.1)
+      rxjs: 7.8.2
+      tslib: 2.8.1
+
   "@ngtools/webpack@20.1.5(@angular/compiler-cli@20.1.6(@angular/compiler@20.1.6)(typescript@5.8.3))(typescript@5.8.3)(webpack@5.99.9(esbuild@0.25.5))":
     dependencies:
       "@angular/compiler-cli": 20.1.6(@angular/compiler@20.1.6)(typescript@5.8.3)
@@ -13071,6 +13138,8 @@ snapshots:
 
   image-size@0.5.5:
     optional: true
+
+  immer@10.1.1: {}
 
   immutable@5.1.3: {}
 

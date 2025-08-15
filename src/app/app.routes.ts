@@ -23,7 +23,7 @@ export const routes: Routes = [
       {
         path: ':dashboardId',
         loadComponent: () =>
-          import('./dashboard/sections/smart-view/smart-view.component').then(
+          import('./dashboard/dashboard.component').then(
             (m) => m.SmartViewComponent,
           ),
       },

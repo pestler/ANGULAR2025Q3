@@ -9,11 +9,11 @@ import { CardListComponent } from 'app/shared/card/card-list/card-list.component
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-smart-view',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [MatTabsModule, CardListComponent],
-  templateUrl: './smart-view.component.html',
-  styleUrls: ['./smart-view.component.scss'],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class SmartViewComponent {
   private readonly route = inject(ActivatedRoute);
