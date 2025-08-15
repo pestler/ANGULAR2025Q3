@@ -12,7 +12,7 @@ html {
   );
 }
 
-body.dark-theme {
+body[data-theme="dark"] {
   color-scheme: dark;
 }
 

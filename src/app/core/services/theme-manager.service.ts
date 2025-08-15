@@ -37,19 +37,12 @@ export class ThemeManagerService {
   private setTheme(isDark: boolean): void {
     this.isDarkMode.set(isDark);
 
-    const themeClass = 'dark-theme';
-    const overlayContainerElement = this.overlayContainer.getContainerElement();
+    const themeToSet = isDark ? 'dark' : 'light';
+    this.renderer.setAttribute(this.document.body, 'data-theme', themeToSet);
+    this.overlayContainer
+      .getContainerElement()
+      .setAttribute('data-theme', themeToSet);
 
-    if (isDark) {
-      this.renderer.addClass(this.document.body, themeClass);
-
-      overlayContainerElement.classList.add(themeClass);
-      localStorage.setItem('home-ui-theme', 'dark');
-    } else {
-      this.renderer.removeClass(this.document.body, themeClass);
-
-      overlayContainerElement.classList.remove(themeClass);
-      localStorage.setItem('home-ui-theme', 'light');
-    }
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }
 }
