@@ -125,6 +125,20 @@ export const dashboardReducer = createReducer(
       };
     },
   ),
+  on(DashboardActions.removeTab, (state, { tabId }) => {
+    if (!state.dashboard) {
+      return state;
+    }
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+
+        tabs: state.dashboard.tabs.filter((tab) => tab.id !== tabId),
+      },
+    };
+  }),
 );
 
 export const featureKey = 'selectedDashboard';

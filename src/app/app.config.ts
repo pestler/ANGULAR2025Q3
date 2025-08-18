@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import {
 } from './store/dashboard/dashboard.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { DashboardEffects } from './store/dashboard/dashboard.effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,5 +33,6 @@ export const appConfig: ApplicationConfig = {
     }),
 
     provideEffects([DashboardEffects]),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

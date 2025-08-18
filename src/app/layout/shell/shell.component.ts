@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { AuthService } from 'app/core/auth.service';
+
+import { DashboardService } from 'app/core/services/dashboard.service';
 
 @Component({
   selector: 'app-shell',
@@ -10,6 +12,12 @@ import { AuthService } from 'app/core/auth.service';
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
 })
-export class ShellComponent {
+export class ShellComponent implements OnInit {
   auth = inject(AuthService);
+
+  private dashboardService = inject(DashboardService);
+
+  ngOnInit(): void {
+    this.dashboardService.load();
+  }
 }

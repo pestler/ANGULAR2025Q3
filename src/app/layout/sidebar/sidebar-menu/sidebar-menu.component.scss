@@ -58,3 +58,16 @@
   height: auto;
   font-size: 30px;
 }
+
+.empty {
+  font: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  color: inherit;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  transition: background-color linear 0.25s;
+  width: 200px;
+}

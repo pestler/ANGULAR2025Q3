@@ -1,16 +1,54 @@
-<mat-tab-group
-  [selectedIndex]="selectedIndex()"
-  (selectedIndexChange)="switchTab($event)"
->
-  @for (tab of tabs(); track tab.id) {
-    <mat-tab [label]="tab.id">
-      @if (cards().length > 0) {
-        <app-card-list [cards]="cards()" />
-      } @else {
-        <section class="empty-state">
-          <p>No cards to display</p>
-        </section>
-      }
-    </mat-tab>
+<mat-toolbar class="edit-toolbar">
+  <span class="toolbar-title">{{ (dashboard$ | async)?.title }}</span>
+  <span class="toolbar-spacer"></span>
+
+  @if (!isEditMode()) {
+    <button
+      mat-icon-button
+      (click)="enterEditMode()"
+      matTooltip="Edit Dashboard"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" matTooltip="Delete Dashboard">
+      <mat-icon>delete</mat-icon>
+    </button>
   }
-</mat-tab-group>
+
+  @if (isEditMode()) {
+    <button mat-flat-button color="primary" (click)="saveChanges()">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+    <button mat-stroked-button (click)="discardChanges()">
+      <mat-icon>cancel</mat-icon>
+      Discard
+    </button>
+  }
+</mat-toolbar>
+
+<!-- Используем новый синтаксис @if / @else -->
+@if (!isLoading()) {
+  <mat-tab-group
+    [selectedIndex]="selectedIndex()"
+    (selectedIndexChange)="switchTab($event)"
+  >
+    @for (tab of tabs(); track tab.id) {
+      <mat-tab [label]="tab.title">
+        @if (cards().length > 0) {
+          <!-- Передаем карточки в дочерний компонент -->
+          <app-card-list [cards]="cards()" />
+        } @else {
+          <!-- Состояние, если карточек нет -->
+          <section class="empty-state">
+            <p>This tab has no cards yet.</p>
+            <!-- Здесь можно будет добавить кнопку "Add Card" в режиме редактирования -->
+          </section>
+        }
+      </mat-tab>
+    }
+  </mat-tab-group>
+} @else {
+  <!-- Этот блок будет показан, пока isLoading() === true -->
+  <div>Loading dashboard...</div>
+}
