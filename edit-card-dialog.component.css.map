@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/shared/dialogs/edit-card-dialog/edit-card-dialog.component.scss"],
+  "sourcesContent": ["[cdkDragHandle] {\n  cursor: move;\n}\n"],
+  "mappings": "AAAA,CAAA,eACE,OAAA",
+  "names": []
+}

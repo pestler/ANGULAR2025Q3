@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/shared/dialogs/select-card-layout/select-card-layout.component.scss"],
+  "sourcesContent": [".layout-options {\n  display: flex;\n  gap: 16px;\n  margin-top: 20px;\n}\n\n.layout-option {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 20px;\n  border: 1px solid rgb(0 0 0 / 12%);\n  border-radius: 8px;\n  cursor: pointer;\n  transition:\n    background-color 0.2s,\n    box-shadow 0.2s;\n\n  &:hover {\n    background-color: rgb(0 0 0 / 4%);\n    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);\n  }\n\n  mat-icon {\n    font-size: 48px;\n    width: 48px;\n    height: 48px;\n    margin-bottom: 12px;\n  }\n\n  span {\n    font-weight: 500;\n  }\n\n  small {\n    font-size: 12px;\n    color: rgb(0 0 0 / 60%);\n    text-align: center;\n    margin-top: 4px;\n  }\n}\n"],
+  "mappings": "AAAA,CAAA,eACE,QAAA,KACA,IAAA,KACA,WAAA,KAGF,CAAA,cACE,KAAA,EACA,QAAA,KACA,eAAA,OACA,YAAA,OACA,gBAAA,OAXF,QAYE,KACA,OAAA,IAAA,MAAA,KAAA,CAAA,CAAA,CAAA,CAAA,CAAA,CAAA,KAbF,cAcE,IACA,OAAA,QACA,WACE,iBAAA,GAAA,CAAA,WAAA,IAGF,CAdF,aAcE,OACE,iBAAA,UACA,WAAA,EAAA,IAAA,IAAA,UAGF,CAnBF,cAmBE,SACE,UAAA,KACA,MAAA,KACA,OAAA,KACA,cAAA,KAGF,CA1BF,cA0BE,KACE,YAAA,IAGF,CA9BF,cA8BE,MACE,UAAA,KACA,MAAA,MACA,WAAA,OACA,WAAA",
+  "names": []
+}
