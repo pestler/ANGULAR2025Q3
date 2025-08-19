@@ -24,6 +24,18 @@ export class DashboardService {
   getDashboard = (id: string): Dashboard | null =>
     this.dashboardMap()[id] ?? null;
 
+  public updateLocalDashboardTitle(id: string, newTitle: string): void {
+    this.dashboards.update((currentDashboards) => {
+      return currentDashboards.map((dashboard) => {
+        if (dashboard.id === id) {
+          return { ...dashboard, title: newTitle };
+        }
+
+        return dashboard;
+      });
+    });
+  }
+
   async load(forceReload = false): Promise<void> {
     if (forceReload) {
       this.loadPromise = null;

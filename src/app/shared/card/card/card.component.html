@@ -2,13 +2,29 @@
   <mat-card-title class="card-header">
     <div class="card-header-button">
       <span class="card-title">{{ card.title }}</span>
-
-      @if (devices.length) {
-        <button mat-button (click)="toggleGroup()">
-          {{ getStatusLabel() }}
-        </button>
-      }
     </div>
+
+    @if (isEditMode) {
+      <span class="card-menu-spacer"></span>
+      <button
+        #menuTrigger
+        mat-icon-button
+        [matMenuTriggerFor]="cardMenu"
+        (click)="$event.stopPropagation()"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #cardMenu="matMenu">
+        <button mat-menu-item (click)="edit.emit(menuTrigger)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit Content</span>
+        </button>
+        <button mat-menu-item (click)="removeCard()">
+          <mat-icon>delete</mat-icon>
+          <span>Remove Card</span>
+        </button>
+      </mat-menu>
+    }
   </mat-card-title>
 
   <mat-divider />
@@ -18,11 +34,7 @@
       @case ("single") {
         <div class="card-single">
           @for (d of devices; track d.id) {
-            <app-device
-              class="card-h"
-              [device]="d"
-              (stateChange)="onDeviceToggled(d, $event)"
-            />
+            <app-device class="card-h" [device]="d" />
           }
           @if (sensors.length) {
             <app-sensor [sensor]="sensors[0]" />
@@ -33,11 +45,7 @@
       @case ("horizontal") {
         <div class="card-horizontal">
           @for (d of devices; track d.id) {
-            <app-device
-              class="card-h"
-              [device]="d"
-              (stateChange)="onDeviceToggled(d, $event)"
-            />
+            <app-device class="card-h" [device]="d" />
           }
           @for (s of sensors; track s.id) {
             <app-sensor class="card-h" [sensor]="s" />
@@ -48,11 +56,7 @@
       @default {
         <div class="card-vertical">
           @for (d of devices; track d.id) {
-            <app-device
-              class="card-h"
-              [device]="d"
-              (stateChange)="onDeviceToggled(d, $event)"
-            />
+            <app-device class="card-h" [device]="d" />
           }
           @for (s of sensors; track s.id) {
             <app-sensor class="card-v" [sensor]="s" />

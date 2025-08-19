@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,6 +8,7 @@ import {
 } from 'app/core/models/dashboard.state.model';
 import { Device, SmartItem } from 'app/core/models/models';
 import { ApiService } from 'app/core/api.service';
+import { Dashboard } from 'app/core/models/dashboard.model';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardApiService {
@@ -21,9 +21,9 @@ export class DashboardApiService {
     return this.http.get<FullDashboard>(url);
   }
 
-  saveDashboard(dashboard: FullDashboard): Observable<any> {
+  saveDashboard(dashboard: FullDashboard): Observable<FullDashboard> {
     const url = this.api.resolve(`/dashboards/${dashboard.id}`);
-    return this.http.put(url, {
+    return this.http.put<FullDashboard>(url, {
       tabs: dashboard.tabs,
     });
   }
@@ -35,9 +35,9 @@ export class DashboardApiService {
     });
   }
 
-  createDashboard(payload: NewDashboardPayload): Observable<any> {
+  createDashboard(payload: NewDashboardPayload): Observable<Dashboard> {
     const url = this.api.resolve(`/dashboards`);
-    return this.http.post(url, payload);
+    return this.http.post<Dashboard>(url, payload);
   }
 
   deleteDashboard(dashboardId: string): Observable<void> {

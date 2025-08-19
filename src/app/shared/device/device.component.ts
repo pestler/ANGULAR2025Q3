@@ -2,19 +2,22 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  Output,
-  EventEmitter,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Store } from '@ngrx/store';
+import * as DashboardActions from 'app/store/dashboard/dashboard.actions';
+import { Device } from 'app/core/models/models';
 
 export interface DeviceModel {
   icon: string;
   label: string;
   state: boolean;
+  id: string;
 }
 
 @Component({
@@ -32,10 +35,16 @@ export interface DeviceModel {
   styleUrls: ['./device.component.scss'],
 })
 export class DeviceComponent {
-  @Input() device!: DeviceModel;
-  @Output() stateChange = new EventEmitter<boolean>();
+  @Input() device!: Device;
 
+  private store = inject(Store);
   onToggle(): void {
-    this.stateChange.emit(!this.device.state);
+    this.store.dispatch(
+      DashboardActions.toggleDeviceState({
+        deviceId: this.device.id,
+
+        state: !this.device.state,
+      }),
+    );
   }
 }

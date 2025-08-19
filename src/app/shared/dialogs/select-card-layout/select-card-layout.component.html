@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Select Card Layout</h2>
+
+<mat-dialog-content class="mat-typography">
+  <p>Choose how the items will be displayed on the new card.</p>
+
+  <div class="layout-options">
+    <div class="layout-option" [mat-dialog-close]="'verticalLayout'">
+      <mat-icon>view_stream</mat-icon>
+      <span>Vertical Layout</span>
+      <small>Items are stacked top-to-bottom.</small>
+    </div>
+
+    <div class="layout-option" [mat-dialog-close]="'horizontalLayout'">
+      <mat-icon>view_day</mat-icon>
+      <span>Horizontal Layout</span>
+      <small>Items are arranged side-by-side.</small>
+    </div>
+
+    <div class="layout-option" [mat-dialog-close]="'singleDevice'">
+      <mat-icon>smart_display</mat-icon>
+      <span>Single Item</span>
+      <small>Optimized for a single large control.</small>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="null">Cancel</button>
+</mat-dialog-actions>

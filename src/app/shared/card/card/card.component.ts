@@ -1,13 +1,25 @@
-import { Component, Input, computed } from '@angular/core';
+import {
+  Component,
+  Input,
+  computed,
+  Output,
+  EventEmitter,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { DeviceComponent } from 'app/shared/device/device.component';
 import { SensorComponent } from 'app/shared/sensor/sensor.component';
 import type { SmartCard, Device, Sensor } from 'app/core/models/models';
+import { MatMenuModule } from '@angular/material/menu';
+import { Store } from '@ngrx/store';
+import * as DashboardActions from 'app/store/dashboard/dashboard.actions';
+import { ConfirmationDialogComponent } from 'app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-card',
@@ -21,12 +33,18 @@ import type { SmartCard, Device, Sensor } from 'app/core/models/models';
     SensorComponent,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
   ],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
   @Input({ required: true }) card!: SmartCard;
+  @Input() isEditMode = false;
+  @Input() tabId = '';
+  @Output() edit = new EventEmitter<MatIconButton>();
+  private store = inject(Store);
+  private dialog = inject(MatDialog);
 
   get layoutVariant(): 'horizontal' | 'vertical' | 'single' {
     switch (this.card.layout) {
@@ -71,20 +89,25 @@ export class CardComponent {
     return this.groupState ? 'On' : 'Off';
   }
 
-  toggleGroup(): void {
-    const newState = !this.groupState;
+  editCard(): void {}
 
-    this.card.items = this.card.items.map((item) => {
-      if (item.type === 'device') {
-        return { ...item, state: newState };
-      }
-      return item;
+  removeCard(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Delete Card',
+        message: 'Are you sure you want to delete this card?',
+      },
     });
-  }
 
-  onDeviceToggled(device: Device, newState: boolean): void {
-    this.card.items = this.card.items.map((item) =>
-      item === device ? { ...item, state: newState } : item,
-    );
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.store.dispatch(
+          DashboardActions.removeCard({
+            tabId: this.tabId,
+            cardId: this.card.id,
+          }),
+        );
+      }
+    });
   }
 }

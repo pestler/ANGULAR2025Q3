@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as DashboardActions from './dashboard.actions';
 
 import { FullDashboard } from 'app/core/models/dashboard.state.model';
+import { SmartCard } from 'app/core/models/models';
 
 export interface SelectedDashboardState {
   dashboard: FullDashboard | null;
@@ -69,13 +70,188 @@ export const dashboardReducer = createReducer(
     };
   }),
 
+  on(DashboardActions.removeTab, (state, { tabId }) => {
+    if (!state.dashboard) {
+      return state;
+    }
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.filter((tab) => tab.id !== tabId),
+      },
+    };
+  }),
+
+  on(DashboardActions.updateDashboardTitle, (state, { title }) => {
+    if (!state.dashboard) {
+      return state;
+    }
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        title: title,
+      },
+    };
+  }),
+
+  on(DashboardActions.updateTabTitle, (state, { tabId, newTitle }) => {
+    if (!state.dashboard) {
+      return state;
+    }
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id === tabId) {
+            return { ...tab, title: newTitle };
+          }
+          return tab;
+        }),
+      },
+    };
+  }),
+
+  on(DashboardActions.addCard, (state, { tabId, layout }) => {
+    if (!state.dashboard) {
+      return state;
+    }
+
+    const newCard: SmartCard = {
+      id: `card-${Date.now()}-${Math.random()}`,
+      title: 'New Card',
+      layout: layout,
+      items: [],
+    };
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id === tabId) {
+            return {
+              ...tab,
+              cards: [...tab.cards, newCard],
+            };
+          }
+          return tab;
+        }),
+      },
+    };
+  }),
+  on(DashboardActions.removeCard, (state, { tabId, cardId }) => {
+    if (!state.dashboard) return state;
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id === tabId) {
+            return {
+              ...tab,
+              cards: tab.cards.filter((card) => card.id !== cardId),
+            };
+          }
+          return tab;
+        }),
+      },
+    };
+  }),
+
+  on(DashboardActions.updateCardTitle, (state, { tabId, cardId, newTitle }) => {
+    if (!state.dashboard) return state;
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id === tabId) {
+            return {
+              ...tab,
+              cards: tab.cards.map((card) => {
+                if (card.id === cardId) {
+                  return { ...card, title: newTitle };
+                }
+                return card;
+              }),
+            };
+          }
+          return tab;
+        }),
+      },
+    };
+  }),
+
+  on(DashboardActions.addItemToCard, (state, { tabId, cardId, item }) => {
+    if (!state.dashboard) return state;
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id === tabId) {
+            return {
+              ...tab,
+              cards: tab.cards.map((card) => {
+                if (card.id === cardId) {
+                  return {
+                    ...card,
+                    items: [...card.items, item],
+                  };
+                }
+                return card;
+              }),
+            };
+          }
+          return tab;
+        }),
+      },
+    };
+  }),
+
+  on(
+    DashboardActions.removeItemFromCard,
+    (state, { tabId, cardId, itemId }) => {
+      if (!state.dashboard) return state;
+
+      return {
+        ...state,
+        dashboard: {
+          ...state.dashboard,
+          tabs: state.dashboard.tabs.map((tab) => {
+            if (tab.id === tabId) {
+              return {
+                ...tab,
+                cards: tab.cards.map((card) => {
+                  if (card.id === cardId) {
+                    return {
+                      ...card,
+                      items: card.items.filter((item) => item.id !== itemId),
+                    };
+                  }
+                  return card;
+                }),
+              };
+            }
+            return tab;
+          }),
+        },
+      };
+    },
+  ),
+
   on(
     DashboardActions.toggleDeviceState,
     (state, { deviceId, state: newState }) => {
       if (!state.dashboard) {
         return state;
       }
-
       return {
         ...state,
         dashboard: {
@@ -88,7 +264,6 @@ export const dashboardReducer = createReducer(
                 if (item.id === deviceId && item.type === 'device') {
                   return { ...item, state: newState };
                 }
-
                 return item;
               }),
             })),
@@ -104,7 +279,6 @@ export const dashboardReducer = createReducer(
       if (!state.dashboard) {
         return state;
       }
-
       return {
         ...state,
         dashboard: {
@@ -125,20 +299,6 @@ export const dashboardReducer = createReducer(
       };
     },
   ),
-  on(DashboardActions.removeTab, (state, { tabId }) => {
-    if (!state.dashboard) {
-      return state;
-    }
-
-    return {
-      ...state,
-      dashboard: {
-        ...state.dashboard,
-
-        tabs: state.dashboard.tabs.filter((tab) => tab.id !== tabId),
-      },
-    };
-  }),
 );
 
 export const featureKey = 'selectedDashboard';
