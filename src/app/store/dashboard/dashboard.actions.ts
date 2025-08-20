@@ -103,3 +103,12 @@ export const createDashboardFailure = createAction(
   '[Dashboard API] Create Dashboard Failure',
   props<{ error: string }>(),
 );
+export const reorderTab = createAction(
+  '[Dashboard Edit] Reorder Tab',
+  props<{ tabId: string; direction: 'left' | 'right' }>(),
+);
+
+export const reorderCard = createAction(
+  '[Dashboard Edit] Reorder Card',
+  props<{ tabId: string; cardId: string; direction: 'up' | 'down' }>(),
+);

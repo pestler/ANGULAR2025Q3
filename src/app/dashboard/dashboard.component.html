@@ -63,9 +63,20 @@
     [selectedIndex]="selectedIndex()"
     (selectedIndexChange)="switchTab($event)"
   >
-    @for (tab of tabs(); track tab.id) {
+    @for (tab of tabs(); track tab.id; let i = $index) {
       <mat-tab>
         <ng-template mat-tab-label>
+          @if (isEditMode()) {
+            <div class="tab-label-actions">
+              <button
+                mat-icon-button
+                [disabled]="i === 0"
+                (click)="reorderTab(tab.id, 'left'); $event.stopPropagation()"
+              >
+                <mat-icon>keyboard_arrow_left</mat-icon>
+              </button>
+            </div>
+          }
           @if (isEditMode() && editingTabId() === tab.id) {
             <input
               matInput
@@ -84,6 +95,19 @@
             >
               {{ tab.title }}
             </span>
+          }
+
+          @if (isEditMode()) {
+            <div class="tab-label-actions">
+              <button
+                mat-icon-button
+                [disabled]="i === tabs().length - 1"
+                (click)="reorderTab(tab.id, 'right'); $event.stopPropagation()"
+              >
+                <mat-icon>keyboard_arrow_right</mat-icon>
+              </button>
+              <mat-icon class="tab-delete-icon" ...>cancel</mat-icon>
+            </div>
           }
 
           @if (isEditMode()) {

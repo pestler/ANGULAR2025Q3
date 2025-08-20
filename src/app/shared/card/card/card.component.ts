@@ -42,6 +42,8 @@ export class CardComponent {
   @Input({ required: true }) card!: SmartCard;
   @Input() isEditMode = false;
   @Input() tabId = '';
+  @Input() index = 0;
+  @Input() totalCards = 0;
   @Output() edit = new EventEmitter<MatIconButton>();
   private store = inject(Store);
   private dialog = inject(MatDialog);
@@ -109,5 +111,14 @@ export class CardComponent {
         );
       }
     });
+  }
+  reorderCard(direction: 'up' | 'down'): void {
+    this.store.dispatch(
+      DashboardActions.reorderCard({
+        tabId: this.tabId,
+        cardId: this.card.id,
+        direction,
+      }),
+    );
   }
 }

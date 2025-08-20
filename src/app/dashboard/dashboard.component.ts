@@ -308,4 +308,8 @@ export class SmartViewComponent implements CanDeactivateComponent {
       'You have unsaved changes. Are you sure you want to leave? All changes will be lost.',
     );
   }
+
+  reorderTab(tabId: string, direction: 'left' | 'right'): void {
+    this.store.dispatch(DashboardActions.reorderTab({ tabId, direction }));
+  }
 }

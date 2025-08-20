@@ -18,6 +18,13 @@ export const initialState: SelectedDashboardState = {
   error: null,
 };
 
+function moveItemInArray<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
+  const newArr = [...arr];
+  const [item] = newArr.splice(fromIndex, 1);
+  newArr.splice(toIndex, 0, item);
+  return newArr;
+}
+
 export const dashboardReducer = createReducer(
   initialState,
 
@@ -272,7 +279,6 @@ export const dashboardReducer = createReducer(
       };
     },
   ),
-
   on(
     DashboardActions.toggleDeviceStateFailure,
     (state, { deviceId, previousState }) => {
@@ -299,6 +305,54 @@ export const dashboardReducer = createReducer(
       };
     },
   ),
+  on(DashboardActions.reorderTab, (state, { tabId, direction }) => {
+    if (!state.dashboard) return state;
+
+    const tabs = state.dashboard.tabs;
+    const currentIndex = tabs.findIndex((t) => t.id === tabId);
+    const newIndex = currentIndex + (direction === 'left' ? -1 : 1);
+
+    if (newIndex < 0 || newIndex >= tabs.length) {
+      return state;
+    }
+
+    const reorderedTabs = moveItemInArray(tabs, currentIndex, newIndex);
+
+    return {
+      ...state,
+      dashboard: { ...state.dashboard, tabs: reorderedTabs },
+    };
+  }),
+
+  on(DashboardActions.reorderCard, (state, { tabId, cardId, direction }) => {
+    if (!state.dashboard) return state;
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id === tabId) {
+            const cards = tab.cards;
+            const currentIndex = cards.findIndex((c) => c.id === cardId);
+            const newIndex = currentIndex + (direction === 'up' ? -1 : 1);
+
+            if (newIndex < 0 || newIndex >= cards.length) {
+              return tab;
+            }
+
+            const reorderedCards = moveItemInArray(
+              cards,
+              currentIndex,
+              newIndex,
+            );
+            return { ...tab, cards: reorderedCards };
+          }
+          return tab;
+        }),
+      },
+    };
+  }),
 );
 
 export const featureKey = 'selectedDashboard';

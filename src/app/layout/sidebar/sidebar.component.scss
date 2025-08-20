@@ -24,11 +24,11 @@ app-sidebar-menu {
   z-index: 1;
 
   &.closed {
-    width: auto;
+    width: 100px;
   }
 
   &.collapsed {
-    width: auto;
+    width: 100px;
     transition: transform 0.5s ease-in-out;
   }
 

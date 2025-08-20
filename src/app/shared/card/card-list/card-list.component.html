@@ -1,11 +1,13 @@
 <div class="card-list">
-  @for (card of cards; track card.id) {
+  @for (card of cards; track card.id; let i = $index) {
     <app-card
       class="app-card"
       [card]="card"
       [isEditMode]="isEditMode"
       [tabId]="tabId"
       (edit)="onEditCard(card, $event)"
+      [index]="i"
+      [totalCards]="cards.length"
     />
   }
 </div>

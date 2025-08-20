@@ -3,6 +3,24 @@
     <div class="card-header-button">
       <span class="card-title">{{ card.title }}</span>
     </div>
+    @if (isEditMode) {
+      <div class="card-reorder-actions">
+        <button
+          mat-icon-button
+          [disabled]="index === 0"
+          (click)="reorderCard('up')"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          [disabled]="index === totalCards - 1"
+          (click)="reorderCard('down')"
+        >
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+      </div>
+    }
 
     @if (isEditMode) {
       <span class="card-menu-spacer"></span>
