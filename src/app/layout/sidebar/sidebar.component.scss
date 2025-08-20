@@ -1,5 +1,15 @@
 app-sidebar-footer {
   flex-grow: 1;
+  flex-shrink: 0;
+}
+
+app-sidebar-header {
+  flex-shrink: 0;
+}
+
+app-sidebar-menu {
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .sidebar {

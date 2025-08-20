@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { FullDashboard } from 'app/core/models/dashboard.state.model';
 import { Device, LayoutType, SmartItem, Tab } from 'app/core/models/models';
+import { NewDashboardPayload } from 'app/core/models/dashboard.state.model';
+import { Dashboard } from 'app/core/models/dashboard.model';
 
 export const loadDashboard = createAction(
   '[Dashboard Page] Load Dashboard',
@@ -85,4 +87,19 @@ export const toggleDeviceStateSuccess = createAction(
 export const toggleDeviceStateFailure = createAction(
   '[Device API] Toggle Device State Failure',
   props<{ deviceId: string; previousState: boolean }>(),
+);
+
+export const createDashboard = createAction(
+  '[Sidebar] Create Dashboard',
+  props<{ payload: NewDashboardPayload }>(),
+);
+
+export const createDashboardSuccess = createAction(
+  '[Dashboard API] Create Dashboard Success',
+  props<{ newDashboard: Dashboard }>(),
+);
+
+export const createDashboardFailure = createAction(
+  '[Dashboard API] Create Dashboard Failure',
+  props<{ error: string }>(),
 );

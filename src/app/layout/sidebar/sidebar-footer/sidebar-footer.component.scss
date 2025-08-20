@@ -102,3 +102,15 @@
 .rs-container {
   margin-top: auto;
 }
+
+.add-dashboard-container {
+  padding: 0 16px 16px;
+  border-bottom: 1px solid var(--border-color);
+  margin-top: auto;
+
+  button {
+    span.hidden {
+      display: none;
+    }
+  }
+}

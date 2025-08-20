@@ -1,11 +1,6 @@
 <nav class="sidebar-menu" role="navigation" aria-label="Sidebar">
   @for (item of items(); track item.route) {
-    <a
-      [routerLink]="item.route"
-      class="menu-item"
-      [ngClass]="{ active: item === activeItem() }"
-      [attr.aria-current]="item === activeItem() ? 'page' : null"
-    >
+    <a [routerLink]="item.route" class="menu-item" routerLinkActive="active">
       @if (item.icon) {}
       <mat-icon class="item-icon" aria-hidden="true">{{ item.icon }}</mat-icon>
       <span

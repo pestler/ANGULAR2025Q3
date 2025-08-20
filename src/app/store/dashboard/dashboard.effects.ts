@@ -124,16 +124,30 @@ export class DashboardEffects {
     ),
   );
 
-  deleteOrCrateSuccess$ = createEffect(
+  reloadListAndNavigate$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(DashboardActions.deleteDashboardSuccess),
-        tap(async () => {
+        ofType(
+          DashboardActions.deleteDashboardSuccess,
+          DashboardActions.createDashboardSuccess,
+        ),
+        tap(async (action) => {
           await this.dashboardListService.load(true);
-          const firstDashboardId =
-            this.dashboardListService.allDashboardIds()[0];
-          if (firstDashboardId) {
-            this.router.navigate(['/dashboard', firstDashboardId]);
+
+          let navigateToId: string | undefined;
+
+          if (action.type === DashboardActions.createDashboardSuccess.type) {
+            navigateToId = (
+              action as ReturnType<
+                typeof DashboardActions.createDashboardSuccess
+              >
+            ).newDashboard.id;
+          } else {
+            navigateToId = this.dashboardListService.allDashboardIds()[0];
+          }
+
+          if (navigateToId) {
+            this.router.navigate(['/dashboard', navigateToId]);
           } else {
             this.router.navigate(['/']);
           }
@@ -156,6 +170,37 @@ export class DashboardEffects {
               action.title,
             );
           }
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  createDashboard$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DashboardActions.createDashboard),
+      switchMap(({ payload }) =>
+        this.dashboardApiService.createDashboard(payload).pipe(
+          map((newDashboard) =>
+            DashboardActions.createDashboardSuccess({ newDashboard }),
+          ),
+          catchError((error) =>
+            of(
+              DashboardActions.createDashboardFailure({ error: error.message }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  createSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(DashboardActions.createDashboardSuccess),
+        tap(async ({ newDashboard }) => {
+          await this.dashboardListService.load(true);
+
+          this.router.navigate(['/dashboard', newDashboard.id]);
         }),
       ),
     { dispatch: false },

@@ -137,6 +137,22 @@ export class SmartViewComponent implements CanDeactivateComponent {
         });
       }
     });
+    effect(
+      () => {
+        const active = this.activeTabId();
+        const valid = this.validTabId();
+
+        if (valid && active !== valid) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { tabId: valid },
+            queryParamsHandling: 'merge',
+            replaceUrl: true,
+          });
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
     this.dashboardTitleControl.valueChanges.subscribe((newTitle) => {
       if (this.dashboardTitleControl.valid && newTitle !== null) {
@@ -159,6 +175,10 @@ export class SmartViewComponent implements CanDeactivateComponent {
   enterEditMode(): void {
     this.isEditMode.set(true);
     this.store.dispatch(DashboardActions.enterEditMode());
+
+    if (this.tabs().length === 0) {
+      this.store.dispatch(DashboardActions.addTab({ title: 'Main' }));
+    }
   }
 
   saveChanges(): void {

@@ -121,7 +121,7 @@ export const dashboardReducer = createReducer(
 
     const newCard: SmartCard = {
       id: `card-${Date.now()}-${Math.random()}`,
-      title: 'New Card',
+      title: layout,
       layout: layout,
       items: [],
     };

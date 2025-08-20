@@ -1,3 +1,12 @@
+<div class="add-dashboard-container">
+  <button mat-stroked-button (click)="openCreateDashboardDialog()">
+    <mat-icon>add</mat-icon>
+    <span [class.hidden]="isClosed" [class.tablet-view]="isTablet">
+      Add Dashboard
+    </span>
+  </button>
+</div>
+
 @if (auth.profile(); as user) {
   <div class="user-info">
     <div

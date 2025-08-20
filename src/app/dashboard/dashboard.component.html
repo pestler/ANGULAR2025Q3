@@ -1,7 +1,7 @@
 <mat-toolbar class="edit-toolbar">
   <div class="title-container">
     @if (!isEditMode()) {
-      <span class="toolbar-title">{{ (dashboard$ | async)?.title }}</span>
+      <span class="empty"></span>
     } @else {
       <mat-form-field
         appearance="outline"

@@ -14,7 +14,9 @@
   transition: background-color linear 0.25s;
 
   &.active {
-    background-color: #03a9f4 !important;
+    background-color: var(--primary-color, #03a9f4);
+    color: var(--primary-color-contrast, #fff);
+    font-weight: bold;
   }
 
   &:hover {

@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, computed, Input } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DashboardService } from 'app/core/services/dashboard.service';
-import { filter, map } from 'rxjs/operators';
-import { toSignal } from '@angular/core/rxjs-interop';
+
 import { MatIconModule } from '@angular/material/icon';
 
 export interface SidebarItem {
@@ -26,7 +25,7 @@ export class SidebarMenuComponent {
   @Input() isClosed = false;
   @Input() isTablet = false;
 
-  readonly currentDashboardId = toSignal(
+  /*   readonly currentDashboardId = toSignal(
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       map((event: NavigationEnd) => {
@@ -34,7 +33,7 @@ export class SidebarMenuComponent {
         return segments[2] || null;
       }),
     ),
-  );
+  ); */
 
   readonly items = computed(() =>
     this.dashboardService.dashboards().map((d) => ({
@@ -45,10 +44,10 @@ export class SidebarMenuComponent {
     })),
   );
 
-  readonly activeItem = computed(
+  /* readonly activeItem = computed(
     () =>
       this.items().find(
         (item) => item.dashboardId === this.currentDashboardId(),
       ) ?? null,
-  );
+  ); */
 }

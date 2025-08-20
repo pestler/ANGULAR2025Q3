@@ -11,3 +11,12 @@ $gap-md: 1rem;
 mat-tab-group {
   margin-bottom: $gap-xl;
 }
+
+.edit-toolbar {
+  display: flex;
+  align-items: center;
+
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+}
