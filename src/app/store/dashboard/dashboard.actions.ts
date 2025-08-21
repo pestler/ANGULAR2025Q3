@@ -112,3 +112,7 @@ export const reorderCard = createAction(
   '[Dashboard Edit] Reorder Card',
   props<{ tabId: string; cardId: string; direction: 'up' | 'down' }>(),
 );
+export const toggleDeviceGroupState = createAction(
+  '[Dashboard UI] Toggle Device Group State',
+  props<{ deviceIds: string[]; newState: boolean }>(),
+);

@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -39,7 +40,6 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input({ required: true }) card!: SmartCard;
   @Input() isEditMode = false;
   @Input() tabId = '';
   @Input() index = 0;
@@ -48,33 +48,30 @@ export class CardComponent {
   private store = inject(Store);
   private dialog = inject(MatDialog);
 
-  get layoutVariant(): 'horizontal' | 'vertical' | 'single' {
-    switch (this.card.layout) {
-      case 'horizontalLayout':
-        return 'horizontal';
-      case 'verticalLayout':
-        return 'vertical';
-      case 'singleDevice':
-        return 'single';
-      default:
-        return 'vertical';
-    }
+  public readonly cardSignal = signal<SmartCard>({
+    id: '',
+    title: '',
+    layout: 'verticalLayout',
+    items: [],
+  });
+  @Input({ required: true }) set card(value: SmartCard) {
+    this.cardSignal.set(value);
   }
 
-  get devices(): Device[] {
-    return this.card.items.filter((i): i is Device => i.type === 'device');
-  }
-
-  get sensors(): Sensor[] {
-    return this.card.items.filter((i): i is Sensor => i.type === 'sensor');
-  }
-
-  get groupState(): boolean {
-    return this.devices.some((d) => d.state);
-  }
+  readonly devices = computed(() =>
+    this.cardSignal().items.filter((i): i is Device => i.type === 'device'),
+  );
+  readonly sensors = computed(() =>
+    this.cardSignal().items.filter((i): i is Sensor => i.type === 'sensor'),
+  );
+  readonly showGroupToggle = computed(() => this.devices().length >= 2);
+  readonly groupState = computed(() => this.devices().some((d) => d.state));
+  readonly groupStatusLabel = computed(() =>
+    this.groupState() ? 'On' : 'Off',
+  );
 
   readonly cardStyleClass = computed(() => {
-    const firstItem = this.card.items[0];
+    const firstItem = this.cardSignal().items[0];
     if (firstItem?.type === 'device') {
       return firstItem.state ? 'card--on' : 'card--off';
     }
@@ -87,11 +84,26 @@ export class CardComponent {
     return 'card--clear';
   });
 
-  getStatusLabel(): string {
-    return this.groupState ? 'On' : 'Off';
+  get layoutVariant(): 'horizontal' | 'vertical' | 'single' {
+    switch (this.cardSignal().layout) {
+      case 'horizontalLayout':
+        return 'horizontal';
+      case 'verticalLayout':
+        return 'vertical';
+      case 'singleDevice':
+        return 'single';
+      default:
+        return 'vertical';
+    }
   }
 
-  editCard(): void {}
+  toggleGroup(): void {
+    const newState = !this.groupState();
+    const deviceIds = this.devices().map((d) => d.id);
+    this.store.dispatch(
+      DashboardActions.toggleDeviceGroupState({ deviceIds, newState }),
+    );
+  }
 
   removeCard(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -106,17 +118,20 @@ export class CardComponent {
         this.store.dispatch(
           DashboardActions.removeCard({
             tabId: this.tabId,
-            cardId: this.card.id,
+
+            cardId: this.cardSignal().id,
           }),
         );
       }
     });
   }
+
   reorderCard(direction: 'up' | 'down'): void {
     this.store.dispatch(
       DashboardActions.reorderCard({
         tabId: this.tabId,
-        cardId: this.card.id,
+
+        cardId: this.cardSignal().id,
         direction,
       }),
     );

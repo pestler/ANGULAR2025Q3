@@ -21,6 +21,7 @@ import { SelectCardLayoutComponent } from 'app/shared/dialogs/select-card-layout
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FullDashboard } from 'app/core/models/dashboard.state.model';
 import { ConfirmationDialogComponent } from 'app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface CanDeactivateComponent {
   canDeactivate: () => boolean;
@@ -154,22 +155,26 @@ export class SmartViewComponent implements CanDeactivateComponent {
       { allowSignalWrites: true },
     );
 
-    this.dashboardTitleControl.valueChanges.subscribe((newTitle) => {
-      if (this.dashboardTitleControl.valid && newTitle !== null) {
-        this.store.dispatch(
-          DashboardActions.updateDashboardTitle({ title: newTitle }),
-        );
-      }
-    });
+    this.dashboardTitleControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((newTitle) => {
+        if (this.dashboardTitleControl.valid && newTitle !== null) {
+          this.store.dispatch(
+            DashboardActions.updateDashboardTitle({ title: newTitle }),
+          );
+        }
+      });
 
-    this.tabTitleControl.valueChanges.subscribe((newTitle) => {
-      const tabId = this.editingTabId();
-      if (tabId && this.tabTitleControl.valid && newTitle) {
-        this.store.dispatch(
-          DashboardActions.updateTabTitle({ tabId, newTitle }),
-        );
-      }
-    });
+    this.tabTitleControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((newTitle) => {
+        const tabId = this.editingTabId();
+        if (tabId && this.tabTitleControl.valid && newTitle) {
+          this.store.dispatch(
+            DashboardActions.updateTabTitle({ tabId, newTitle }),
+          );
+        }
+      });
   }
 
   enterEditMode(): void {

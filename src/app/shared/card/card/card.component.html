@@ -1,8 +1,15 @@
 <mat-card class="card" appearance="outlined" [ngClass]="cardStyleClass()">
   <mat-card-title class="card-header">
     <div class="card-header-button">
-      <span class="card-title">{{ card.title }}</span>
+      <span class="card-title">{{ cardSignal().title }}</span>
     </div>
+
+    @if (showGroupToggle()) {
+      <button mat-button class="group-toggle-btn" (click)="toggleGroup()">
+        {{ groupStatusLabel() }}
+      </button>
+    }
+
     @if (isEditMode) {
       <div class="card-reorder-actions">
         <button
@@ -51,21 +58,23 @@
     @switch (layoutVariant) {
       @case ("single") {
         <div class="card-single">
-          @for (d of devices; track d.id) {
+          @for (d of devices(); track d.id) {
             <app-device class="card-h" [device]="d" />
           }
-          @if (sensors.length) {
-            <app-sensor [sensor]="sensors[0]" />
+
+          @if (sensors().length) {
+            <app-sensor [sensor]="sensors()[0]" />
           }
         </div>
       }
 
       @case ("horizontal") {
         <div class="card-horizontal">
-          @for (d of devices; track d.id) {
+          @for (d of devices(); track d.id) {
             <app-device class="card-h" [device]="d" />
           }
-          @for (s of sensors; track s.id) {
+
+          @for (s of sensors(); track s.id) {
             <app-sensor class="card-h" [sensor]="s" />
           }
         </div>
@@ -73,10 +82,11 @@
 
       @default {
         <div class="card-vertical">
-          @for (d of devices; track d.id) {
+          @for (d of devices(); track d.id) {
             <app-device class="card-h" [device]="d" />
           }
-          @for (s of sensors; track s.id) {
+
+          @for (s of sensors(); track s.id) {
             <app-sensor class="card-v" [sensor]="s" />
           }
         </div>

@@ -353,6 +353,46 @@ export const dashboardReducer = createReducer(
       },
     };
   }),
+
+  on(
+    DashboardActions.toggleDeviceGroupState,
+    (state, { deviceIds, newState }) => {
+      if (!state.dashboard) {
+        return state;
+      }
+
+      const deviceIdsSet = new Set(deviceIds);
+
+      const newDashboard = {
+        ...state.dashboard,
+
+        tabs: state.dashboard.tabs.map((tab) => {
+          return {
+            ...tab,
+
+            cards: tab.cards.map((card) => {
+              return {
+                ...card,
+
+                items: card.items.map((item) => {
+                  if (item.type === 'device' && deviceIdsSet.has(item.id)) {
+                    return { ...item, state: newState };
+                  }
+
+                  return item;
+                }),
+              };
+            }),
+          };
+        }),
+      };
+
+      return {
+        ...state,
+        dashboard: newDashboard,
+      };
+    },
+  ),
 );
 
 export const featureKey = 'selectedDashboard';
