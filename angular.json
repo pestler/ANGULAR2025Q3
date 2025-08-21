@@ -25,6 +25,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/_redirects",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -91,7 +92,7 @@
             "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/assets", "public"],
+            "assets": ["src/assets", "public", "src/_redirects"],
             "styles": ["src/styles.scss"],
             "scripts": [],
             "stylePreprocessorOptions": {
