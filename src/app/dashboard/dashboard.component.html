@@ -1,7 +1,7 @@
 <mat-toolbar class="edit-toolbar">
   <div class="title-container">
     @if (!isEditMode()) {
-      <span class="empty"></span>
+      <span class="toolbar-title">{{ currentTitle() }}</span>
     } @else {
       <mat-form-field
         appearance="outline"
@@ -66,57 +66,68 @@
     @for (tab of tabs(); track tab.id; let i = $index) {
       <mat-tab>
         <ng-template mat-tab-label>
-          @if (isEditMode()) {
-            <div class="tab-label-actions">
-              <button
-                mat-icon-button
-                [disabled]="i === 0"
-                (click)="reorderTab(tab.id, 'left'); $event.stopPropagation()"
-              >
-                <mat-icon>keyboard_arrow_left</mat-icon>
-              </button>
-            </div>
-          }
           @if (isEditMode() && editingTabId() === tab.id) {
-            <input
-              matInput
-              [formControl]="tabTitleControl"
-              (blur)="stopEditTab()"
-              (keyup.enter)="stopEditTab()"
-              (click)="$event.stopPropagation()"
-              class="tab-title-input"
-              cdkFocusInitial
-            />
-          } @else {
-            <span
-              class="tab-title-text"
-              [class.editable]="isEditMode()"
-              (click)="isEditMode() ? startEditTab(tab) : null"
-            >
-              {{ tab.title }}
-            </span>
-          }
+            <div class="tab-edit-container" (click)="$event.stopPropagation()">
+              <input
+                matInput
+                [formControl]="tabTitleControl"
+                (blur)="stopEditTab()"
+                (keyup.enter)="stopEditTab()"
+                class="tab-title-input"
+                cdkFocusInitial
+              />
 
-          @if (isEditMode()) {
-            <div class="tab-label-actions">
               <button
                 mat-icon-button
-                [disabled]="i === tabs().length - 1"
-                (click)="reorderTab(tab.id, 'right'); $event.stopPropagation()"
+                class="tab-edit-confirm-btn"
+                (click)="stopEditTab()"
+                (mousedown)="$event.preventDefault()"
+                aria-label="Confirm title change"
               >
-                <mat-icon>keyboard_arrow_right</mat-icon>
+                <mat-icon>check</mat-icon>
               </button>
-              <mat-icon class="tab-delete-icon">cancel</mat-icon>
             </div>
-          }
+          } @else {
+            <div class="tab-label-content">
+              @if (isEditMode()) {
+                <button
+                  mat-icon-button
+                  class="tab-reorder-btn"
+                  [disabled]="i === 0"
+                  (click)="reorderTab(tab.id, 'left'); $event.stopPropagation()"
+                >
+                  <mat-icon>keyboard_arrow_left</mat-icon>
+                </button>
+              }
 
-          @if (isEditMode()) {
-            <mat-icon
-              class="tab-delete-icon"
-              (click)="removeTab(tab.id); $event.stopPropagation()"
-            >
-              cancel
-            </mat-icon>
+              <span
+                class="tab-title-text"
+                [class.editable]="isEditMode()"
+                (click)="isEditMode() ? startEditTab(tab) : null"
+              >
+                {{ tab.title }}
+              </span>
+
+              @if (isEditMode()) {
+                <button
+                  mat-icon-button
+                  class="tab-reorder-btn"
+                  [disabled]="i === tabs().length - 1"
+                  (click)="
+                    reorderTab(tab.id, 'right'); $event.stopPropagation()
+                  "
+                >
+                  <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-icon
+                  class="tab-delete-icon"
+                  (click)="removeTab(tab.id); $event.stopPropagation()"
+                >
+                  cancel
+                </mat-icon>
+              }
+            </div>
           }
         </ng-template>
 
@@ -151,7 +162,6 @@
     <div class="add-card-container">
       <button mat-stroked-button color="primary" (click)="addCard()">
         <mat-icon>add</mat-icon>
-
         Add Card to '{{ currentTabTitle() }}'
       </button>
     </div>
