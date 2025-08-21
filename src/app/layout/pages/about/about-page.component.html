@@ -56,19 +56,24 @@
 
   <mat-divider></mat-divider>
 
-  <div class="footer">
-    <span class="author">
+  <footer class="footer-v2">
+    <div class="author">
       <mat-icon aria-hidden="true">person</mat-icon>
-      Aleh Kuis <span class="alias">pestler</span>
-    </span>
-    <a
-      mat-icon-button
-      href="https://github.com/pestler"
-      target="_blank"
-      aria-label="GitHub"
-    >
-      <mat-icon>code</mat-icon>
+      <span>Aleh Kuis <span class="alias">(pestler)</span></span>
+    </div>
+
+    <div class="divider"></div>
+
+    <a class="github-link" href="https://github.com/pestler" target="_blank">
+      <mat-icon>commit</mat-icon>
+      <span>GitHub</span>
     </a>
-    <span class="version">📦 Version: 2025 v.0.0.2</span>
-  </div>
+
+    <div class="divider"></div>
+
+    <div class="version">
+      <mat-icon aria-hidden="true">tag</mat-icon>
+      <span>v.0.0.2</span>
+    </div>
+  </footer>
 </mat-card>

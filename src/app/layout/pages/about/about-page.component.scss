@@ -38,3 +38,40 @@
   font-style: italic;
   margin-left: 4px;
 }
+
+.footer-v2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 32px;
+  padding: 16px;
+  border-top: 1px solid rgb(0 0 0 / 10%);
+  font-size: 14px;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #444;
+  }
+
+  .alias {
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  .divider {
+    height: 20px;
+    border-left: 1px solid rgb(0 0 0 / 20%);
+  }
+
+  .github-link {
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--primary-color, #007bff);
+    }
+  }
+}

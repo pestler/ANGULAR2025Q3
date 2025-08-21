@@ -18,7 +18,8 @@
   }
 }
 
-.logout-button {
+.logout-button,
+.about-button {
   text-decoration: none;
   font-weight: 500;
   color: inherit;
@@ -28,6 +29,11 @@
   column-gap: 1rem;
   transition: background-color linear 0.25s;
 
+  &.active {
+    background-color: var(--primary-color-lighter, rgb(0 123 255 / 10%));
+    color: var(--primary-color, #007bff);
+  }
+
   &:hover {
     color: #6cf;
   }
@@ -36,7 +42,8 @@
     font-size: 24px;
   }
 
-  .logout-label {
+  .logout-label,
+  .about-label {
     font-size: 0.9rem;
     font-weight: 500;
   }

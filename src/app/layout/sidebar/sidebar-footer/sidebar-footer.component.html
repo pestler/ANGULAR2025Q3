@@ -39,7 +39,23 @@
     >
   </a>
 </div>
-
+<div class="about-container">
+  <a
+    class="about-button"
+    [routerLink]="['/dashboard/about']"
+    routerLinkActive="active"
+    aria-label="About"
+  >
+    <mat-icon>info_outline</mat-icon>
+    <span
+      class="about-label"
+      [class.hidden]="isClosed"
+      [class.tablet-view]="isTablet"
+    >
+      About
+    </span>
+  </a>
+</div>
 <div class="rs-container">
   <span class="rs-icon">
     <a href="https://rs.school/courses/angular" class="rs-link"> RS </a>

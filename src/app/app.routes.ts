@@ -21,17 +21,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: 'about',
+        component: AboutPageComponent,
+        data: { page: 'about' },
+      },
+      {
         path: ':dashboardId',
         loadComponent: () =>
           import('./dashboard/dashboard.component').then(
             (m) => m.SmartViewComponent,
           ),
-      },
-
-      {
-        path: 'about',
-        component: AboutPageComponent,
-        data: { page: 'about' },
       },
     ],
   },
