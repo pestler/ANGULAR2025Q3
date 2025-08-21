@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/layout/pages/login/login-page.component.scss"],
-  "sourcesContent": [".login-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  background: radial-gradient(circle at center, #1e1e2f, #0d0d1a);\n}\n\nmat-card {\n  width: 320px;\n  padding: 24px;\n  text-align: center;\n}\n\nmat-form-field {\n  width: 100%;\n  margin-bottom: 16px;\n}\n"],
-  "mappings": "AAAA,CAAA,gBACE,QAAA,KACA,gBAAA,OACA,YAAA,OACA,OAAA,MACA,WAAA,gBAAA,OAAA,GAAA,MAAA,CAAA,OAAA,CAAA,SAGF,SACE,MAAA,MATF,QAUE,KACA,WAAA,OAGF,eACE,MAAA,KACA,cAAA",
-  "names": []
-}

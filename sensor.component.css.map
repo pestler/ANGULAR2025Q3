@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/shared/sensor/sensor.component.scss"],
-  "sourcesContent": [".sensor {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  justify-content: space-between;\n  padding: 0.75rem 1.25rem;\n}\n\n.sensor-icon {\n  font-size: 24px;\n  color: rgb(3 169 244);\n}\n\n.sensor-label {\n  font-weight: 500;\n  font-size: 0.875rem;\n}\n\n.sensor-value {\n  font-size: 0.8rem;\n}\n\nmat-icon {\n  width: auto;\n}\n\n.sensor.vertical {\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n}\n\n.sensor.single {\n  flex-direction: column;\n  align-items: center;\n\n  .sensor-label {\n    display: none;\n  }\n}\n"],
-  "mappings": "AAAA,CAAA,OACE,QAAA,KACA,YAAA,OACA,IAAA,KACA,gBAAA,cAJF,QAKE,OAAA,QAGF,CAAA,YACE,UAAA,KACA,MAAA,QAGF,CAAA,aACE,YAAA,IACA,UAAA,QAGF,CAAA,aACE,UAAA,MAGF,SACE,MAAA,KAGF,CA1BA,MA0BA,CAAA,SACE,eAAA,OACA,YAAA,OACA,WAAA,OAGF,CAhCA,MAgCA,CAAA,OACE,eAAA,OACA,YAAA,OAEA,CApCF,MAoCE,CAJF,OAIE,CAvBF,aAwBI,QAAA",
-  "names": []
-}
