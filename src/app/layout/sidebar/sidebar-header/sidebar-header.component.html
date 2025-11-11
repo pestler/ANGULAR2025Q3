@@ -1,0 +1,19 @@
+<header class="sidebar-header">
+  <button
+    mat-icon-button
+    class="burger-button"
+    aria-label="Toggle menu"
+    (click)="toggleSidebar()"
+    (keydown.enter)="toggleSidebar()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <h2
+    class="header-title"
+    [class.hidden]="isClosed"
+    [class.tablet-view]="isTablet"
+  >
+    Smart Home UI
+  </h2>
+</header>

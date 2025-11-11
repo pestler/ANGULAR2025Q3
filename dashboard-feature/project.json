@@ -1,0 +1,21 @@
+{
+  "name": "dashboard-feature",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "dashboard-feature/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "dashboard-feature/jest.config.ts",
+        "tsConfig": "dashboard-feature/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

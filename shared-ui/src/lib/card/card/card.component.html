@@ -1,0 +1,96 @@
+<mat-card class="card" appearance="outlined" [ngClass]="cardStyleClass()">
+  <mat-card-title class="card-header">
+    <div class="card-header-button">
+      <span class="card-title">{{ cardSignal().title }}</span>
+    </div>
+
+    @if (showGroupToggle()) {
+      <button mat-button class="group-toggle-btn" (click)="toggleGroup()">
+        {{ groupStatusLabel() }}
+      </button>
+    }
+
+    @if (isEditMode) {
+      <div class="card-reorder-actions">
+        <button
+          mat-icon-button
+          [disabled]="index === 0"
+          (click)="reorderCard('up')"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          [disabled]="index === totalCards - 1"
+          (click)="reorderCard('down')"
+        >
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+      </div>
+    }
+
+    @if (isEditMode) {
+      <span class="card-menu-spacer"></span>
+      <button
+        #menuTrigger
+        mat-icon-button
+        [matMenuTriggerFor]="cardMenu"
+        (click)="$event.stopPropagation()"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #cardMenu="matMenu">
+        <button mat-menu-item (click)="edit.emit(menuTrigger)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit Content</span>
+        </button>
+        <button mat-menu-item (click)="removeCard()">
+          <mat-icon>delete</mat-icon>
+          <span>Remove Card</span>
+        </button>
+      </mat-menu>
+    }
+  </mat-card-title>
+
+  <mat-divider />
+
+  <div class="card-body">
+    @switch (layoutVariant) {
+      @case ("single") {
+        <div class="card-single">
+          @for (d of devices(); track d.id) {
+            <app-device class="card-h" [device]="d" />
+          }
+
+          @if (sensors().length) {
+            <app-sensor [sensor]="sensors()[0]" />
+          }
+        </div>
+      }
+
+      @case ("horizontal") {
+        <div class="card-horizontal">
+          @for (d of devices(); track d.id) {
+            <app-device class="card-h" [device]="d" />
+          }
+
+          @for (s of sensors(); track s.id) {
+            <app-sensor class="card-h" [sensor]="s" />
+          }
+        </div>
+      }
+
+      @default {
+        <div class="card-vertical">
+          @for (d of devices(); track d.id) {
+            <app-device class="card-h" [device]="d" />
+          }
+
+          @for (s of sensors(); track s.id) {
+            <app-sensor class="card-v" [sensor]="s" />
+          }
+        </div>
+      }
+    }
+  </div>
+</mat-card>

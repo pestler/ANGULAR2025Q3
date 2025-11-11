@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["jasmine", "zone.js"],
+    "outDir": "./out-tsc/spec"
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/test.ts"]
+}

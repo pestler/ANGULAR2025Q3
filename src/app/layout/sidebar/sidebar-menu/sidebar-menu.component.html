@@ -1,0 +1,21 @@
+<nav class="sidebar-menu" role="navigation" aria-label="Sidebar">
+  @for (item of items(); track item.route) {
+    <a [routerLink]="item.route" class="menu-item" routerLinkActive="active">
+      @if (item.icon) {}
+      <mat-icon class="item-icon" aria-hidden="true">{{ item.icon }}</mat-icon>
+      <span
+        class="sidebar-title"
+        [class.hidden]="isClosed"
+        [class.tablet-view]="isTablet"
+        >{{ item.label }}</span
+      >
+    </a>
+  } @empty {
+    <div class="empty">
+      <span>
+        You don’t have any dashboards yet. They’ll appear here as soon as you
+        create them
+      </span>
+    </div>
+  }
+</nav>

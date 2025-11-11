@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Create New Dashboard</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Dashboard ID</mat-label>
+      <input
+        matInput
+        formControlName="id"
+        placeholder="e.g., energy-usage"
+        required
+      />
+      @if (form.get("id")?.hasError("required")) {
+        <mat-error>ID is required.</mat-error>
+      }
+      @if (form.get("id")?.hasError("notUnique")) {
+        <mat-error
+          >This ID already exists. Please choose another one.</mat-error
+        >
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Dashboard Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="e.g., Energy Usage"
+        required
+      />
+      @if (form.get("title")?.hasError("required")) {
+        <mat-error>Title is required.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Icon Name</mat-label>
+      <input
+        matInput
+        formControlName="icon"
+        placeholder="e.g., bolt"
+        required
+      />
+      @if (form.get("icon")?.hasError("required")) {
+        <mat-error>Icon is required.</mat-error>
+      }
+      <mat-hint>Use any valid Material Symbols icon name.</mat-hint>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cancel</button>
+    <button
+      type="submit"
+      mat-flat-button
+      color="primary"
+      [disabled]="form.invalid"
+    >
+      Create
+    </button>
+  </mat-dialog-actions>
+</form>
