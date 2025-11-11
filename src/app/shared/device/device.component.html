@@ -1,0 +1,15 @@
+<div class="device" [class.device-on]="device.state">
+  <mat-icon class="device-icon">
+    {{ device.icon }}
+  </mat-icon>
+
+  <span class="device-label">{{ device.label }}</span>
+
+  <mat-slide-toggle
+    class="device-toggle"
+    [color]="device.state ? 'primary' : 'warn'"
+    [checked]="device.state"
+    (change)="onToggle()"
+    [attr.aria-label]="'Toggle ' + device.label"
+  ></mat-slide-toggle>
+</div>

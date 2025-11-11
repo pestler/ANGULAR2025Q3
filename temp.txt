@@ -1,0 +1,47 @@
+> git -c user.useConfigOnly=true commit --quiet --allow-empty-message --file -
+[33m[STARTED][39m Backing up original state...
+[32m[COMPLETED][39m Backed up original state in git stash (547461f)
+[33m[STARTED][39m Hiding unstaged changes to partially staged files...
+[32m[COMPLETED][39m Hiding unstaged changes to partially staged files...
+[33m[STARTED][39m Running tasks for staged files...
+[33m[STARTED][39m package.json — 24 files
+[33m[STARTED][39m *.{js,json,css,scss,less,md,ts,html,component.html} — 14 files
+[33m[STARTED][39m **/*.ts — 2 files
+[33m[STARTED][39m **/*.scss — 7 files
+[33m[STARTED][39m prettier --write
+[33m[STARTED][39m eslint --fix
+[33m[STARTED][39m stylelint --fix --config stylelint.config.cjs
+[32m[COMPLETED][39m prettier --write
+[32m[COMPLETED][39m *.{js,json,css,scss,less,md,ts,html,component.html} — 14 files
+[31m[FAILED][39m stylelint --fix --config stylelint.config.cjs [FAILED]
+[31m[FAILED][39m stylelint --fix --config stylelint.config.cjs [FAILED]
+[32m[COMPLETED][39m Running tasks for staged files...
+[33m[STARTED][39m Applying modifications from tasks...
+[33m[SKIPPED][39m Skipped because of errors from tasks.
+[33m[STARTED][39m Restoring unstaged changes to partially staged files...
+[33m[SKIPPED][39m Skipped because of errors from tasks.
+[33m[STARTED][39m Reverting to original state because of errors...
+[31m[FAILED][39m eslint --fix [SIGKILL]
+[31m[FAILED][39m eslint --fix [SIGKILL]
+[32m[COMPLETED][39m Reverting to original state because of errors...
+[33m[STARTED][39m Cleaning up temporary files...
+[32m[COMPLETED][39m Cleaning up temporary files...
+
+✖ stylelint --fix --config stylelint.config.cjs:
+(node:8288) [stylelint:005] DeprecationWarning: `context.fix` is being deprecated.
+Please pass a `fix` callback to the `report` utility of "scss/double-slash-comment-whitespace-inside" instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+src/assets/scss/common.scss
+  [2m83:30[22m  [31m[31m✖[39m  Expected class selector ".mdc-text-field--outlined" to be kebab-case                                                                                                                                  [2mselector-class-pattern[22m
+  [2m88:1[22m   [31m[31m✖[39m  Expected selector ".connection-box.height-40 .mat-mdc-form-field-infix" to come before selector ".connection-box   .mat-mdc-text-field-wrapper.mdc-text-field--outlined   .mat-mdc-form-field-infix"  [2mno-descending-specificity[22m
+
+src/assets/scss/overrides.scss
+  [2m89:1[22m  [31m[31m✖[39m  Expected selector ".connection-box.no-pad.custom-ui .mat-mdc-form-field-infix" to come before selector ".connection-box.custom-ui   .mat-mdc-text-field-wrapper.mdc-text-field-outlined   .mat-mdc-form-field-infix"     [2mno-descending-specificity[22m
+  [2m92:1[22m  [31m[31m✖[39m  Expected selector ".connection-box.height-40.custom-ui .mat-mdc-form-field-infix" to come before selector ".connection-box.custom-ui   .mat-mdc-text-field-wrapper.mdc-text-field-outlined   .mat-mdc-form-field-infix"  [2mno-descending-specificity[22m
+
+[31m✖[39m 4 problems ([31m4 errors[39m, [33m0 warnings[39m)
+
+
+✖ eslint --fix failed without output (SIGKILL).
+husky - pre-commit hook exited with code 1 (error)

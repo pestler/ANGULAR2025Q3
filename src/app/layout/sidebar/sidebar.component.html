@@ -1,0 +1,36 @@
+<ng-template #sidebarContent>
+  <div class="sidebar-list">
+    <app-sidebar-header
+      (toggle)="toggleSidebar()"
+      [isClosed]="!isOpen()"
+      [isTablet]="isTablet()"
+    ></app-sidebar-header>
+
+    <app-sidebar-menu
+      [isClosed]="!isOpen()"
+      [isTablet]="isTablet()"
+    ></app-sidebar-menu>
+    <app-sidebar-footer
+      [isClosed]="!isOpen()"
+      [isTablet]="isTablet()"
+    ></app-sidebar-footer>
+  </div>
+</ng-template>
+
+@if (isTabletOpen()) {
+  <aside
+    class="sidebar tablet-open"
+    appCloseSidebarOnOutsideClick
+    (close)="closeSidebar()"
+  >
+    <ng-container [ngTemplateOutlet]="sidebarContent"></ng-container>
+  </aside>
+} @else {
+  <aside
+    class="sidebar"
+    [class.closed]="!isOpen()"
+    [class.collapsed]="isTablet()"
+  >
+    <ng-container [ngTemplateOutlet]="sidebarContent"></ng-container>
+  </aside>
+}

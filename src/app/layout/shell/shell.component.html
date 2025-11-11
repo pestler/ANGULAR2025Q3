@@ -1,0 +1,8 @@
+<div class="shell-layout">
+  @if (auth.isAuthenticated()) {
+    <app-sidebar />
+  }
+  <main class="shell-content">
+    <router-outlet />
+  </main>
+</div>
