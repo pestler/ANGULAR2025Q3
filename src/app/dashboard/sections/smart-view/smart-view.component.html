@@ -1,0 +1,16 @@
+<mat-tab-group
+  [selectedIndex]="selectedIndex()"
+  (selectedIndexChange)="switchTab($event)"
+>
+  @for (tab of tabs(); track tab.id) {
+    <mat-tab [label]="tab.id">
+      @if (cards().length > 0) {
+        <app-card-list [cards]="cards()" />
+      } @else {
+        <section class="empty-state">
+          <p>No cards to display</p>
+        </section>
+      }
+    </mat-tab>
+  }
+</mat-tab-group>

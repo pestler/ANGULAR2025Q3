@@ -1,0 +1,64 @@
+<mat-card class="card" appearance="outlined" [ngClass]="cardStyleClass()">
+  <mat-card-title class="card-header">
+    <div class="card-header-button">
+      <span class="card-title">{{ card.title }}</span>
+
+      @if (devices.length) {
+        <button mat-button (click)="toggleGroup()">
+          {{ getStatusLabel() }}
+        </button>
+      }
+    </div>
+  </mat-card-title>
+
+  <mat-divider />
+
+  <div class="card-body">
+    @switch (layoutVariant) {
+      @case ("single") {
+        <div class="card-single">
+          @for (d of devices; track d.id) {
+            <app-device
+              class="card-h"
+              [device]="d"
+              (stateChange)="onDeviceToggled(d, $event)"
+            />
+          }
+          @if (sensors.length) {
+            <app-sensor [sensor]="sensors[0]" />
+          }
+        </div>
+      }
+
+      @case ("horizontal") {
+        <div class="card-horizontal">
+          @for (d of devices; track d.id) {
+            <app-device
+              class="card-h"
+              [device]="d"
+              (stateChange)="onDeviceToggled(d, $event)"
+            />
+          }
+          @for (s of sensors; track s.id) {
+            <app-sensor class="card-h" [sensor]="s" />
+          }
+        </div>
+      }
+
+      @default {
+        <div class="card-vertical">
+          @for (d of devices; track d.id) {
+            <app-device
+              class="card-h"
+              [device]="d"
+              (stateChange)="onDeviceToggled(d, $event)"
+            />
+          }
+          @for (s of sensors; track s.id) {
+            <app-sensor class="card-v" [sensor]="s" />
+          }
+        </div>
+      }
+    }
+  </div>
+</mat-card>

@@ -1,0 +1,71 @@
+@use "@angular/material" as mat;
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: mat.$cyan-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body.dark-theme {
+  color-scheme: dark;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.card-h .sensor,
+.card-v .sensor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.card-h .sensor {
+  flex-direction: column;
+}
+
+.card-v .sensor {
+  flex-direction: row;
+}
+
+.card-h .sensor-label {
+  order: 0;
+}
+
+.card-h .sensor-icon,
+.card-h .sensor-value {
+  order: 1;
+}
+
+mat-icon {
+  color: var(--mat-sys-color-primary);
+}
+
+.mat-mdc-tab-group .mdc-tab-indicator {
+  justify-content: center;
+}
+
+/* stylelint-disable selector-class-pattern */
+.mat-mdc-tab-group .mdc-tab-indicator__content--underline {
+  width: 80px;
+}
+/* stylelint-enable selector-class-pattern */

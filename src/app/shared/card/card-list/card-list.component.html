@@ -1,0 +1,5 @@
+<div class="card-list">
+  @for (card of cards; track card.id) {
+    <app-card class="app-card" [card]="card" />
+  }
+</div>
