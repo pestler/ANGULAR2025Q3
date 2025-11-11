@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "lib": ["DOM", "ES2022"],
+    "useDefineForClassFields": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["core/src/lib/*"],
+      "@env": ["src/environments/environment.ts"],
+      "@features/*": ["src/app/features/*"],
+      "dashboard-data-access": ["dashboard-data-access/src/index.ts"],
+      "dashboard-feature": ["dashboard-feature/src/index.ts"],
+      "shared-ui": ["shared-ui/src/index.ts"]
+    }
+  }
+}

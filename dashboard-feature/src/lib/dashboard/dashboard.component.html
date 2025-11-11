@@ -1,0 +1,169 @@
+<mat-toolbar class="edit-toolbar">
+  <div class="title-container">
+    @if (!isEditMode()) {
+      <span class="toolbar-title">{{ currentTitle() }}</span>
+    } @else {
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        class="title-input"
+      >
+        <mat-label>Dashboard Title</mat-label>
+        <input
+          matInput
+          [formControl]="dashboardTitleControl"
+          placeholder="Enter title"
+        />
+      </mat-form-field>
+    }
+  </div>
+
+  <span class="toolbar-spacer"></span>
+
+  <div class="actions-container">
+    @if (!isEditMode()) {
+      <button
+        mat-icon-button
+        (click)="enterEditMode()"
+        matTooltip="Edit Dashboard"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        matTooltip="Delete Dashboard"
+        (click)="deleteDashboard()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    } @else {
+      <button mat-flat-button color="primary" (click)="saveChanges()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+      <button mat-stroked-button (click)="discardChanges()">
+        <mat-icon>cancel</mat-icon>
+        Discard
+      </button>
+    }
+  </div>
+</mat-toolbar>
+
+@if (isLoading()) {
+  <div class="status-container">Loading dashboard...</div>
+} @else if (error()) {
+  <div class="status-container error-state">
+    <h2>Failed to load dashboard</h2>
+    <p>{{ error() }}</p>
+  </div>
+} @else {
+  <mat-tab-group
+    class="dashboard-tabs"
+    [selectedIndex]="selectedIndex()"
+    (selectedIndexChange)="switchTab($event)"
+  >
+    @for (tab of tabs(); track tab.id; let i = $index) {
+      <mat-tab>
+        <ng-template mat-tab-label>
+          @if (isEditMode() && editingTabId() === tab.id) {
+            <div class="tab-edit-container" (click)="$event.stopPropagation()">
+              <input
+                matInput
+                [formControl]="tabTitleControl"
+                (blur)="stopEditTab()"
+                (keyup.enter)="stopEditTab()"
+                class="tab-title-input"
+                cdkFocusInitial
+              />
+
+              <button
+                mat-icon-button
+                class="tab-edit-confirm-btn"
+                (click)="stopEditTab()"
+                (mousedown)="$event.preventDefault()"
+                aria-label="Confirm title change"
+              >
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+          } @else {
+            <div class="tab-label-content">
+              @if (isEditMode()) {
+                <button
+                  mat-icon-button
+                  class="tab-reorder-btn"
+                  [disabled]="i === 0"
+                  (click)="reorderTab(tab.id, 'left'); $event.stopPropagation()"
+                >
+                  <mat-icon>keyboard_arrow_left</mat-icon>
+                </button>
+              }
+
+              <span
+                class="tab-title-text"
+                [class.editable]="isEditMode()"
+                (click)="isEditMode() ? startEditTab(tab) : null"
+              >
+                {{ tab.title }}
+              </span>
+
+              @if (isEditMode()) {
+                <button
+                  mat-icon-button
+                  class="tab-reorder-btn"
+                  [disabled]="i === tabs().length - 1"
+                  (click)="
+                    reorderTab(tab.id, 'right'); $event.stopPropagation()
+                  "
+                >
+                  <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-icon
+                  class="tab-delete-icon"
+                  (click)="removeTab(tab.id); $event.stopPropagation()"
+                >
+                  cancel
+                </mat-icon>
+              }
+            </div>
+          }
+        </ng-template>
+
+        <div class="tab-content">
+          @if (cards().length > 0) {
+            <app-card-list
+              [cards]="cards()"
+              [isEditMode]="isEditMode()"
+              [tabId]="validTabId()"
+            />
+          } @else {
+            <section class="empty-state">
+              <p>This tab has no cards yet.</p>
+            </section>
+          }
+        </div>
+      </mat-tab>
+    }
+
+    @if (isEditMode()) {
+      <mat-tab disabled>
+        <ng-template mat-tab-label>
+          <button mat-icon-button (click)="addTab()" matTooltip="Add new tab">
+            <mat-icon>add</mat-icon>
+          </button>
+        </ng-template>
+      </mat-tab>
+    }
+  </mat-tab-group>
+
+  @if (isEditMode()) {
+    <div class="add-card-container">
+      <button mat-stroked-button color="primary" (click)="addCard()">
+        <mat-icon>add</mat-icon>
+        Add Card to '{{ currentTabTitle() }}'
+      </button>
+    </div>
+  }
+}
