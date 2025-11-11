@@ -1,0 +1,19 @@
+.device {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.device-icon {
+  font-size: 28px;
+}
+
+.device-label {
+  flex-grow: 1;
+  font-weight: 500;
+  font-size: 1rem;
+}

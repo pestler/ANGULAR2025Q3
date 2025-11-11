@@ -1,0 +1,28 @@
+.sidebar-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.sidebar-title {
+  display: block;
+  width: 160px;
+  white-space: nowrap;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
+  opacity: 1;
+}
+
+.sidebar.closed .sidebar-title {
+  width: 0;
+  opacity: 0;
+}
+
+.burger-button {
+  width: 32px;
+  height: 32px;
+}

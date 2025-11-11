@@ -1,0 +1,17 @@
+$gap-xl: 2rem;
+$gap-md: 1rem;
+
+.smart-view {
+  width: 100%;
+}
+
+.app-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap-xl;
+  width: 100%;
+}
+
+mat-tab-group {
+  margin-bottom: $gap-xl;
+}

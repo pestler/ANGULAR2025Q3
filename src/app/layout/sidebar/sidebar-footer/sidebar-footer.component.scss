@@ -1,0 +1,51 @@
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+
+.rs-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #6cf;
+  color: #000;
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  box-shadow: 0 0 2px rgb(0 0 0 / 40%);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.rs-label {
+  flex-grow: 1;
+  opacity: 1;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar.closed .rs-label {
+  opacity: 0;
+}
+
+.rs-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    color: #6cf;
+    text-decoration: underline;
+  }
+}

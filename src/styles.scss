@@ -1,0 +1,90 @@
+@use "@angular/material" as mat;
+@use "assets/scss/fonts";
+@use "assets/scss/overrides";
+@use "assets/scss/colors";
+@use "assets/scss/common";
+
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$cyan-palette,
+    ),
+  )
+);
+
+html {
+  height: 100%;
+  color-scheme: dark;
+
+  @include mat.theme(
+    (
+      color: mat.$cyan-palette,
+      typography: Roboto,
+    ),
+    $overrides: (
+      surface: #424242,
+      surface-variant: #616161,
+      surface-container: #333,
+      corner-full: 15px,
+      corner-extra-large: 20px
+    )
+  );
+  @include mat.color-variants-backwards-compatibility($theme);
+  @include mat.typography-hierarchy($theme, $back-compat: true);
+}
+
+body {
+  background: var(--mat-sys-surface-bright);
+  color: var(--mat-sys-on-surface);
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  // overflow-x: hidden;
+  overflow: hidden;
+}
+
+.card-h .sensor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.card-h .sensor-label {
+  order: 0;
+}
+
+.card-h .sensor-icon,
+.card-h .sensor-value {
+  order: 1;
+}
+
+.card-v .sensor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+mat-icon {
+  color: rgb(3 169 244);
+}
+
+.mat-mdc-tab-group .mdc-tab-indicator {
+  justify-content: center;
+}
+
+/* stylelint-disable selector-class-pattern */
+.mat-mdc-tab-group .mdc-tab-indicator__content--underline {
+  width: 80px;
+}
+
+/* stylelint-enable selector-class-pattern */
