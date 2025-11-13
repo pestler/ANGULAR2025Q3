@@ -8,7 +8,7 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import {
   dashboardReducer,
@@ -17,6 +17,7 @@ import {
 import { provideEffects } from '@ngrx/effects';
 import { DashboardEffects } from './store/dashboard/dashboard.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { authInterceptor } from './core/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +27,7 @@ export const appConfig: ApplicationConfig = {
       runCoalescing: true,
     }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(),
     provideStore({
       [featureKey]: dashboardReducer,

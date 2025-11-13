@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TokenService } from './token.service';
 import { Profile } from './models/profile.model';
 import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { ApiService } from './api.service';
 
 export interface LoginPayload {
@@ -36,18 +36,12 @@ export class AuthService {
     });
   }
 
-  login(userName: string, password: string): Observable<Profile> {
+  login(userName: string, password: string): Observable<LoginResponse> {
     const payload: LoginPayload = { userName, password };
 
     return this.http
       .post<LoginResponse>(this.api.resolve('/user/login'), payload)
-      .pipe(
-        tap((res) => this.tokenService.set(res.token)),
-        switchMap(() =>
-          this.http.get<Profile>(this.api.resolve('/user/profile')),
-        ),
-        tap((profile) => this.profile.set(profile)),
-      );
+      .pipe(tap((res) => this.tokenService.set(res.token)));
   }
 
   logout(): void {

@@ -5,6 +5,7 @@ import { authGuard } from './core/auth.guard';
 import { AboutPageComponent } from './layout/pages/about/about-page.component';
 import { NotFoundPageComponent } from './layout/pages/not-found/not-found-page.component';
 import { defaultDashboardGuard } from './core/default-dashboard.guard';
+import { CanDeactivateComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -36,8 +37,12 @@ export const routes: Routes = [
         path: ':dashboardId',
         loadComponent: () =>
           import('./dashboard/dashboard.component').then(
-            (m) => m.SmartViewComponent,
+            (m) => m.DashboardComponent,
           ),
+        canDeactivate: [
+          (component: CanDeactivateComponent): boolean =>
+            component.canDeactivate(),
+        ],
       },
     ],
   },

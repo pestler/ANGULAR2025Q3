@@ -22,6 +22,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FullDashboard } from 'app/core/models/dashboard.state.model';
 import { ConfirmationDialogComponent } from 'app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NewTabTitleDialogComponent } from 'app/shared/dialogs/new-tab-title-dialog/new-tab-title-dialog.component';
 
 export interface CanDeactivateComponent {
   canDeactivate: () => boolean;
@@ -45,7 +46,7 @@ export interface CanDeactivateComponent {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class SmartViewComponent implements CanDeactivateComponent {
+export class DashboardComponent implements CanDeactivateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly store = inject(Store);
@@ -245,10 +246,14 @@ export class SmartViewComponent implements CanDeactivateComponent {
   }
 
   addTab(): void {
-    const title = prompt('Enter a title for the new tab:');
-    if (title) {
-      this.store.dispatch(DashboardActions.addTab({ title }));
-    }
+    this.dialog
+      .open(NewTabTitleDialogComponent)
+      .afterClosed()
+      .subscribe((title: string | undefined) => {
+        if (title) {
+          this.store.dispatch(DashboardActions.addTab({ title }));
+        }
+      });
   }
 
   removeTab(tabId: string): void {

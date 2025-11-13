@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Add New Tab</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Tab Title</mat-label>
+      <input matInput formControlName="title" cdkFocusInitial />
+      <mat-error *ngIf="form.controls.title.hasError('required')">
+        Title is required
+      </mat-error>
+      <mat-error *ngIf="form.controls.title.hasError('maxlength')">
+        Title cannot exceed 50 characters
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="form.invalid"
+  >
+    Add
+  </button>
+</mat-dialog-actions>
